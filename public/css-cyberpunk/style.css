@@ -1,0 +1,332 @@
+/* =========================================================
+   CONFIGURAÇÕES GERAIS
+   ========================================================= */
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;  
+}
+
+body {
+    background-color: #050816;
+    color: #e6f7ff;
+    font-family: 'Rajdhani';   
+    font-size: 20px;
+    padding-top: 91px;   
+}
+
+a {
+    text-decoration: none;   
+}
+
+
+/* =========================================================
+   SEÇÃO: HOME (TOPO COM DAVID E LUCY)
+   ========================================================= */
+
+/* Caixa grande que ocupa a tela inteira e tem a imagem de fundo.
+   Dentro dela ficam dois blocos: .hero-david e .hero-lucy */
+
+.hero {
+    min-height: 100vh;   
+    margin-top: -91px;   
+    display: grid;       
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));   
+    gap: 64px;          
+    align-items: center; 
+
+    padding: 151px 60px 60px 60px;  
+
+    background-image: url("../Icons-cyberpunk/moon2.svg");   
+    background-size: cover;    
+    background-position: center; 
+}
+
+
+/* ---------- LADO DO DAVID (ESQUERDA) ---------- */
+
+/* Bloco do David: empilha etiqueta, título, frase e botão */
+.hero-david {
+    display: flex;
+    flex-direction: column;   
+    align-items: flex-start;  
+    gap: 24px;                
+    max-width: 600px;        
+}
+
+/* Texto pequeno em cima do título */
+.david-etiqueta {
+    color: #e5ff00;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 4px;   
+}
+
+/* Título grande */
+.david-titulo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(32px, 4vw, 55px);   
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 2px;
+}
+
+/* Só a palavra que está dentro do <span> do título */
+.david-titulo span {
+    color: cyan;
+}
+
+/* Frase embaixo do título */
+.david-texto {
+    color: #9fb3c8;
+    font-size: clamp(16px, 1.4vw, 21px);
+    line-height: 1.6;  
+}
+
+/* Botão do David */
+.botao-david {
+    display: inline-block;   
+    padding: 16px 32px;      
+    background-color: #00e5ff;
+    color: #050816;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    width: 250px;
+    letter-spacing: 2px;
+    clip-path: polygon(0 0, 90% 0, 100% 25%, 100% 100%, 0 100%);   /* recorta o botão por pontos (x y). Aqui corta o canto superior direito */
+    transition: background-color 0.3s ease;   
+}
+
+
+.botao-david:hover {
+    background-color: #ff32d2;
+}
+
+
+/* ---------- LADO DA LUCY (DIREITA) ---------- */
+
+/* Bloco da Lucy: igual ao do David, mas alinhado à direita */
+.hero-lucy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;   
+    justify-self: end;       
+    text-align: right;    
+    gap: 24px;
+    max-width: 600px;
+}
+
+.lucy-etiqueta {
+    color: rgb(134, 178, 228);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 4px;
+}
+
+.lucy-titulo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(32px, 4vw, 55px);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 2px;
+}
+
+.lucy-titulo span {
+    color: #ff32d2;
+}
+
+.lucy-texto {
+    color: #9fb3c8;
+    font-size: clamp(16px, 1.4vw, 21px);
+    line-height: 1.6;
+}
+
+/* Botão da Lucy */
+.botao-lucy {
+    display: inline-block;
+    padding: 16px 65px;
+    background-color: #ff32d2;
+    color: #050816;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 25%);   /* aqui corta o canto superior esquerdo */
+    transition: background-color 0.3s ease;
+}
+
+.botao-lucy:hover {
+    background-color: #00e5ff;
+} 
+
+/* colocar transform nos botoes */
+
+
+/* =========================================================
+   FAIXA (imagem animada)
+   ========================================================= */
+
+.faixa {
+    background-color: #00e5ff;
+    color: #050816;
+    white-space: nowrap;   /* mantém o texto numa linha só */
+    overflow: hidden;      /* esconde o que passar da caixa */
+    padding: 14px 0;
+    font-weight: 700;
+    letter-spacing: 4px;
+}
+
+.faixa img {
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+
+
+
+/* =========================================================
+   CARDS DA HOME
+   ========================================================= */
+
+.conteudo {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.secao {
+    padding: 60px;
+}
+
+.etiqueta {
+    display: block;
+    color: #00e5ff;
+    font-weight: 700;
+    letter-spacing: 4px;
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.titulo {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 30px;
+}
+
+.grade-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+}
+
+.atalho {
+    display: block;
+    padding: 24px;
+    background-color: #0b1026;
+    border: 1px solid #12304a;
+    color: #e6f7ff;
+}
+
+.atalho h3 {
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.atalho p {
+    color: #9fb3c8;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.atalho-link {
+    color: #00e5ff;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.secao {
+    min-height: 100vh;
+    padding: 60px;
+}
+/* =========================================================
+   SEÇÃO PRETA: EM BREVE
+   ========================================================= */
+
+.em-breve {
+    min-height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+}
+
+.em-breve h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(32px, 5vw, 60px);
+    letter-spacing: 6px;
+}
+
+.em-breve span {
+    color: #ff32d2;
+}
+
+.em-breve {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+}
+
+
+/* =========================================================
+   FAIXA ROSA DE CADASTRO NO FINAL
+   ========================================================= */
+
+.chamada {
+    padding: 64px 60px;
+    background-color: #ff32d2;
+    color: #050816;
+}
+
+.chamada-conteudo {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chamada h2 {
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.chamada p {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.chamada .botao,
+.chamada .botao-chamada {
+    display: inline-block;
+    padding: 16px 32px;
+    background-color: #050816;
+    color: #ff32d2;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 17px;
+    clip-path: polygon(0 0, 90% 0, 100% 25%, 100% 100%, 0 100%);
+}
+
+.chamada .botao:hover,
+.chamada .botao-chamada:hover {
+    background-color: #00e5ff;
+    color: #050816;
+}
