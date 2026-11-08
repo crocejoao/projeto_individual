@@ -1,36 +1,39 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="./css-cyberpunk/header.css">
-    <link rel="stylesheet" href="./css-cyberpunk/style.css">
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <title>Cyberpunk Edgerunners</title>
 </head>
+
 <body>
 
     <!-- HEADER -->
     <nav class="menu">
-        <a class="logo" href="index.html">
-            <img src="./Icons-cyberpunk/Logo neon Cyberpunk_ Edgerunners.png" alt="Cyberpunk Edgerunners">
+        <a class="logo" href="index-cyberpunk.html">
+            <img src="Icons-cyberpunk/Logo neon Cyberpunk_ Edgerunners.png" alt="Cyberpunk Edgerunners">
         </a>
 
         <div class="menu-fundo"></div>
 
         <div class="menu-links">
-            <a href="index.html">HOME</a>
+            <a href="index-cyberpunk.html">HOME</a>
             <a href="#sobre">SOBRE</a>
             <a href="#mercenarios">MERCENÁRIOS</a>
             <a href="#night-city">NIGHT CITY</a>
-            <a href="#login">LOGIN</a>
-            <a href="#cadastro" class="botao-cadastro">CADASTRO</a>
+            <a href="./Login-Cadastro/login.html">LOGIN</a>
+            <a href="./Login-Cadastro/cadastro.html" class="botao-cadastro">CADASTRO</a>
         </div>
     </nav>
 
@@ -41,18 +44,26 @@
 
         <section class="hero">
 
+            <!-- <video class="hero-video" src="Icons-cyberpunk/moon_animada.mp4" autoplay muted loop playsinline></video> -->
+
             <div class="hero-david">
-                <span class="david-etiqueta">// Ser uma lenda</span>
+                <div class="span-david-lenda"><img src="Icons-cyberpunk/texto_ser_uma_lenda_glitch_lento.gif" alt="">
+                </div>
                 <h1 class="david-titulo">AO TOPO DO <span>MUNDO</span></h1>
                 <p class="david-texto">"Desculpa a gente não ter ido pra Lua juntos."</p>
-                <a class="botao-david" href="sobre.html">BE A LEGEND</a>
+                <div class="botao-container-david">
+                    <a class="botao-david" href="">BE A LEGEND</a>
+                </div>
             </div>
 
             <div class="hero-lucy">
-                <span class="lucy-etiqueta">Ser livre \\</span>
+                <div class="span-lucy-lua"><img src="Icons-cyberpunk/texto_ser_livre_glitch_lento_ciano.gif" alt="">
+                </div>
                 <h2 class="lucy-titulo">CHEGAR A <br><span>LUA</span></h2>
                 <p class="lucy-texto">"Tudo o que eu sempre quis... era que você vivesse."</p>
-                <a class="botao-lucy" href="mercenarios.html">BE FREE</a>
+                <div class="botao-container-lucy">
+                    <a class="botao-lucy" href="">BE FREE</a>
+                </div>
             </div>
 
         </section>
@@ -61,7 +72,7 @@
         <!-- DIVISÃO -->
 
         <div class="faixa">
-            <img src="./Icons-cyberpunk/faixa_cyberpunk_glitch_rosa_lenta.gif" alt="">
+            <img src="Icons-cyberpunk/faixa_cyberpunk_glitch_rosa_lenta.gif" alt="">
         </div>
 
         <!-- TRÊS CARDS -->
@@ -70,34 +81,60 @@
         <section class="secao">
             <div class="conteudo">
 
-                <span class="etiqueta">// EXPLORE</span>
-                <h2 class="titulo">Escolha seu caminho</h2>
+                <div class="etiquetas">
+                    <span class="etiqueta1">// EXPLORE NIGHT CITY</span>
+                    <span class="etiqueta2">O MELHOR LUGAR DO MUNDO \\</span>
+                </div>
+                
 
-                <div class="grade-3">
+             <!-- anuncios -->
+            <div class="titulos">
+                <h2 class="titiulo1"><img src="Icons-cyberpunk/banner_explore_night_city.gif" alt="Explore Night City, escolha seu caminho"></h2>
+                <h2 class="titiulo2"><img src="Icons-cyberpunk/popup_contato_rosa.gif" alt="Poucos edinhos? Entre em contato"></h2>
+                <h2 class="titiulo3"><img src="Icons-cyberpunk/anuncio_neurodanca_ciano.gif" alt="Se sentindo sozinho? Experimente a nova neurodança"></h2>
+            </div>
+        
 
-                    <a class="atalho" href="sobre.html">
+
+
+
+                <div class="grades">
+
+                    <a class="atalho1" href="">
+                        <div class="img-sobre">
+                            <img src="Icons-cyberpunk/Design sem nome (1).svg" alt="">
+                        </div>
                         <h3>Sobre</h3>
                         <p>A história do anime.</p>
                         <span class="atalho-link">ACESSAR →</span>
                     </a>
 
-                    <a class="atalho" href="mercenarios.html">
+                    <a class="atalho2" href="">
+                        <div class="img-team">
+                            <img src="Icons-cyberpunk/CYBER-SOBRE.svg" alt="">
+                        </div>
                         <h3>Mercenários</h3>
                         <p>Conheça a equipe de David.</p>
                         <span class="atalho-link">ACESSAR →</span>
+                        
                     </a>
 
-                    <a class="atalho" href="nightcity.html">
+                    <a class="atalho3" href="">
+                        <div class="img-nightcity">
+                            <img src="Icons-cyberpunk/nightcity.svg" alt="">
+                        </div>
                         <h3>Night City</h3>
                         <p>Explore a cidade onde tudo acontece.</p>
                         <span class="atalho-link">ACESSAR →</span>
                     </a>
 
                 </div>
+            
+
             </div>
         </section>
 
-   
+
         <!-- SEÇÃO PRETA: EM BREVE -->
         <section class="em-breve">
             <h2>EM BREVE<span>_</span></h2>
@@ -107,16 +144,16 @@
         <section class="chamada" id="cadastro">
             <div class="conteudo chamada-conteudo">
                 <div>
-                    <h2>Qual Edgerunner é você?</h2>
+                    <h2>Qual tipo de Edgerunner é você?</h2>
                     <p>Cadastre-se, responda o quiz e veja o resultado em gráficos e muito mais!</p>
                 </div>
 
-                <a class="botao" href="cadastro.html">FAZER O CADASTRO</a>
+                <a class="botao" href="./Login-Cadastro/cadastro.html">FAZER O CADASTRO</a>
             </div>
         </section>
 
     </main>
 
 </body>
-</html>
 
+</html>
