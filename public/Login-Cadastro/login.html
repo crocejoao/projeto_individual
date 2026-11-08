@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="./css-cyberpunk/acesso.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <title>Cyberpunk Edgerunners | Login</title>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <nav class="menu">
+        <a class="logo" href="../index-cyberpunk.html">
+            <img src="../Icons-cyberpunk/Logo neon Cyberpunk_ Edgerunners.png" alt="Cyberpunk Edgerunners">
+        </a>
+
+        <div class="menu-fundo"></div>
+
+        <div class="menu-links">
+            <a href="../index-cyberpunk.html">HOME</a>
+            <a href="index-cyberpunk.html#sobre">SOBRE</a>
+            <a href="index-cyberpunk.html#mercenarios">MERCENÁRIOS</a>
+            <a href="index-cyberpunk.html#night-city">NIGHT CITY</a>
+            <a href="login.html">LOGIN</a>
+            <a href="cadastro.html" class="botao-cadastro">CADASTRO</a>
+        </div>
+    </nav>
+
+    <main class="acesso">
+        <div class="acesso-card">
+            <h1>LOGIN</h1>
+            <p class="acesso-subtitulo">Bem-vindo de volta, edgerunner.</p>
+
+            <form>
+
+                <div class="campo">
+                    <label for="ipt_email">E-mail</label>
+                    <input id="ipt_email" type="text" placeholder="meuemail@provedor.com">
+                </div>
+
+                <div class="campo">
+                    <label for="ipt_senha">Senha</label>
+                    <input id="ipt_senha" type="password" placeholder="******">
+                </div>
+
+                <button type="button" class="botao-acesso" onclick="logar()">ENTRAR</button>
+            </form>
+
+            <div id="div_msg"></div>
+
+            <p class="acesso-link">Ainda não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
+        </div>
+    </main>
+
+</body>
+
+</html>
+
+<script>
+    function logar() {
+        let email = ipt_email.value.trim();
+        let senha = ipt_senha.value;
+
+        let erros = [];
+
+        // ---------- E-MAIL ----------
+        let quantidadeArroba = 0;
+        let temEspaco = false;
+
+        for (let i = 0; i < email.length; i++) {
+            if (email[i] == "@") {
+                quantidadeArroba++;
+            }
+            if (email[i] == " ") {
+                temEspaco = true;
+            }
+        }
+
+        let posicaoArroba = email.indexOf("@");
+        let posicaoPonto = email.lastIndexOf(".");
+
+        if (quantidadeArroba != 1 || temEspaco || email.length > 50 ||
+            posicaoArroba < 1 ||
+            posicaoPonto < posicaoArroba + 2 ||
+            posicaoPonto > email.length - 2) {
+            erros.push("Digite um e-mail válido.");
+        }
+
+        // ---------- SENHA ----------
+        if (senha.length == 0) {
+            erros.push("Digite sua senha.");
+        }
+
+        // ---------- RESULTADO ----------
+        if (erros.length == 0) {
+            div_msg.className = "msg-sucesso";
+            div_msg.innerHTML = "Login válido!";
+
+        }   else {
+        
+            let texto = "";
+            for (let i = 0; i < erros.length; i++) {
+                texto += erros[i] + "<br>";
+            }
+            div_msg.className = "msg-erro";
+            div_msg.innerHTML = texto;
+        } 
+    }
+</script>

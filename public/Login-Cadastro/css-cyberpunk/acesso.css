@@ -1,0 +1,109 @@
+
+.acesso {
+    min-height: calc(100vh - 91px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.acesso-card {
+    width: 100%;
+    max-width: 460px;
+    padding: 32px;
+    background-color: #0b1026;
+    border: 1px solid #00e5ff;
+}
+
+.acesso-card h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 30px;
+    letter-spacing: 3px;
+    color: #00e5ff;
+}
+
+.acesso-subtitulo {
+    color: #9fb3c8;
+    margin: 8px 0 24px 0;
+}
+
+/* ---------- CAMPOS ---------- */
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 18px;
+}
+
+.campo label {
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 16px;
+    color: #e5ff00;
+}
+
+.campo input,
+.campo select {
+    padding: 12px;
+    background-color: #050816;
+    border: 1px solid #12304a;
+    color: #e6f7ff;
+    font-family: inherit;
+    font-size: 18px;
+}
+
+.campo input:focus,
+.campo select:focus {
+    outline: none;
+    border-color: #00e5ff;
+}
+
+/* ---------- BOTÃO ---------- */
+
+.botao-acesso {
+    width: 100%;
+    padding: 14px;
+    background-color: #00e5ff;
+    color: #050816;
+    border: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.botao-acesso:hover {
+    background-color: #ff32d2;
+}
+
+/* ---------- MENSAGENS ---------- */
+
+/* Mensagem geral embaixo do botão */
+.msg-erro {
+    margin-top: 18px;
+    padding: 12px;
+    border: 1px solid #ff32d2;
+    color: #ff32d2;
+}
+
+.msg-sucesso {
+    margin-top: 18px;
+    padding: 12px;
+    border: 1px solid #00e5ff;
+    color: #00e5ff;
+}
+
+/* ---------- LINK DE BAIXO ---------- */
+
+.acesso-link {
+    margin-top: 20px;
+    color: #9fb3c8;
+}
+
+.acesso-link a {
+    color: #00e5ff;
+    font-weight: 700;
+}
