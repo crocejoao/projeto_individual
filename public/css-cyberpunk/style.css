@@ -6,23 +6,24 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;  
+    box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     overflow-x: hidden;
 }
 
 body {
     background-color: #050816;
     color: #e6f7ff;
-    font-family: 'Rajdhani';   
+    font-family: 'Rajdhani';
     font-size: 20px;
-    padding-top: 91px;   
+    padding-top: 91px;
 }
 
 a {
-    text-decoration: none;   
+    text-decoration: none;
 }
 
 
@@ -34,18 +35,18 @@ a {
    Dentro dela ficam dois blocos: .hero-david e .hero-lucy */
 
 .hero {
-    min-height: 100vh;   
-    margin-top: -91px;   
-    display: grid;       
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));   
-    gap: 64px;          
-    align-items: center; 
+    min-height: 100vh;
+    margin-top: -91px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 64px;
+    align-items: center;
 
-    padding: 151px 60px 60px 60px;  
+    padding: 151px 60px 60px 60px;
 
-    background-image: url("Icons-cyberpunk/moon2.svg");     
-    background-size: cover;    
-    background-position: center; 
+    background-image: url("Icons-cyberpunk/moon2.svg");
+    background-size: cover;
+    background-position: center;
 }
 
 
@@ -54,11 +55,11 @@ a {
 /* Bloco do David: empilha etiqueta, título, frase e botão */
 .hero-david {
     display: flex;
-    flex-direction: column;   
-    align-items: flex-start;  
-    gap: 24px;                
-    max-width: 600px;        
-    
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    max-width: 600px;
+
 }
 
 /* Texto pequeno em cima do título */
@@ -66,22 +67,22 @@ a {
     color: #e5ff00;
     font-size: 16px;
     font-weight: 700;
-    letter-spacing: 4px;   
+    letter-spacing: 4px;
 }
 
 /* Título grande */
 .david-titulo {
     font-family: 'Orbitron';
-    font-size: clamp(32px, 4vw, 55px);   
+    font-size: clamp(32px, 4vw, 55px);
     font-weight: 700;
     line-height: 1;
     letter-spacing: 2px;
-        margin-left: 0;
+    margin-left: 0;
 }
 
-.david-titulo span{
+.david-titulo span {
     color: cyan;
-       text-shadow:
+    text-shadow:
         0 0 20px #ff00c8,
         0 0 10px #ff00c8,
         0 0 20px #ff00c8,
@@ -97,8 +98,6 @@ a {
     height: auto;
     margin: 0;
     margin-left: -120px
-
-
 }
 
 
@@ -106,8 +105,8 @@ a {
 .david-texto {
     color: #9fb3c8;
     font-size: clamp(16px, 1.4vw, 21px);
-    line-height: 1.6;  
-    
+    line-height: 1.6;
+
 }
 
 /* CONTÊINER DO BOTÃO */
@@ -136,8 +135,8 @@ a {
     transition: all 0.2s ease;
     border-bottom: 5px solid #e5ff00;
     border-left: 5px solid #e5ff00;
-    
-    
+
+
 }
 
 /* EFEITO AO PASSAR O MOUSE */
@@ -152,9 +151,9 @@ a {
 .hero-lucy {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;   
-    justify-self: end;       
-    text-align: right;    
+    align-items: flex-end;
+    justify-self: end;
+    text-align: right;
     gap: 24px;
     max-width: 600px;
 }
@@ -174,9 +173,9 @@ a {
     letter-spacing: 2px;
 }
 
-.lucy-titulo span{
+.lucy-titulo span {
     color: #ff32d2;
-        text-shadow:
+    text-shadow:
         0 0 20px cyan,
         0 0 10px cyan,
         0 0 20px cyan,
@@ -199,12 +198,12 @@ a {
     line-height: 1.6;
 }
 
-.botao-container-lucy{
+.botao-container-lucy {
     display: inline-block;
     transition: filter 0.2s ease;
 }
 
-.botao-container-lucy:hover{
+.botao-container-lucy:hover {
     filter: drop-shadow(0 0 9px cyan);
 }
 
@@ -218,18 +217,19 @@ a {
     font-size: 17px;
     font-weight: 700;
     letter-spacing: 2px;
-    clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 25%);   /* aqui corta o canto superior esquerdo */
+    clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 25%);
+    /* aqui corta o canto superior esquerdo */
     transition: all 0.2s ease;
     border-bottom: 5px solid cyan;
     border-right: 5px solid cyan;
-    
+
 }
 
 .botao-lucy:hover {
     background-color: #e5ff00;
     transform: scale(1.05);
 
-} 
+}
 
 /* colocar transform nos botoes */
 
@@ -241,8 +241,10 @@ a {
 .faixa {
     background-color: #00e5ff;
     color: #050816;
-    white-space: nowrap;   /* mantém o texto numa linha só */
-    overflow: hidden;      /* esconde o que passar da caixa */
+    white-space: nowrap;
+    /* mantém o texto numa linha só */
+    overflow: hidden;
+    /* esconde o que passar da caixa */
     padding: 14px 0;
     font-weight: 700;
     letter-spacing: 4px;
@@ -304,19 +306,19 @@ a {
 
 
 .titulos {
-    display: flex;              
-    justify-content: center;     
-    align-items: flex-start;     
-    gap: 2.2rem;                   
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2.2rem;
     flex-direction: row;
 }
 
 
 .titiulo1 img {
-    width: 35rem;               
-    max-width: 100%;            
-    height: auto;                
-    display: block;              
+    width: 35rem;
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 .titiulo2 img {
@@ -389,7 +391,8 @@ a {
 .atalho2 h3,
 .atalho3 h3 {
     font-size: 26px;
-    margin-bottom: 8px;
+    margin-top: 40px;
+    margin-left: 10px;
 }
 
 /* DESCRIÇÕES */
@@ -399,7 +402,9 @@ a {
 .atalho3 p {
     color: #9fb3c8;
     line-height: 1.5;
-    margin-bottom: 16px;
+    margin-left: 10px;
+    margin-top: -3px;
+    margin-bottom: 25px;
 }
 
 /* LINKS */
@@ -408,179 +413,168 @@ a {
     color: #00e5ff;
     font-weight: 700;
     letter-spacing: 2px;
+    margin-left: 10px;
 }
-
-
-/* .grades {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 30px;
-    align-items: start;
-    margin-top: 90px;
-    width: 100%;
-}
-
-.atalho1,
-.atalho2,
-.atalho3 {
-    width: 100%;
-    min-width: 0;
-    min-height: 850px;
-    padding: 24px;
-    background-color: #0b1026;
-    border: 1px solid #12304a;
-    color: #e6f7ff;
-}
-
-
-.img-sobre,
-.img-team,
-.img-nightcity {
-    width: 100%;
-    height: 600px;
-    overflow: hidden;
-}
-
-.img-sobre img,
-.img-team img,
-.img-nightcity img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-} */
-/*=============== CARD 1 ============== */
-/* .img-sobre {
-    width: 100%;
-    height: 600px;
-    overflow: hidden;
-} */
-
-/* .atalho1 img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    border: 3px solid rgb(101, 228, 63);
-    background-color: rgb(243, 240, 34);
-} */
-/*=============== CARD 1 ============== */
-
-/*=============== CARD 2 ============== */
-/* .img-team {
-    width: 100%;
-    height: 600px;
-    overflow: hidden;
-} */
-
-/* .atalho2 .img-team {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    background-color: rgb(34, 243, 139);
-} */
-
-/* .img-team img {
-     margin-left: 40px;
-     margin-top: 4px;
-    border: 5px solid rgb(192, 228, 63);
-     height: 585px; 
-} */
-/*=============== CARD 2 ============== */
-
-/*=============== CARD 3 ============== */
-
-/* .img-nightcity {
-    width: 100%;
-    height: 600px;
-    overflow: hidden;
-} */
-/* 
-.atalho3 .img-nightcity {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    border: 3px solid rgb(101, 228, 63);
-    background-color: rgb(34, 243, 208);
-} */
-
-/* .img-nightcity img {
-     margin-left: 63px;
-     margin-top: 4px;
-    border: 5px solid rgb(192, 228, 63);
-     height: 585px; 
-} */
-/*=============== CARD 3 ============== */
-
-
-/* 
-.atalho1 h3,
-.atalho2 h3,
-.atalho3 h3 {
-    font-size: 26px;
-    margin-bottom: 8px;
-}
-
-.atalho1 p,
-.atalho2 p,
-.atalho3 p {
-    color: #9fb3c8;
-    line-height: 1.5;
-    margin-bottom: 16px;
-}
-
-.atalho-link {
-    color: #00e5ff;
-    font-weight: 700;
-    letter-spacing: 2px;
-}
-
-.secao {
-    min-height: 100vh;
-    padding: 60px;
-} */
 
 
 /* =========================================================
-   SEÇÃO PRETA: EM BREVE
+   SEÇÃO SOBRE
    ========================================================= */
 
-.em-breve {
-    min-height: 60vh;
+
+.sobre {
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    background-color: #000;
+    gap: 30px;
+    font-family: 'Orbitron', sans-serif;
+    background-color: #050816;
+    width: 100%;
+    padding: 80px 20px;
 }
 
-.em-breve h2 {
-    font-family: 'Orbitron', sans-serif;
+.sobre h2 {
     font-size: clamp(32px, 5vw, 60px);
     letter-spacing: 6px;
+    margin-top: 90px;
 }
 
-.em-breve span {
+.sobre span {
     color: #ff32d2;
 }
 
-.em-breve {
-    min-height: 100vh;
+.p_sobre {
     display: flex;
     justify-content: center;
-    align-items: center;
-    background-color: #000;
+    width: 100%;
+}
+
+.p_sobre p {
+    font-size: 18px;
+    text-align: center;
+    max-width: 800px;
+    line-height: 1.6;
+    background-color: #0f161ff5;
+    padding: 20px;
+    border-radius: 30px;
 }
 
 
+
+.trailer {
+    position: absolute;
+    inset: 3px;
+    z-index: 1;
+    overflow: hidden;
+
+    clip-path: polygon(0 0, 100% 0, 100% 90%,
+            91% 100%, 0 100%);
+}
+
+.trailer iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.trailer-borda {
+    position: relative;
+    width: 1000px;
+    height: 600px;
+    margin: 10px auto 40px;
+}
+
+.trailer-borda::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: cyan;
+
+    clip-path: polygon(0 0, 100% 0, 100% 90%,
+            91% 100%, 0 100%);
+}
+
+.trailer-borda::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    background-color: #050816;
+
+    clip-path: polygon(0 0, 100% 0, 100% 90%,
+            91% 100%, 0 100%);
+}
+
+/* =========================================================
+   SEÇÃO MERCENÁRIOS
+   ========================================================= */
+
+   .mercenarios {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    font-family: 'Orbitron', sans-serif;
+    background-color: #050816;
+    width: 100%;
+    padding: 80px 20px;
+}
+
+.mercenarios h2 {
+    font-size: clamp(32px, 5vw, 60px);
+    letter-spacing: 6px;
+    margin-top: 90px;
+}
+
+.mercenarios span {
+    color: #ff32d2;
+}
+
+/* =========================================================
+   SEÇÃO NIGHTCITY
+   ========================================================= */
+.nightcity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    font-family: 'Orbitron', sans-serif;
+    background-color: #050816;
+    width: 100%;
+    padding: 80px 20px 0;
+     padding-bottom: 0;
+}
+
+.nightcity h2 {
+    font-size: clamp(32px, 5vw, 60px);
+    letter-spacing: 6px;
+    margin-top: 90px;
+}
+
+.nightcity span {
+    color: #ff32d2;
+}
+
+.img-fim {
+    width: calc(100% + 50px);
+    margin-left: -25px;
+    margin-right: -25px;
+    overflow: hidden;
+}
+
+.img-fim img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
 /* =========================================================
    FAIXA ROSA DE CADASTRO NO FINAL
    ========================================================= */
 
 .chamada {
     padding: 64px 60px;
-    background-color: #ff32d2;
+    background-color: #ff00bf;
     color: #050816;
 }
 
