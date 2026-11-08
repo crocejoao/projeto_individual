@@ -72,6 +72,8 @@ padding: 0 40px;
 
 .menu .logo img:hover{
     transform: scale(0.93);
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 8px rgb(214, 41, 185));   /* Luz rosa no fundo quando o hover é ativo */
 
 }
 
@@ -99,10 +101,21 @@ padding: 0 40px;
     font-size: 16px;
     font-weight: bold;
     padding: 15px 20px;
-    background-color: transparent;
+    background-color: transparent; 
     transition: color 0.3s ease;
     z-index: 1;
+    transition: all 0.3s ease; 
+    transition: transform 0.4s ease;
+}
 
+.menu-links a:hover {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 8px #ff32d2);   /* Luz rosa no fundo quando o hover é ativo */
+    transform: translateY(-3px);
+}
+
+.menu-links a:active {
+    transform: translateY(2px) scale(0.96);
 }
 
 /* BORDA ESTILIZADA (camada de trás, cor da borda) */
