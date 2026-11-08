@@ -9,6 +9,10 @@
     box-sizing: border-box;  
 }
 
+html, body {
+    overflow-x: hidden;
+}
+
 body {
     background-color: #050816;
     color: #e6f7ff;
@@ -39,7 +43,7 @@ a {
 
     padding: 151px 60px 60px 60px;  
 
-    background-image: url("../Icons-cyberpunk/moon2.svg");   
+    background-image: url("Icons-cyberpunk/moon2.svg");     
     background-size: cover;    
     background-position: center; 
 }
@@ -54,6 +58,7 @@ a {
     align-items: flex-start;  
     gap: 24px;                
     max-width: 600px;        
+    
 }
 
 /* Texto pequeno em cima do título */
@@ -66,45 +71,80 @@ a {
 
 /* Título grande */
 .david-titulo {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Orbitron';
     font-size: clamp(32px, 4vw, 55px);   
     font-weight: 700;
     line-height: 1;
     letter-spacing: 2px;
+        margin-left: 0;
 }
 
-/* Só a palavra que está dentro do <span> do título */
-.david-titulo span {
+.david-titulo span{
     color: cyan;
+       text-shadow:
+        0 0 20px #ff00c8,
+        0 0 10px #ff00c8,
+        0 0 20px #ff00c8,
+        0 0 40px #ff0080;
 }
+
+
+/* GIF 'Ser uma lenda' David*/
+
+.span-david-lenda img {
+    display: block;
+    width: 400px;
+    height: auto;
+    margin: 0;
+    margin-left: -120px
+
+
+}
+
 
 /* Frase embaixo do título */
 .david-texto {
     color: #9fb3c8;
     font-size: clamp(16px, 1.4vw, 21px);
     line-height: 1.6;  
+    
 }
 
-/* Botão do David */
+/* CONTÊINER DO BOTÃO */
+.botao-container-david {
+    display: inline-block;
+    transition: filter 0.2s ease;
+}
+
+.botao-container-david:hover {
+    filter: drop-shadow(0 0 8px #e5ff00);
+}
+
+/* BOTÃO DO DAVID */
 .botao-david {
-    display: inline-block;   
-    padding: 16px 32px;      
+    display: inline-block;
+    padding: 16px 32px;
     background-color: #00e5ff;
     color: #050816;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Orbitron';
     font-size: 17px;
     font-weight: 700;
     width: 250px;
     letter-spacing: 2px;
-    clip-path: polygon(0 0, 90% 0, 100% 25%, 100% 100%, 0 100%);   /* recorta o botão por pontos (x y). Aqui corta o canto superior direito */
-    transition: background-color 0.3s ease;   
+    text-decoration: none;
+    clip-path: polygon(0 0, 90% 0, 100% 25%, 100% 100%, 0 100%);
+    transition: all 0.2s ease;
+    border-bottom: 5px solid #e5ff00;
+    border-left: 5px solid #e5ff00;
+    
+    
 }
 
-
+/* EFEITO AO PASSAR O MOUSE */
 .botao-david:hover {
     background-color: #ff32d2;
+    transform: scale(1.05);
 }
-
 
 /* ---------- LADO DA LUCY (DIREITA) ---------- */
 
@@ -134,14 +174,38 @@ a {
     letter-spacing: 2px;
 }
 
-.lucy-titulo span {
+.lucy-titulo span{
     color: #ff32d2;
+        text-shadow:
+        0 0 20px cyan,
+        0 0 10px cyan,
+        0 0 20px cyan,
+        0 0 40px cyan;
+
+}
+
+/* GIF LUCY 'Ser livre' */
+.span-lucy-lua img {
+    display: block;
+    width: 400px;
+    height: auto;
+    margin: 0;
+    margin-right: -130px;
 }
 
 .lucy-texto {
     color: #9fb3c8;
     font-size: clamp(16px, 1.4vw, 21px);
     line-height: 1.6;
+}
+
+.botao-container-lucy{
+    display: inline-block;
+    transition: filter 0.2s ease;
+}
+
+.botao-container-lucy:hover{
+    filter: drop-shadow(0 0 9px cyan);
 }
 
 /* Botão da Lucy */
@@ -155,11 +219,16 @@ a {
     font-weight: 700;
     letter-spacing: 2px;
     clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 25%);   /* aqui corta o canto superior esquerdo */
-    transition: background-color 0.3s ease;
+    transition: all 0.2s ease;
+    border-bottom: 5px solid cyan;
+    border-right: 5px solid cyan;
+    
 }
 
 .botao-lucy:hover {
-    background-color: #00e5ff;
+    background-color: #e5ff00;
+    transform: scale(1.05);
+
 } 
 
 /* colocar transform nos botoes */
@@ -191,51 +260,272 @@ a {
    CARDS DA HOME
    ========================================================= */
 
+
 .conteudo {
-    max-width: 1200px;
+    width: 100%;
+    max-width: 1600px;
     margin: 0 auto;
+    position: relative;
 }
 
 .secao {
     padding: 60px;
+
+
 }
 
-.etiqueta {
-    display: block;
-    color: #00e5ff;
+.etiquetas {
+    display: flex;
+    justify-content: space-between;
+}
+
+.etiqueta1 {
+    display: flex;
+    justify-content: end;
+    color: #ff32d2;
     font-weight: 700;
     letter-spacing: 4px;
     font-size: 16px;
     margin-bottom: 12px;
 }
 
-.titulo {
-    font-size: 36px;
+.etiqueta2 {
+    display: flex;
+    justify-content: end;
+    color: #f6fa1d;
     font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 30px;
+    letter-spacing: 4px;
+    font-size: 16px;
+    margin-bottom: 12px;
+    margin-right: -10px;
 }
 
-.grade-3 {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 24px;
+/* GIFS ANÚNCIOS SEGUNDA PÁGINA */
+
+
+.titulos {
+    display: flex;              
+    justify-content: center;     
+    align-items: flex-start;     
+    gap: 2.2rem;                   
+    flex-direction: row;
 }
 
-.atalho {
+
+.titiulo1 img {
+    width: 35rem;               
+    max-width: 100%;            
+    height: auto;                
+    display: block;              
+}
+
+.titiulo2 img {
+    width: 30rem;
+    max-width: 100%;
+    height: auto;
     display: block;
+}
+
+.titiulo3 img {
+    width: 30rem;
+    max-width: 100%;
+    margin-top: -7px;
+    height: auto;
+    display: block;
+    margin-left: 50px;
+}
+
+/* =========================== */
+
+/* GRADE DOS CARDS */
+
+.grades {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 30px;
+    align-items: stretch;
+    margin-top: 90px;
+    width: 100%;
+}
+
+/* CARDS */
+
+.atalho1,
+.atalho2,
+.atalho3 {
+    width: 100%;
+    height: 850px;
+    padding: 20px;
+    background-color: #0b1026;
+    border: 1px solid #12304a;
+    color: #e6f7ff;
+    min-width: 0;
+}
+
+/* ÁREA DAS IMAGENS */
+
+.img-sobre,
+.img-team,
+.img-nightcity {
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+}
+
+/* IMAGENS */
+
+.img-sobre img,
+.img-team img,
+.img-nightcity img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* TÍTULOS */
+
+.atalho1 h3,
+.atalho2 h3,
+.atalho3 h3 {
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+/* DESCRIÇÕES */
+
+.atalho1 p,
+.atalho2 p,
+.atalho3 p {
+    color: #9fb3c8;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+/* LINKS */
+
+.atalho-link {
+    color: #00e5ff;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+
+/* .grades {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 30px;
+    align-items: start;
+    margin-top: 90px;
+    width: 100%;
+}
+
+.atalho1,
+.atalho2,
+.atalho3 {
+    width: 100%;
+    min-width: 0;
+    min-height: 850px;
     padding: 24px;
     background-color: #0b1026;
     border: 1px solid #12304a;
     color: #e6f7ff;
 }
 
-.atalho h3 {
+
+.img-sobre,
+.img-team,
+.img-nightcity {
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+}
+
+.img-sobre img,
+.img-team img,
+.img-nightcity img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+} */
+/*=============== CARD 1 ============== */
+/* .img-sobre {
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+} */
+
+/* .atalho1 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border: 3px solid rgb(101, 228, 63);
+    background-color: rgb(243, 240, 34);
+} */
+/*=============== CARD 1 ============== */
+
+/*=============== CARD 2 ============== */
+/* .img-team {
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+} */
+
+/* .atalho2 .img-team {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    background-color: rgb(34, 243, 139);
+} */
+
+/* .img-team img {
+     margin-left: 40px;
+     margin-top: 4px;
+    border: 5px solid rgb(192, 228, 63);
+     height: 585px; 
+} */
+/*=============== CARD 2 ============== */
+
+/*=============== CARD 3 ============== */
+
+/* .img-nightcity {
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+} */
+/* 
+.atalho3 .img-nightcity {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border: 3px solid rgb(101, 228, 63);
+    background-color: rgb(34, 243, 208);
+} */
+
+/* .img-nightcity img {
+     margin-left: 63px;
+     margin-top: 4px;
+    border: 5px solid rgb(192, 228, 63);
+     height: 585px; 
+} */
+/*=============== CARD 3 ============== */
+
+
+/* 
+.atalho1 h3,
+.atalho2 h3,
+.atalho3 h3 {
     font-size: 26px;
     margin-bottom: 8px;
 }
 
-.atalho p {
+.atalho1 p,
+.atalho2 p,
+.atalho3 p {
     color: #9fb3c8;
     line-height: 1.5;
     margin-bottom: 16px;
@@ -250,7 +540,9 @@ a {
 .secao {
     min-height: 100vh;
     padding: 60px;
-}
+} */
+
+
 /* =========================================================
    SEÇÃO PRETA: EM BREVE
    ========================================================= */
