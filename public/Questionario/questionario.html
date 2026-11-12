@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk Edgerunners | Questionário</title>
+
+    <!-- Estilo provisório só para a página não ficar branca. Pode apagar quando for fazer o CSS de verdade. -->
+    <style>
+        body {
+            background-color: #050816;
+            color: #e6f7ff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 120px;
+        }
+
+        h1 {
+            color: #00e5ff;
+        }
+
+        button {
+            background-color: #ff32d2;
+            color: #ffffff;
+            border: none;
+            padding: 12px 28px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body onload="validarSessao()"> <!-- onload = executa a função assim que a página termina de carregar -->
+
+    <h1>QUESTIONÁRIO</h1>
+    <p>Bem-vindo, <span id="span_nome"></span>!</p>
+    <!-- Provisório: só para você ver que o personagem favorito ficou guardado na sessão. Pode apagar estas 4 linhas depois. -->
+    <p>Personagem favorito: <span id="span_personagem"></span> (<span id="span_classe"></span>)</p>
+    <p id="p_frase"></p>
+    <p id="p_descricao"></p>
+
+    <p>Página provisória: o questionário será construído aqui.</p>
+
+    <button onclick="sair()">SAIR</button>
+
+</body>
+
+</html>
+
+<script>
+    // Protege a página: se não houver login guardado na sessão, manda de volta para o login.
+    function validarSessao() {
+        if (sessionStorage.ID_USUARIO == undefined) { // undefined = a "gaveta" ID_USUARIO não existe (ninguém logou)
+            window.location = "../Login-Cadastro/login.html";
+        } else {
+            span_nome.innerText = sessionStorage.NOME_USUARIO; // mostra o nome que foi guardado no login
+            span_personagem.innerText = sessionStorage.PERSONAGEM_NOME; // innerText = coloca o texto dentro do elemento
+            span_classe.innerText = sessionStorage.PERSONAGEM_CLASSE;
+            p_frase.innerText = sessionStorage.PERSONAGEM_FRASE;
+            p_descricao.innerText = sessionStorage.PERSONAGEM_DESCRICAO;
+        }
+    }
+
+    // Apaga tudo que foi guardado no login e volta para a tela de login.
+    function sair() {
+        sessionStorage.clear();
+        window.location = "../Login-Cadastro/login.html";
+    }
+</script>
