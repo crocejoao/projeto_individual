@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../header.css">
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="./css-cyberpunk/acesso.css">
+    <link rel="stylesheet" href="../css-cyberpunk/header.css">
+    <link rel="stylesheet" href="../css-cyberpunk/style.css">
+    <link rel="stylesheet" href="../Login-Cadastro/css-cyberpunk/acesso.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,8 +31,8 @@
         <div class="menu-links">
             <a href="../index-cyberpunk.html">HOME</a>
             <a href="../index-cyberpunk.html#sobre">SOBRE</a>
-            <a href="index-cyberpunk.html#mercenarios">MERCENÁRIOS</a>
-            <a href="index-cyberpunk.html#night-city">NIGHT CITY</a>
+            <a href="../index-cyberpunk.html#mercenarios">MERCENÁRIOS</a>
+            <a href="../index-cyberpunk.html#nightcity">NIGHT CITY</a>
             <a href="login.html">LOGIN</a>
             <a href="cadastro.html" class="botao-cadastro">CADASTRO</a>
         </div>
@@ -106,7 +106,8 @@
         // ---------- RESULTADO ----------
         if (erros.length == 0) {
             div_msg.className = "msg-sucesso";
-            div_msg.innerHTML = "Login válido!";
+            // div_msg.innerHTML = "Login válido!"; // ANTES: só mostrava a mensagem, sem falar com o servidor
+            enviarLogin(email, senha); // AGORA: manda e-mail e senha para a rota /usuarios/autenticar
 
         }   else {
         
@@ -117,5 +118,58 @@
             div_msg.className = "msg-erro";
             div_msg.innerHTML = texto;
         } 
+    }
+
+    // Envia e-mail e senha para a rota POST /usuarios/autenticar e trata a resposta do servidor.
+    function enviarLogin(email, senha) {
+        div_msg.className = "msg-sucesso";
+        div_msg.innerHTML = "Entrando...";
+
+        fetch("/usuarios/autenticar", { // fetch = envia/busca dados no servidor; este endereço é a rota (app.js + routes)
+            method: "POST", // POST = estamos ENVIANDO dados
+            headers: { "Content-Type": "application/json" }, // avisa ao servidor que o corpo está em formato JSON
+            body: JSON.stringify({ // JSON.stringify transforma o objeto em texto para poder viajar até o servidor
+                emailServer: email, // estes nomes precisam ser iguais aos lidos no controller (req.body.emailServer)
+                senhaServer: senha
+            })
+        }).then(function (resposta) { // .then = quando o servidor responder, faça isso
+
+            if (resposta.ok) { // ok = o servidor respondeu com sucesso (status 200)
+                resposta.json().then(function (json) { // transforma a resposta em objeto para podermos usar json.nome, json.id...
+
+                    // sessionStorage = "gaveta" do navegador onde o login fica salvo enquanto a aba estiver aberta
+                    sessionStorage.ID_USUARIO = json.id;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.PERSONAGEM_USUARIO = json.personagemId;
+                    sessionStorage.PERSONAGEM_NOME = json.personagemNome; // estes nomes (json.personagemNome...) vêm do res.json do controller
+                    sessionStorage.PERSONAGEM_FRASE = json.personagemFrase;
+                    sessionStorage.PERSONAGEM_DESCRICAO = json.personagemDescricao;
+                    sessionStorage.PERSONAGEM_CLASSE = json.personagemClasse;
+
+                    div_msg.className = "msg-sucesso";
+                    div_msg.innerHTML = "Login realizado! Redirecionando...";
+
+                    setTimeout(function () { // setTimeout = espera 1000 ms (1 segundo) antes de executar
+                        window.location = "../Questionario/questionario.html"; // troca de página: vai para o questionário
+                    }, 1000);
+                });
+
+            } else {
+                resposta.text().then(function (texto) {
+                    div_msg.className = "msg-erro";
+                    if (resposta.status == 403) { // 403 = e-mail e/ou senha errados (mensagem vem do controller)
+                        div_msg.innerHTML = texto;
+                    } else {
+                        div_msg.innerHTML = "Erro no servidor. Tente novamente em instantes.";
+                    }
+                });
+            }
+
+        }).catch(function (erro) { // .catch = roda se nem chegou a falar com o servidor (ex.: servidor desligado)
+            console.log(erro);
+            div_msg.className = "msg-erro";
+            div_msg.innerHTML = "Não foi possível conectar ao servidor.";
+        });
     }
 </script>
