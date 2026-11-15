@@ -13,9 +13,11 @@ function autenticar(email, senha) {
                personagem.nome AS personagemNome,
                personagem.frase AS personagemFrase,
                personagem.descricao AS personagemDescricao,
-               personagem.classe AS personagemClasse
+               personagem.classe AS personagemClasse,
+               IF(resultado_questionario.id IS NULL, 0, 1) AS questionarioRespondido
         FROM usuario
         JOIN personagem ON usuario.fk_personagem = personagem.id
+        LEFT JOIN resultado_questionario ON usuario.id = resultado_questionario.fk_usuario
         WHERE usuario.email = '${email}' AND usuario.senha = '${senha}';
     `;
 

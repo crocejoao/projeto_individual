@@ -36,5 +36,28 @@ CREATE TABLE usuario (
 
 -- As tabelas do questionário (perguntas/respostas) ficam para a próxima etapa.
 
+CREATE TABLE resultado_questionario (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	fk_usuario INT NOT NULL,
+	resposta1 VARCHAR(30),
+	resposta2 VARCHAR(30),
+	resposta3 VARCHAR(30),
+	resposta4 VARCHAR(30),
+	resposta5 VARCHAR(30),
+	resposta6 VARCHAR(30),
+	resposta7 VARCHAR(30),
+	resposta8 VARCHAR(30),
+	pontos_netrunner INT,
+	pontos_mercenario INT,
+	pontos_nomade INT,
+	pct_netrunner DECIMAL(4,1),
+	pct_mercenario DECIMAL(4,1),
+	pct_nomade DECIMAL(4,1),
+	classe_predominante VARCHAR(50),
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+	UNIQUE KEY uq_resultado_usuario (fk_usuario),
+	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+);
+
 -- Para testar o login sem passar pelo cadastro (opcional):
 -- INSERT INTO usuario (nome, email, senha, fk_personagem) VALUES ('Teste', 'teste@teste.com', 'Teste@123', 1);
