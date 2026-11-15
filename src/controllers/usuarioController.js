@@ -34,7 +34,8 @@ function autenticar(req, res) {
                             personagemNome: resultadoAutenticar[0].personagemNome, // estes 4 campos vêm do JOIN feito no model
                             personagemFrase: resultadoAutenticar[0].personagemFrase,
                             personagemDescricao: resultadoAutenticar[0].personagemDescricao,
-                            personagemClasse: resultadoAutenticar[0].personagemClasse
+                            personagemClasse: resultadoAutenticar[0].personagemClasse,
+                            questionarioRespondido: resultadoAutenticar[0].questionarioRespondido
                         });
 
                         /* DESATIVADO (template AQUATECH): depois de logar, buscava os aquários da empresa e devolvia junto.

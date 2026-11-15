@@ -17,6 +17,7 @@ var app = express();
 
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
+var questionarioRouter = require("./src/routes/questionario");
 // DESATIVADO: rotas herdadas do template AQUATECH (avisos, medidas, aquários, empresas).
 // O projeto Edgerunners não usa mais. Os arquivos continuam nas pastas routes/controllers/models, só não são carregados.
 // Para reativar alguma, é só tirar o // da linha dela aqui e da linha app.use correspondente mais abaixo.
@@ -33,6 +34,7 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter); // tudo que o front-end chamar começando com /usuarios cai no arquivo src/routes/usuarios.js
+app.use("/questionario", questionarioRouter);
 // DESATIVADO (mesmo motivo acima): sem estas linhas o servidor não responde mais em /avisos, /medidas, /aquarios e /empresas
 // app.use("/avisos", avisosRouter);
 // app.use("/medidas", medidasRouter);

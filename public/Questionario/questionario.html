@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css-cyberpunk/header.css">
+    <link rel="stylesheet" href="../css-cyberpunk/style.css">
+    <link rel="stylesheet" href="../css-cyberpunk/questionario.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Questionário · Cyberpunk Edgerunners</title>
+    
+</head>
+
+<body>
+    <nav class="menu">
+        <a class="logo" href="../index-cyberpunk.html">
+            <img src="../Icons-cyberpunk/Logo neon Cyberpunk_ Edgerunners.png" alt="Cyberpunk Edgerunners">
+        </a>
+        <div class="menu-fundo"></div>
+        <div class="menu-links">
+            <a href="../index-cyberpunk.html">HOME</a>
+            <a href="../index-cyberpunk.html#sobre">SOBRE</a>
+            <a href="../index-cyberpunk.html#mercenarios">MERCENÁRIOS</a>
+            <a href="../index-cyberpunk.html#nightcity">NIGHT CITY</a>
+            <a href="../Login-Cadastro/login.html">LOGIN</a>
+        </div>
+        <div class="menu-usuario" id="nome-logado">EDGERUNNER</div>
+    </nav>
+
+    <main class="questionario">
+        <section class="questionario-intro">
+            <h1>Questionário de Afinidade</h1>
+            <p>Responda às oito perguntas e descubra o seu perfil no universo Cyberpunk Edgerunners.</p>
+        </section>
+
+        <div id="carregando" class="carregando">Verificando status do questionário...</div>
+
+        <form id="form-questionario" class="form-questionario d-none">
+            <div class="grid-perguntas">
+                <article class="card-pergunta">
+                    <h2>1. ESCREVA AQUI A PERGUNTA 1 <!-- TROCAR O TEXTO AQUI --></h2>
+                    <p class="pergunta-explicacao">Selecione a alternativa que combina com você.</p>
+                    <div class="alternativas">
+                        <label for="q1a">
+                            <input type="radio" id="q1a" name="resposta1" value="Netrunner">
+                            <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                        <label for="q1b">
+                            <input type="radio" id="q1b" name="resposta1" value="Mercenário">
+                            <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                        <label for="q1c">
+                            <input type="radio" id="q1c" name="resposta1" value="Nômade">
+                            <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                    </div>
+                </article>
+                <article class="card-pergunta">
+                    <h2>2. ESCREVA AQUI A PERGUNTA 2 <!-- TROCAR O TEXTO AQUI --></h2>
+                    <p class="pergunta-explicacao">Escolha a alternativa que mais reflete a sua atitude.</p>
+                    <div class="alternativas">
+                        <label for="q2a">
+                            <input type="radio" id="q2a" name="resposta2" value="Mercenário">
+                            <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                        <label for="q2b">
+                            <input type="radio" id="q2b" name="resposta2" value="Nômade">
+                            <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                        <label for="q2c">
+                            <input type="radio" id="q2c" name="resposta2" value="Netrunner">
+                            <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                    </div>
+                </article>
+                <article class="card-pergunta">
+                    <h2>3. ESCREVA AQUI A PERGUNTA 3 <!-- TROCAR O TEXTO AQUI --></h2>
+                    <p class="pergunta-explicacao">Pense em como você reage em missões críticas.</p>
+                    <div class="alternativas">
+                        <label for="q3a">
+                            <input type="radio" id="q3a" name="resposta3" value="Nômade">
+                            <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                        <label for="q3b">
+                            <input type="radio" id="q3b" name="resposta3" value="Netrunner">
+                            <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                        <label for="q3c">
+                            <input type="radio" id="q3c" name="resposta3" value="Mercenário">
+                            <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                    </div>
+                </article>
+                <article class="card-pergunta">
+                    <h2>4. ESCREVA AQUI A PERGUNTA 4 <!-- TROCAR O TEXTO AQUI --></h2>
+                    <p class="pergunta-explicacao">Marque a alternativa que descreve sua visão de futuro.</p>
+                    <div class="alternativas">
+                        <label for="q4a">
+                            <input type="radio" id="q4a" name="resposta4" value="Netrunner">
+                            <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                        <label for="q4b">
+                            <input type="radio" id="q4b" name="resposta4" value="Nômade">
+                            <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                        <label for="q4c">
+                            <input type="radio" id="q4c" name="resposta4" value="Mercenário">
+                            <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                    </div>
+                </article>
+                <article class="card-pergunta">
+                    <h2>5. ESCREVA AQUI A PERGUNTA 5 <!-- TROCAR O TEXTO AQUI --></h2>
+                    <p class="pergunta-explicacao">Ative a alternativa que soa como você reagiria em Night City.</p>
+                    <div class="alternativas">
+                        <label for="q5a">
+                            <input type="radio" id="q5a" name="resposta5" value="Mercenário">
+                            <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                        <label for="q5b">
+                            <input type="radio" id="q5b" name="resposta5" value="Netrunner">
+                            <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                        <label for="q5c">
+                            <input type="radio" id="q5c" name="resposta5" value="Nômade">
+                            <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                    </div>
+                </article>
+                <article class="card-pergunta">
+                    <h2>6. ESCREVA AQUI A PERGUNTA 6 <!-- TROCAR O TEXTO AQUI --></h2>
+                    <p class="pergunta-explicacao">Escolha a alternativa que combina com sua ética.</p>
+                    <div class="alternativas">
+                        <label for="q6a">
+                            <input type="radio" id="q6a" name="resposta6" value="Nômade">
+                            <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                        <label for="q6b">
+                            <input type="radio" id="q6b" name="resposta6" value="Mercenário">
+                            <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                        <label for="q6c">
+                            <input type="radio" id="q6c" name="resposta6" value="Netrunner">
+                            <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                    </div>
+                </article>
+                <article class="card-pergunta">
+                    <h2>7. ESCREVA AQUI A PERGUNTA 7 <!-- TROCAR O TEXTO AQUI --></h2>
+                    <p class="pergunta-explicacao">Indique o que mais se alinha com o seu estilo de jogo.</p>
+                    <div class="alternativas">
+                        <label for="q7a">
+                            <input type="radio" id="q7a" name="resposta7" value="Netrunner">
+                            <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                        <label for="q7b">
+                            <input type="radio" id="q7b" name="resposta7" value="Mercenário">
+                            <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                        <label for="q7c">
+                            <input type="radio" id="q7c" name="resposta7" value="Nômade">
+                            <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                    </div>
+                </article>
+                <article class="card-pergunta">
+                    <h2>8. ESCREVA AQUI A PERGUNTA 8 <!-- TROCAR O TEXTO AQUI --></h2>
+                    <p class="pergunta-explicacao">Finalize marcando a opção que parece com sua narrativa.</p>
+                    <div class="alternativas">
+                        <label for="q8a">
+                            <input type="radio" id="q8a" name="resposta8" value="Mercenário">
+                            <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                        <label for="q8b">
+                            <input type="radio" id="q8b" name="resposta8" value="Nômade">
+                            <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                        <label for="q8c">
+                            <input type="radio" id="q8c" name="resposta8" value="Netrunner">
+                            <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                        </label>
+                    </div>
+                </article>
+            </div>
+            <button type="button" class="botao-enviar" onclick="enviarQuestionario()">Enviar respostas</button>
+            <div id="div_msg"></div>
+        </form>
+    </main>
+
+    <script>
+        let div_msg;
+
+        function iniciarQuestionario() {
+            div_msg = document.getElementById("div_msg");
+            const nomeUsuario = document.getElementById("nome-logado");
+            if (!sessionStorage.ID_USUARIO) {
+                window.location = "../Login-Cadastro/login.html";
+            } else {
+                nomeUsuario.innerText = sessionStorage.NOME_USUARIO || "EDGERUNNER";
+                mostrarMensagem("Buscando status do questionário...");
+                const idUsuario = sessionStorage.ID_USUARIO;
+                fetch("/questionario/resultado/" + idUsuario)
+                    .then(function (resposta) {
+                        if (!resposta.ok) {
+                            mostrarMensagem("Não foi possível verificar o status.", "erro");
+                        } else {
+                            resposta.json().then(function (json) {
+                                if (json.respondido == true) {
+                                    mostrarMensagem("Você já respondeu. Redirecionando...");
+                                    setTimeout(function () {
+                                        window.location = "../Dashboard/dashboard.html";
+                                    }, 800);
+                                } else {
+                                    document.getElementById("carregando").classList.add("d-none");
+                                    document.getElementById("form-questionario").classList.remove("d-none");
+                                    mostrarMensagem("Escolha uma alternativa para cada pergunta.", "sucesso");
+                                }
+                            });
+                        }
+                    })
+                    .catch(function () {
+                        mostrarMensagem("Não foi possível conectar ao servidor.", "erro");
+                    });
+            }
+        }
+
+        function mostrarMensagem(texto, tipo) {
+            if (!div_msg) {
+                div_msg = document.getElementById("div_msg");
+            }
+            div_msg.className = tipo == "erro" ? "mensagem msg-erro" : "mensagem msg-sucesso";
+            div_msg.innerHTML = texto;
+        }
+
+        function enviarQuestionario() {
+            if (!sessionStorage.ID_USUARIO) {
+                window.location = "../Login-Cadastro/login.html";
+            } else {
+                const payload = {
+                    idUsuario: sessionStorage.ID_USUARIO
+                };
+                let valido = true;
+                for (let i = 1; i <= 8 && valido; i++) {
+                    const nome = "resposta" + i;
+                    const opcoes = document.getElementsByName(nome);
+                    let selecionado = "";
+                    for (let j = 0; j < opcoes.length && selecionado === ""; j++) {
+                        if (opcoes[j].checked) {
+                            selecionado = opcoes[j].value;
+                        }
+                    }
+                    if (selecionado === "") {
+                        mostrarMensagem("Todas as perguntas são obrigatórias.", "erro");
+                        valido = false;
+                    } else {
+                        payload[nome] = selecionado;
+                    }
+                }
+                if (valido) {
+                    mostrarMensagem("Enviando respostas...");
+                    fetch("/questionario/responder", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(payload)
+                    })
+                        .then(function (resposta) {
+                            if (!resposta.ok) {
+                                resposta.text().then(function (texto) {
+                                    mostrarMensagem(texto, "erro");
+                                });
+                            } else {
+                                resposta.json().then(function () {
+                                    mostrarMensagem("Respostas salvas! Redirecionando...");
+                                    setTimeout(function () {
+                                        window.location = "../Dashboard/dashboard.html";
+                                    }, 900);
+                                });
+                            }
+                        })
+                        .catch(function () {
+                            mostrarMensagem("Não foi possível conectar ao servidor.", "erro");
+                        });
+                }
+            }
+        }
+
+        window.addEventListener("load", iniciarQuestionario);
+    </script>
+</body>
+
+</html>
