@@ -1,0 +1,225 @@
+:root {
+    --ciano: #00d8ff;
+    --amarelo: #ffd633;
+    --verde: #8affa4;
+    --fundo: #030712;
+    --cinza: #131820;
+}
+
+body {
+    background: radial-gradient(circle at 12% 20%, rgba(0, 216, 255, .2), transparent 35%),
+        radial-gradient(circle at 80% 0%, rgba(255, 214, 51, .14), transparent 30%),
+        radial-gradient(circle at 70% 80%, rgba(138, 255, 164, .1), transparent 25%),
+        var(--fundo);
+    color: #f5f5f5;
+    font-family: 'Rajdhani', 'Orbitron', sans-serif;
+}
+
+.dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.dashboard-intro h1 {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: .2rem;
+}
+
+.dashboard-intro p {
+    color: #c9c9c9;
+    margin-top: 0;
+}
+
+.mensagem {
+    min-height: 2rem;
+    padding: .5rem 1rem;
+    border-radius: 12px;
+    font-size: .95rem;
+}
+
+.carregando {
+    text-align: center;
+    padding: 1rem;
+    border-radius: 16px;
+    border: 1px dashed var(--ciano);
+    color: #cdd7ff;
+}
+
+.msg-sucesso,
+.msg-erro {
+    margin-top: 0;
+}
+
+.msg-sucesso {
+    background: rgba(0, 216, 255, .18);
+    color: var(--ciano);
+    border: 1px solid rgba(0, 216, 255, .7);
+}
+
+.msg-erro {
+    background: rgba(255, 48, 89, .2);
+    color: #ff546c;
+    border: 1px solid rgba(255, 84, 108, .6);
+}
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.kpi-card {
+    border: 1px solid rgba(255, 255, 255, .2);
+    border-radius: 20px;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .01));
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+}
+
+.kpi-card p {
+    font-size: .8rem;
+    letter-spacing: .5px;
+    margin-bottom: .3rem;
+}
+
+.kpi-card strong {
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    display: block;
+}
+
+.tag-classe {
+    display: inline-block;
+    padding: .3rem .8rem;
+    border-radius: 12px;
+    font-size: .85rem;
+    letter-spacing: 1px;
+    margin-right: .4rem;
+    margin-bottom: .2rem;
+}
+
+.pontuacoes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.pontuacao-card {
+    border: 1px solid rgba(255, 255, 255, .15);
+    border-radius: 16px;
+    padding: 1rem;
+    background: var(--cinza);
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+}
+
+.pontuacao-card span {
+    font-size: .8rem;
+    color: #bdbdbd;
+    letter-spacing: 1px;
+}
+
+.pontuacao-card strong {
+    font-size: 1.2rem;
+}
+
+.grafico-area {
+    border: 1px solid rgba(255, 255, 255, .15);
+    border-radius: 22px;
+    padding: 2rem;
+    background: linear-gradient(160deg, rgba(18, 20, 30, .95), rgba(255, 255, 255, .02));
+    display: grid;
+    align-items: center;
+    gap: 1rem;
+}
+
+#graficoRadar {
+    width: 100%;
+    height: 300px;
+}
+
+.grafico-fallback {
+    border: 1px dashed var(--ciano);
+    padding: 1rem;
+    border-radius: 16px;
+}
+
+.barra-unica {
+    margin-bottom: .6rem;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+
+.barra-texto {
+    min-width: 140px;
+    font-size: .9rem;
+    letter-spacing: .5px;
+}
+
+.barra-linha {
+    flex: 1;
+    height: 10px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .1);
+    position: relative;
+    overflow: hidden;
+}
+
+.barra-linha span {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 12px;
+}
+
+.personagem-card {
+    display: grid;
+    grid-template-columns: minmax(220px, 260px) 1fr;
+    gap: 1rem;
+    border: 1px solid rgba(255, 255, 255, .16);
+    border-radius: 22px;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .01));
+}
+
+.area-imagem {
+    border: 2px dashed rgba(255, 255, 255, .3);
+    border-radius: 18px;
+    min-height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    color: #9a9a9a;
+}
+
+.personagem-texto h3 {
+    margin-top: 0;
+    font-size: 1.6rem;
+}
+
+.personagem-texto p {
+    margin: .4rem 0;
+    color: #cdcdcd;
+    line-height: 1.4;
+}
+
+.d-none {
+    display: none !important;
+}
+
+@media (max-width: 900px) {
+    .personagem-card {
+        grid-template-columns: 1fr;
+    }
+}
