@@ -1,0 +1,390 @@
+/* =========================================================
+   DASHBOARD (PROTÓTIPO)
+   Paleta do site: fundo #050816 | card #0b1026 | borda #12304a
+   ciano #00e5ff | rosa #ff32d2 | amarelo #e5ff00
+   texto #e6f7ff | texto apagado #9fb3c8
+   ========================================================= */
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    overflow-x: hidden;
+}
+
+body {
+    background-color: #050816;
+    color: #e6f7ff;
+    font-family: 'Rajdhani';
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   BARRA DO TOPO (logo, nome do usuário e botão SAIR)
+   ========================================================= */
+
+.topo-dashboard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 40px;
+    background-color: #0b1026;
+    border-bottom: 1px solid #12304a;
+}
+
+.topo-logo {
+    height: 48px;
+}
+
+.topo-usuario {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.topo-ola {
+    font-family: 'Orbitron';
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #9fb3c8;
+}
+
+/* o nome do usuário vem do sessionStorage (colocado pelo JavaScript) */
+.topo-nome {
+    color: #00e5ff;
+    text-transform: uppercase;
+}
+
+.topo-botao-sair {
+    padding: 10px 28px;
+    background-color: #ff32d2;
+    color: #050816;
+    font-family: 'Orbitron';
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    border: none;
+    border-bottom: 4px solid #00e5ff;
+    border-right: 4px solid #00e5ff;
+    clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 30%);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.topo-botao-sair:hover {
+    background-color: #e5ff00;
+    transform: scale(1.05);
+}
+
+.aviso-prototipo {
+    padding: 10px 40px 0 40px;
+    font-family: 'Orbitron';
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #e5ff00;
+}
+
+
+/* =========================================================
+   GRADE: 3 COLUNAS (personagem | gráfico de colunas | pizza)
+   ========================================================= */
+
+.dashboard-grade {
+    display: grid;
+    grid-template-columns: 1fr 1.8fr 1fr;
+    gap: 24px;
+    align-items: stretch;
+    padding: 20px 40px 40px 40px;
+}
+
+/* Cards: mesma aparência base, cada um com sua classe */
+.card-personagem,
+.card-colunas,
+.card-pizza {
+    min-width: 0;
+    padding: 24px;
+    background-color: #0b1026;
+    border: 1px solid #12304a;
+}
+
+/* A cor da borda de cima de cada card é diferente */
+.card-personagem {
+    border-top: 4px solid #00e5ff;
+    /* o JavaScript troca esta cor pela cor do personagem favorito */
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.card-personagem:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+}
+
+.card-colunas {
+    border-top: 4px solid #ff32d2;
+}
+
+.card-pizza {
+    border-top: 4px solid #e5ff00;
+}
+
+/* Etiquetas pequenas "// ASSIM" no topo de cada card */
+.personagem-etiqueta,
+.colunas-etiqueta,
+.pizza-etiqueta {
+    display: block;
+    font-family: 'Orbitron';
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #9fb3c8;
+}
+
+.colunas-titulo,
+.pizza-titulo {
+    margin-top: 6px;
+    font-family: 'Orbitron';
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: #e6f7ff;
+}
+
+
+/* =========================================================
+   CARD DO PERSONAGEM FAVORITO (clicável)
+   ========================================================= */
+
+/* Espaço reservado para a arte do personagem.
+   Quando tiver a imagem, coloque uma <img class="personagem-imagem"> dentro desta caixa. */
+.personagem-arte {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    margin-top: 16px;
+    background-color: #050816;
+    border: 1px dashed #12304a;
+}
+
+.personagem-inicial {
+    font-family: 'Orbitron';
+    font-size: 96px;
+    font-weight: 700;
+    color: #00e5ff;
+    /* o JavaScript troca esta cor pela cor do personagem */
+}
+
+.personagem-arte-aviso {
+    font-family: 'Orbitron';
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #9fb3c8;
+    opacity: 0.5;
+}
+
+.personagem-nome {
+    margin-top: 18px;
+    font-family: 'Orbitron';
+    font-size: 24px;
+    letter-spacing: 2px;
+    color: #00e5ff;
+    /* o JavaScript troca esta cor pela cor do personagem */
+}
+
+.personagem-classe {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 3px 12px;
+    background-color: #050816;
+    border: 1px solid #12304a;
+    font-family: 'Orbitron';
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #e5ff00;
+}
+
+/* Parte que aparece/some quando clica no card (o JavaScript troca o display) */
+.personagem-detalhes {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px dashed #12304a;
+}
+
+.detalhes-rotulo-frase,
+.detalhes-rotulo-descricao {
+    display: block;
+    font-family: 'Orbitron';
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #ff32d2;
+}
+
+.detalhes-frase {
+    margin-top: 4px;
+    margin-bottom: 14px;
+    font-size: 20px;
+    font-style: italic;
+    color: #e5ff00;
+}
+
+.detalhes-descricao {
+    margin-top: 4px;
+    line-height: 1.4;
+    color: #9fb3c8;
+}
+
+.personagem-dica {
+    display: block;
+    margin-top: 18px;
+    font-family: 'Orbitron';
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #9fb3c8;
+}
+
+
+/* =========================================================
+   CARD DO GRÁFICO DE COLUNAS (centro)
+   ========================================================= */
+
+/* O Chart.js precisa de uma caixa com altura definida para desenhar o gráfico dentro dela */
+.colunas-area {
+    position: relative;
+    height: 360px;
+    margin-top: 20px;
+}
+
+.colunas-resumo {
+    margin-top: 16px;
+    color: #9fb3c8;
+}
+
+.colunas-resumo-classe {
+    font-family: 'Orbitron';
+    color: #ff32d2;
+}
+
+.colunas-sem-chart {
+    display: none;
+    color: #e5ff00;
+}
+
+
+/* =========================================================
+   CARD DO GRÁFICO DE PIZZA + PALETA (direita)
+   ========================================================= */
+
+.pizza-area {
+    position: relative;
+    height: 240px;
+    margin-top: 20px;
+}
+
+.pizza-sem-chart {
+    display: none;
+    color: #e5ff00;
+}
+
+.paleta-titulo {
+    display: block;
+    margin-top: 22px;
+    margin-bottom: 6px;
+    font-family: 'Orbitron';
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #9fb3c8;
+}
+
+/* Uma linha da paleta por personagem: quadrado da cor + nome + "VOCÊ" + porcentagem */
+.paleta-david,
+.paleta-lucy,
+.paleta-maine,
+.paleta-rebecca {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid #12304a;
+}
+
+.paleta-quadrado-david,
+.paleta-quadrado-lucy,
+.paleta-quadrado-maine,
+.paleta-quadrado-rebecca {
+    width: 18px;
+    height: 18px;
+}
+
+.paleta-quadrado-david {
+    background-color: #00e5ff;
+}
+
+.paleta-quadrado-lucy {
+    background-color: #ff32d2;
+}
+
+.paleta-quadrado-maine {
+    background-color: #e5ff00;
+}
+
+.paleta-quadrado-rebecca {
+    background-color: #9fb3c8;
+}
+
+.paleta-nome-david,
+.paleta-nome-lucy,
+.paleta-nome-maine,
+.paleta-nome-rebecca {
+    flex: 1;
+    color: #e6f7ff;
+}
+
+/* Etiqueta "VOCÊ": fica escondida e o JavaScript mostra só no personagem do usuário */
+.paleta-voce-david,
+.paleta-voce-lucy,
+.paleta-voce-maine,
+.paleta-voce-rebecca {
+    display: none;
+    padding: 1px 8px;
+    background-color: #e6f7ff;
+    color: #050816;
+    font-family: 'Orbitron';
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.paleta-valor-david,
+.paleta-valor-lucy,
+.paleta-valor-maine,
+.paleta-valor-rebecca {
+    font-family: 'Orbitron';
+    font-size: 14px;
+    color: #9fb3c8;
+}
+
+
+/* =========================================================
+   CELULAR / TELA PEQUENA: os 3 cards ficam um embaixo do outro
+   ========================================================= */
+
+@media (max-width: 1000px) {
+    .dashboard-grade {
+        grid-template-columns: 1fr;
+        padding: 20px 16px 40px 16px;
+    }
+
+    .topo-dashboard {
+        padding: 14px 16px;
+    }
+
+    .aviso-prototipo {
+        padding: 10px 16px 0 16px;
+    }
+}

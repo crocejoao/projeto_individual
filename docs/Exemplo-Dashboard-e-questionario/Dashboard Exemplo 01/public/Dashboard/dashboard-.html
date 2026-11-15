@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk Edgerunners | Dashboard</title>
+
+    <link rel="stylesheet" href="css-cyberpunk/dashboard.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body onload="iniciarDashboard()">
+
+    <div class="topo-dashboard">
+        <img class="topo-logo" src="../Icons-cyberpunk/Logo neon Cyberpunk_ Edgerunners.png" alt="Cyberpunk Edgerunners">
+
+        <div class="topo-usuario">
+            <span class="topo-ola">OLÁ, <span class="topo-nome" id="span_nome"></span></span>
+            <button class="topo-botao-sair" onclick="sair()">SAIR</button>
+        </div>
+    </div>
+
+    <div class="aviso-prototipo">// PROTÓTIPO: os números dos gráficos são de exemplo e ainda não vêm do banco</div>
+
+    <main class="dashboard-grade">
+
+        <section class="card-personagem" onclick="alternarDetalhes()">
+            <span class="personagem-etiqueta">// SEU PERSONAGEM FAVORITO</span>
+
+            <div class="personagem-arte">ARTE DO PERSONAGEM</div>
+
+            <h2 class="personagem-nome" id="h2_personagem"></h2>
+            <span class="personagem-classe" id="span_classe"></span>
+
+            <div class="personagem-detalhes" id="div_detalhes" style="display: none;">
+                <span class="detalhes-rotulo-frase">FRASE</span>
+                <p class="detalhes-frase" id="p_frase"></p>
+
+                <span class="detalhes-rotulo-descricao">CARACTERÍSTICAS</span>
+                <p class="detalhes-descricao" id="p_descricao"></p>
+            </div>
+
+            <span class="personagem-dica" id="span_dica">CLIQUE PARA VER AS CARACTERÍSTICAS</span>
+        </section>
+
+        <section class="card-colunas">
+            <span class="colunas-etiqueta">// SUAS RESPOSTAS VS CADA CLASSE</span>
+            <h2 class="colunas-titulo">AFINIDADE COM AS CLASSES</h2>
+
+            <div class="colunas-area">
+                <canvas id="grafico_colunas"></canvas>
+            </div>
+        </section>
+
+        <section class="card-pizza">
+            <span class="pizza-etiqueta">// PERSONAGENS</span>
+            <h2 class="pizza-titulo">PIZZA DE PERSONAGENS</h2>
+
+            <div class="pizza-area">
+                <canvas id="grafico_pizza"></canvas>
+            </div>
+
+            <span class="paleta-titulo">// PALETA</span>
+
+            <div class="paleta-david">
+                <span class="paleta-quadrado-david"></span>
+                <span class="paleta-nome-david">David Martinez</span>
+                <span class="paleta-voce-david" id="voce_1">VOCÊ</span>
+            </div>
+
+            <div class="paleta-lucy">
+                <span class="paleta-quadrado-lucy"></span>
+                <span class="paleta-nome-lucy">Lucy</span>
+                <span class="paleta-voce-lucy" id="voce_2">VOCÊ</span>
+            </div>
+
+            <div class="paleta-maine">
+                <span class="paleta-quadrado-maine"></span>
+                <span class="paleta-nome-maine">Maine</span>
+                <span class="paleta-voce-maine" id="voce_3">VOCÊ</span>
+            </div>
+
+            <div class="paleta-rebecca">
+                <span class="paleta-quadrado-rebecca"></span>
+                <span class="paleta-nome-rebecca">Rebecca</span>
+                <span class="paleta-voce-rebecca" id="voce_4">VOCÊ</span>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        const nomesClasses = ["Nômade", "Mercenário", "Corp"];
+        const afinidades = [45, 80, 30];
+
+        const nomesPersonagens = ["David Martinez", "Lucy", "Maine", "Rebecca"];
+        const votosPersonagens = [38, 27, 20, 15];
+        const coresPersonagens = ["#00e5ff", "#ff32d2", "#e5ff00", "#9fb3c8"];
+
+
+        function iniciarDashboard() {
+
+            Chart.defaults.color = "#9fb3c8";
+            Chart.defaults.borderColor = "#12304a";
+
+            const ctxColunas = document.getElementById("grafico_colunas").getContext("2d");
+            new Chart(ctxColunas, {
+                type: "bar",
+                data: {
+                    labels: nomesClasses,
+                    datasets: [{
+                        label: "Afinidade (%)",
+                        data: afinidades,
+                        backgroundColor: "#00e5ff"
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { min: 0, max: 100 } }
+                }
+            });
+
+            const ctxPizza = document.getElementById("grafico_pizza").getContext("2d");
+            new Chart(ctxPizza, {
+                type: "pie",
+                data: {
+                    labels: nomesPersonagens,
+                    datasets: [{
+                        label: "Favorito (%)",
+                        data: votosPersonagens,
+                        backgroundColor: coresPersonagens,
+                        borderColor: "#050816"
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+
+        function alternarDetalhes() {
+            if (div_detalhes.style.display == "none") {
+                div_detalhes.style.display = "block";
+                span_dica.innerText = "CLIQUE PARA VOLTAR";
+            } else {
+                div_detalhes.style.display = "none";
+                span_dica.innerText = "CLIQUE PARA VER AS CARACTERÍSTICAS";
+            }
+        }
+
+
+        function sair() {
+            sessionStorage.clear();
+            window.location = "../Login-Cadastro/login.html";
+        }
+    </script>
+
+</body>
+
+</html>

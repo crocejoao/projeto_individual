@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk Edgerunners | Dashboard</title>
+
+    <link rel="stylesheet" href="css-cyberpunk/dashboard.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Biblioteca Chart.js (a mesma do seu exemplo de gráfico): desenha os gráficos nos <canvas> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body onload="iniciarDashboard()"> <!-- onload = roda a função assim que a página termina de carregar -->
+
+    <!-- BARRA DO TOPO -->
+    <div class="topo-dashboard">
+        <img class="topo-logo" src="../Icons-cyberpunk/Logo neon Cyberpunk_ Edgerunners.png"
+            alt="Cyberpunk Edgerunners">
+
+        <div class="topo-usuario">
+            <span class="topo-ola">OLÁ, <span class="topo-nome" id="span_nome"></span></span>
+            <button class="topo-botao-sair" onclick="sair()">SAIR</button>
+        </div>
+    </div>
+
+    <div class="aviso-prototipo">// PROTÓTIPO: os números dos gráficos são de exemplo e ainda não vêm do banco</div>
+
+    <main class="dashboard-grade">
+
+        <!-- ESQUERDA: PERSONAGEM FAVORITO (clique no card para ver as características) -->
+        <section class="card-personagem" id="card_personagem" onclick="alternarDetalhes()">
+            <span class="personagem-etiqueta">// SEU PERSONAGEM FAVORITO</span>
+
+            <!-- Espaço reservado para a arte do personagem (por enquanto mostra a primeira letra do nome) -->
+            <div class="personagem-arte">
+                <span class="personagem-inicial" id="span_inicial"></span>
+                <span class="personagem-arte-aviso">ARTE DO PERSONAGEM</span>
+            </div>
+
+            <h2 class="personagem-nome" id="h2_personagem"></h2>
+            <span class="personagem-classe" id="span_classe"></span>
+
+            <!-- style="display: none;" = começa escondido. O JavaScript mostra/esconde ao clicar -->
+            <div class="personagem-detalhes" id="div_detalhes" style="display: none;">
+                <span class="detalhes-rotulo-frase">FRASE</span>
+                <p class="detalhes-frase" id="p_frase"></p>
+
+                <span class="detalhes-rotulo-descricao">CARACTERÍSTICAS</span>
+                <p class="detalhes-descricao" id="p_descricao"></p>
+            </div>
+
+            <span class="personagem-dica" id="span_dica">CLIQUE PARA VER AS CARACTERÍSTICAS</span>
+        </section>
+
+        <!-- CENTRO: GRÁFICO DE COLUNAS (suas respostas comparadas com cada classe) -->
+        <section class="card-colunas">
+            <span class="colunas-etiqueta">// SUAS RESPOSTAS VS CADA CLASSE</span>
+            <h2 class="colunas-titulo">AFINIDADE COM AS CLASSES</h2>
+
+            <div class="colunas-area">
+                <canvas id="grafico_colunas"></canvas>
+            </div>
+
+            <p class="colunas-sem-chart" id="p_sem_chart_colunas">Não foi possível carregar o Chart.js (confira a internet).</p>
+            <p class="colunas-resumo">Você é mais parecido com: <span class="colunas-resumo-classe"
+                    id="span_classe_afinidade"></span></p>
+        </section>
+
+        <!-- DIREITA: GRÁFICO DE PIZZA + PALETA DE CORES -->
+        <section class="card-pizza">
+            <span class="pizza-etiqueta">// COMUNIDADE</span>
+            <h2 class="pizza-titulo">PERSONAGEM FAVORITO</h2>
+
+            <div class="pizza-area">
+                <canvas id="grafico_pizza"></canvas>
+            </div>
+
+            <p class="pizza-sem-chart" id="p_sem_chart_pizza">Não foi possível carregar o Chart.js (confira a internet).</p>
+
+            <!-- PALETA: mostra qual cor é de qual personagem. A etiqueta VOCÊ aparece só no seu -->
+            <span class="paleta-titulo">// PALETA</span>
+
+            <div class="paleta-david">
+                <span class="paleta-quadrado-david"></span>
+                <span class="paleta-nome-david">David Martinez</span>
+                <span class="paleta-voce-david" id="voce_david">VOCÊ</span>
+                <span class="paleta-valor-david" id="valor_david"></span>
+            </div>
+
+            <div class="paleta-lucy">
+                <span class="paleta-quadrado-lucy"></span>
+                <span class="paleta-nome-lucy">Lucy</span>
+                <span class="paleta-voce-lucy" id="voce_lucy">VOCÊ</span>
+                <span class="paleta-valor-lucy" id="valor_lucy"></span>
+            </div>
+
+            <div class="paleta-maine">
+                <span class="paleta-quadrado-maine"></span>
+                <span class="paleta-nome-maine">Maine</span>
+                <span class="paleta-voce-maine" id="voce_maine">VOCÊ</span>
+                <span class="paleta-valor-maine" id="valor_maine"></span>
+            </div>
+
+            <div class="paleta-rebecca">
+                <span class="paleta-quadrado-rebecca"></span>
+                <span class="paleta-nome-rebecca">Rebecca</span>
+                <span class="paleta-voce-rebecca" id="voce_rebecca">VOCÊ</span>
+                <span class="paleta-valor-rebecca" id="valor_rebecca"></span>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // ============================================================
+        // DADOS DE EXEMPLO (fixos). Mais tarde estes vetores virão do banco, por uma rota.
+        // ============================================================
+
+        // Gráfico de colunas: cada posição de um vetor combina com a mesma posição dos outros
+        const nomesClasses = ["Nômade", "Mercenário", "Corp"]; // nome de cada coluna
+        const afinidades = [45, 80, 30]; // % de parecença das SUAS respostas com cada classe (mesma ordem acima)
+
+        // Gráfico de pizza: um item por personagem (a ordem é a dos ids da tabela personagem: 1, 2, 3 e 4)
+        const nomesPersonagens = ["David Martinez", "Lucy", "Maine", "Rebecca"];
+        const idsPaleta = ["david", "lucy", "maine", "rebecca"]; // usados para achar os elementos da paleta (voce_david, valor_david...)
+        const coresPersonagens = ["#00e5ff", "#ff32d2", "#e5ff00", "#9fb3c8"]; // cor de cada personagem (mesma cor do quadrado da paleta)
+        const votosPersonagens = [38, 27, 20, 15]; // % de usuários que escolheram cada personagem como favorito
+
+
+        // ============================================================
+        // FUNÇÃO PRINCIPAL: roda quando a página abre
+        // ============================================================
+        function iniciarDashboard() {
+
+            // Quando a dashboard estiver pronta, tire o // das linhas abaixo para só deixar entrar quem fez login.
+            // Por enquanto fica desligado para você conseguir ver o protótipo abrindo a página direto.
+            // if (sessionStorage.ID_USUARIO == undefined) {
+            //     window.location = "../Login-Cadastro/login.html";
+            // }
+
+            // ---------- 1) LÊ O QUE FOI GUARDADO NO LOGIN ----------
+            let nomeUsuario = sessionStorage.NOME_USUARIO;
+            let nomePersonagem = sessionStorage.PERSONAGEM_NOME;
+            let classePersonagem = sessionStorage.PERSONAGEM_CLASSE;
+            let frasePersonagem = sessionStorage.PERSONAGEM_FRASE;
+            let descricaoPersonagem = sessionStorage.PERSONAGEM_DESCRICAO;
+
+            // Se ninguém logou (undefined), usa dados de exemplo só para o protótipo aparecer preenchido
+            if (nomeUsuario == undefined) {
+                nomeUsuario = "Visitante";
+            }
+            if (nomePersonagem == undefined) {
+                nomePersonagem = "David Martinez";
+                classePersonagem = "Mercenário";
+                frasePersonagem = "Escreva aqui a frase do David";
+                descricaoPersonagem = "Garoto de rua que entra para a equipe de Maine.";
+            }
+
+            // ---------- 2) DESCOBRE QUAL É O PERSONAGEM DO USUÁRIO NO VETOR ----------
+            let indicePersonagem = -1; // -1 = não achou
+            for (let i = 0; i < nomesPersonagens.length; i++) {
+                if (nomesPersonagens[i] == nomePersonagem) {
+                    indicePersonagem = i; // guarda a posição dele no vetor
+                }
+            }
+
+            let corPersonagem = "#00e5ff"; // cor padrão (ciano) caso não ache
+            if (indicePersonagem != -1) {
+                corPersonagem = coresPersonagens[indicePersonagem];
+            }
+
+            // ---------- 3) PREENCHE O CARD DO PERSONAGEM ----------
+            span_nome.innerText = nomeUsuario;
+            span_inicial.innerText = nomePersonagem[0]; // [0] = primeira letra (um texto funciona como um vetor de letras)
+            h2_personagem.innerText = nomePersonagem;
+            span_classe.innerText = classePersonagem;
+            p_frase.innerText = frasePersonagem;
+            p_descricao.innerText = descricaoPersonagem;
+
+            // pinta o card com a cor do personagem
+            card_personagem.style.borderTopColor = corPersonagem;
+            span_inicial.style.color = corPersonagem;
+            h2_personagem.style.color = corPersonagem;
+
+            // ---------- 4) PREENCHE A PALETA (porcentagem de cada personagem + etiqueta VOCÊ) ----------
+            for (let i = 0; i < idsPaleta.length; i++) {
+                document.getElementById("valor_" + idsPaleta[i]).innerText = votosPersonagens[i] + "%";
+
+                if (i == indicePersonagem) {
+                    document.getElementById("voce_" + idsPaleta[i]).style.display = "inline-block"; // mostra a etiqueta VOCÊ só no seu
+                }
+            }
+
+            // ---------- 5) PREPARA OS DADOS DOS GRÁFICOS ----------
+            // acha a classe com maior afinidade
+            let indiceMaior = 0;
+            for (let i = 1; i < afinidades.length; i++) {
+                if (afinidades[i] > afinidades[indiceMaior]) {
+                    indiceMaior = i;
+                }
+            }
+            span_classe_afinidade.innerText = nomesClasses[indiceMaior] + " (" + afinidades[indiceMaior] + "%)";
+
+            // coluna de maior afinidade em rosa, as outras em ciano
+            const coresColunas = []; // vetor vazio, vai ser preenchido no for
+            for (let i = 0; i < afinidades.length; i++) {
+                if (i == indiceMaior) {
+                    coresColunas.push("#ff32d2"); // push = adiciona um item no fim do vetor
+                } else {
+                    coresColunas.push("#00e5ff");
+                }
+            }
+
+            // fatia do SEU personagem "puxada para fora" na pizza (24 = distância; 0 = fica no lugar)
+            const afastamentos = [];
+            for (let i = 0; i < nomesPersonagens.length; i++) {
+                if (i == indicePersonagem) {
+                    afastamentos.push(24);
+                } else {
+                    afastamentos.push(0);
+                }
+            }
+
+            // ---------- 6) DESENHA OS GRÁFICOS ----------
+            // typeof Chart == "undefined" quer dizer que o Chart.js não carregou (ex.: sem internet)
+            if (typeof Chart == "undefined") {
+                p_sem_chart_colunas.style.display = "block";
+                p_sem_chart_pizza.style.display = "block";
+            } else {
+                Chart.defaults.color = "#9fb3c8"; // cor padrão dos textos dos gráficos
+                Chart.defaults.font.family = "Rajdhani"; // fonte padrão dos textos dos gráficos
+
+                // ----- GRÁFICO DE COLUNAS (centro) -----
+                const ctxColunas = document.getElementById("grafico_colunas").getContext("2d");
+                new Chart(ctxColunas, {
+                    type: "bar", // bar = colunas
+                    data: {
+                        labels: nomesClasses, // nomes embaixo de cada coluna
+                        datasets: [{
+                            label: "Afinidade (%)",
+                            data: afinidades, // altura de cada coluna
+                            backgroundColor: coresColunas,
+                            borderColor: "#050816",
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false, // deixa o gráfico ocupar a altura da caixa .colunas-area
+                        plugins: {
+                            legend: { display: false } // esconde a legenda (só tem 1 conjunto de dados)
+                        },
+                        scales: {
+                            y: {
+                                min: 0,
+                                max: 100,
+                                title: { display: true, text: "AFINIDADE (%)", color: "#9fb3c8" },
+                                ticks: { color: "#9fb3c8" },
+                                grid: { color: "#12304a" }
+                            },
+                            x: {
+                                ticks: { color: "#e6f7ff", font: { family: "Orbitron", size: 13 } },
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+
+                // ----- GRÁFICO DE PIZZA (direita) -----
+                const ctxPizza = document.getElementById("grafico_pizza").getContext("2d");
+                new Chart(ctxPizza, {
+                    type: "pie", // pie = pizza
+                    data: {
+                        labels: nomesPersonagens, // nome de cada fatia
+                        datasets: [{
+                            label: "Favorito (%)",
+                            data: votosPersonagens, // tamanho de cada fatia
+                            backgroundColor: coresPersonagens, // cor de cada fatia (igual à paleta ao lado)
+                            borderColor: "#050816",
+                            borderWidth: 3,
+                            offset: afastamentos // puxa para fora a fatia do seu personagem
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false } // a legenda é a nossa paleta feita em HTML
+                        }
+                    }
+                });
+            }
+        }
+
+
+        // ============================================================
+        // CLIQUE NO CARD: mostra ou esconde as características do personagem
+        // ============================================================
+        function alternarDetalhes() {
+            if (div_detalhes.style.display == "none") {
+                div_detalhes.style.display = "block"; // estava escondido, então mostra
+                span_dica.innerText = "CLIQUE PARA VOLTAR";
+            } else {
+                div_detalhes.style.display = "none"; // estava aparecendo, então esconde
+                span_dica.innerText = "CLIQUE PARA VER AS CARACTERÍSTICAS";
+            }
+        }
+
+
+        // ============================================================
+        // BOTÃO SAIR: apaga o que foi guardado no login e volta para a tela de login
+        // ============================================================
+        function sair() {
+            sessionStorage.clear();
+            window.location = "../Login-Cadastro/login.html";
+        }
+    </script>
+
+</body>
+
+</html>
