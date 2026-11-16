@@ -30,168 +30,191 @@
         <div class="menu-usuario" id="nome-logado">EDGERUNNER</div>
     </nav>
 
-    <main class="questionario">
-        <section class="questionario-intro">
-            <h1>Questionário de Afinidade</h1>
-            <p>Responda às oito perguntas e descubra o seu perfil no universo Cyberpunk Edgerunners.</p>
-        </section>
+        <main class="questionario">
+            <section class="questionario-intro">
+                <h1>Questionário de Afinidade</h1>
+                <p>Responda às oito perguntas e descubra o seu perfil no universo Cyberpunk Edgerunners.</p>
+            </section>
 
-        <div id="carregando" class="carregando">Verificando status do questionário...</div>
+            <div id="carregando" class="carregando">Verificando status do questionário...</div>
 
-        <form id="form-questionario" class="form-questionario d-none">
-            <div class="grid-perguntas">
-                <article class="card-pergunta">
-                    <h2>1. ESCREVA AQUI A PERGUNTA 1 <!-- TROCAR O TEXTO AQUI --></h2>
+            <form id="form-questionario" class="form-questionario d-none">
+                <div class="questionario-status-bar">
+                    <div class="indicador-pergunta" id="indicador-pergunta">PERGUNTA 1 / 8</div>
+                    <div class="barra-progresso" id="barra-perguntas">
+                        <span data-index="1"></span>
+                        <span data-index="2"></span>
+                        <span data-index="3"></span>
+                        <span data-index="4"></span>
+                        <span data-index="5"></span>
+                        <span data-index="6"></span>
+                        <span data-index="7"></span>
+                        <span data-index="8"></span>
+                    </div>
+                </div>
+
+                <div class="perguntas-container">
+                    <article class="card-pergunta" data-index="1">
+                        <h2>1. ESCREVA AQUI A PERGUNTA 1 <!-- TROCAR O TEXTO AQUI --></h2>
                     <p class="pergunta-explicacao">Selecione a alternativa que combina com você.</p>
                     <div class="alternativas">
                         <label for="q1a">
-                            <input type="radio" id="q1a" name="resposta1" value="Netrunner">
+                            <input type="radio" id="q1a" name="resposta1" value="Netrunner" onclick="selecionarAlternativa(1, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                         <label for="q1b">
-                            <input type="radio" id="q1b" name="resposta1" value="Mercenário">
+                            <input type="radio" id="q1b" name="resposta1" value="Mercenário" onclick="selecionarAlternativa(1, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                         <label for="q1c">
-                            <input type="radio" id="q1c" name="resposta1" value="Nômade">
+                            <input type="radio" id="q1c" name="resposta1" value="Nômade" onclick="selecionarAlternativa(1, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                     </div>
-                </article>
-                <article class="card-pergunta">
+                    </article>
+                    <article class="card-pergunta" data-index="2">
                     <h2>2. ESCREVA AQUI A PERGUNTA 2 <!-- TROCAR O TEXTO AQUI --></h2>
                     <p class="pergunta-explicacao">Escolha a alternativa que mais reflete a sua atitude.</p>
                     <div class="alternativas">
                         <label for="q2a">
-                            <input type="radio" id="q2a" name="resposta2" value="Mercenário">
+                            <input type="radio" id="q2a" name="resposta2" value="Mercenário" onclick="selecionarAlternativa(2, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                         <label for="q2b">
-                            <input type="radio" id="q2b" name="resposta2" value="Nômade">
+                            <input type="radio" id="q2b" name="resposta2" value="Nômade" onclick="selecionarAlternativa(2, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                         <label for="q2c">
-                            <input type="radio" id="q2c" name="resposta2" value="Netrunner">
+                            <input type="radio" id="q2c" name="resposta2" value="Netrunner" onclick="selecionarAlternativa(2, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                     </div>
-                </article>
-                <article class="card-pergunta">
+                    </article>
+                    <article class="card-pergunta" data-index="3">
                     <h2>3. ESCREVA AQUI A PERGUNTA 3 <!-- TROCAR O TEXTO AQUI --></h2>
                     <p class="pergunta-explicacao">Pense em como você reage em missões críticas.</p>
                     <div class="alternativas">
                         <label for="q3a">
-                            <input type="radio" id="q3a" name="resposta3" value="Nômade">
+                            <input type="radio" id="q3a" name="resposta3" value="Nômade" onclick="selecionarAlternativa(3, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                         <label for="q3b">
-                            <input type="radio" id="q3b" name="resposta3" value="Netrunner">
+                            <input type="radio" id="q3b" name="resposta3" value="Netrunner" onclick="selecionarAlternativa(3, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                         <label for="q3c">
-                            <input type="radio" id="q3c" name="resposta3" value="Mercenário">
+                            <input type="radio" id="q3c" name="resposta3" value="Mercenário" onclick="selecionarAlternativa(3, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                     </div>
-                </article>
-                <article class="card-pergunta">
+                    </article>
+                    <article class="card-pergunta" data-index="4">
                     <h2>4. ESCREVA AQUI A PERGUNTA 4 <!-- TROCAR O TEXTO AQUI --></h2>
                     <p class="pergunta-explicacao">Marque a alternativa que descreve sua visão de futuro.</p>
                     <div class="alternativas">
                         <label for="q4a">
-                            <input type="radio" id="q4a" name="resposta4" value="Netrunner">
+                            <input type="radio" id="q4a" name="resposta4" value="Netrunner" onclick="selecionarAlternativa(4, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                         <label for="q4b">
-                            <input type="radio" id="q4b" name="resposta4" value="Nômade">
+                            <input type="radio" id="q4b" name="resposta4" value="Nômade" onclick="selecionarAlternativa(4, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                         <label for="q4c">
-                            <input type="radio" id="q4c" name="resposta4" value="Mercenário">
+                            <input type="radio" id="q4c" name="resposta4" value="Mercenário" onclick="selecionarAlternativa(4, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                     </div>
-                </article>
-                <article class="card-pergunta">
+                    </article>
+                    <article class="card-pergunta" data-index="5">
                     <h2>5. ESCREVA AQUI A PERGUNTA 5 <!-- TROCAR O TEXTO AQUI --></h2>
                     <p class="pergunta-explicacao">Ative a alternativa que soa como você reagiria em Night City.</p>
                     <div class="alternativas">
                         <label for="q5a">
-                            <input type="radio" id="q5a" name="resposta5" value="Mercenário">
+                            <input type="radio" id="q5a" name="resposta5" value="Mercenário" onclick="selecionarAlternativa(5, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                         <label for="q5b">
-                            <input type="radio" id="q5b" name="resposta5" value="Netrunner">
+                            <input type="radio" id="q5b" name="resposta5" value="Netrunner" onclick="selecionarAlternativa(5, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                         <label for="q5c">
-                            <input type="radio" id="q5c" name="resposta5" value="Nômade">
+                            <input type="radio" id="q5c" name="resposta5" value="Nômade" onclick="selecionarAlternativa(5, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                     </div>
-                </article>
-                <article class="card-pergunta">
+                    </article>
+                    <article class="card-pergunta" data-index="6">
                     <h2>6. ESCREVA AQUI A PERGUNTA 6 <!-- TROCAR O TEXTO AQUI --></h2>
                     <p class="pergunta-explicacao">Escolha a alternativa que combina com sua ética.</p>
                     <div class="alternativas">
                         <label for="q6a">
-                            <input type="radio" id="q6a" name="resposta6" value="Nômade">
+                            <input type="radio" id="q6a" name="resposta6" value="Nômade" onclick="selecionarAlternativa(6, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                         <label for="q6b">
-                            <input type="radio" id="q6b" name="resposta6" value="Mercenário">
+                            <input type="radio" id="q6b" name="resposta6" value="Mercenário" onclick="selecionarAlternativa(6, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                         <label for="q6c">
-                            <input type="radio" id="q6c" name="resposta6" value="Netrunner">
+                            <input type="radio" id="q6c" name="resposta6" value="Netrunner" onclick="selecionarAlternativa(6, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                     </div>
-                </article>
-                <article class="card-pergunta">
+                    </article>
+                    <article class="card-pergunta" data-index="7">
                     <h2>7. ESCREVA AQUI A PERGUNTA 7 <!-- TROCAR O TEXTO AQUI --></h2>
                     <p class="pergunta-explicacao">Indique o que mais se alinha com o seu estilo de jogo.</p>
                     <div class="alternativas">
                         <label for="q7a">
-                            <input type="radio" id="q7a" name="resposta7" value="Netrunner">
+                            <input type="radio" id="q7a" name="resposta7" value="Netrunner" onclick="selecionarAlternativa(7, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                         <label for="q7b">
-                            <input type="radio" id="q7b" name="resposta7" value="Mercenário">
+                            <input type="radio" id="q7b" name="resposta7" value="Mercenário" onclick="selecionarAlternativa(7, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                         <label for="q7c">
-                            <input type="radio" id="q7c" name="resposta7" value="Nômade">
+                            <input type="radio" id="q7c" name="resposta7" value="Nômade" onclick="selecionarAlternativa(7, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                     </div>
-                </article>
-                <article class="card-pergunta">
+                    </article>
+                    <article class="card-pergunta" data-index="8">
                     <h2>8. ESCREVA AQUI A PERGUNTA 8 <!-- TROCAR O TEXTO AQUI --></h2>
                     <p class="pergunta-explicacao">Finalize marcando a opção que parece com sua narrativa.</p>
                     <div class="alternativas">
                         <label for="q8a">
-                            <input type="radio" id="q8a" name="resposta8" value="Mercenário">
+                            <input type="radio" id="q8a" name="resposta8" value="Mercenário" onclick="selecionarAlternativa(8, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                         <label for="q8b">
-                            <input type="radio" id="q8b" name="resposta8" value="Nômade">
+                            <input type="radio" id="q8b" name="resposta8" value="Nômade" onclick="selecionarAlternativa(8, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                         <label for="q8c">
-                            <input type="radio" id="q8c" name="resposta8" value="Netrunner">
+                            <input type="radio" id="q8c" name="resposta8" value="Netrunner" onclick="selecionarAlternativa(8, this)">
                             <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
                         </label>
                     </div>
-                </article>
-            </div>
-            <button type="button" class="botao-enviar" onclick="enviarQuestionario()">Enviar respostas</button>
-            <div id="div_msg"></div>
-        </form>
-    </main>
+                    </article>
+                </div>
+
+                <div class="questionario-rodape">
+                    <button type="button" class="botao-navegacao" id="btn-voltar" onclick="voltarPergunta()" disabled>VOLTAR</button>
+                    <button type="button" class="botao-navegacao" id="btn-proxima" onclick="avancarPergunta()" disabled>PRÓXIMA</button>
+                    <button type="button" class="botao-navegacao" id="btn-finalizar" onclick="enviarQuestionario()" disabled style="display: none;">FINALIZAR QUESTIONÁRIO</button>
+                </div>
+                <div id="div_msg"></div>
+            </form>
+        </main>
 
     <script>
         let div_msg;
+        let perguntasElementos;
+        let respostasUsuario = [];
+        let perguntaAtual = 1;
+        const totalPerguntas = 8;
 
         function iniciarQuestionario() {
             div_msg = document.getElementById("div_msg");
@@ -217,7 +240,159 @@
                                     document.getElementById("carregando").classList.add("d-none");
                                     document.getElementById("form-questionario").classList.remove("d-none");
                                     mostrarMensagem("Escolha uma alternativa para cada pergunta.", "sucesso");
+                                    prepararQuestionario();
                                 }
+                            });
+                        }
+                    })
+                    .catch(function () {
+                        mostrarMensagem("Não foi possível conectar ao servidor.", "erro");
+                    });
+            }
+        }
+
+        function prepararQuestionario() {
+            perguntasElementos = document.querySelectorAll(".card-pergunta");
+            respostasUsuario = [];
+            for (let i = 0; i < totalPerguntas; i++) {
+                respostasUsuario.push("");
+            }
+            mostrarPergunta(1);
+        }
+
+        function mostrarPergunta(numero) {
+            perguntaAtual = numero;
+            for (let i = 0; i < perguntasElementos.length; i++) {
+                if (Number(perguntasElementos[i].getAttribute("data-index")) === numero) {
+                    perguntasElementos[i].style.display = "block";
+                } else {
+                    perguntasElementos[i].style.display = "none";
+                }
+            }
+            atualizarIndicador();
+            atualizarBarra();
+            atualizarSelecao();
+            atualizarBotoes();
+        }
+
+        function atualizarIndicador() {
+            const indicador = document.getElementById("indicador-pergunta");
+            indicador.innerText = "PERGUNTA " + perguntaAtual + " / " + totalPerguntas;
+        }
+
+        function atualizarBarra() {
+            const blocos = document.querySelectorAll("#barra-perguntas span");
+            for (let i = 0; i < blocos.length; i++) {
+                if (i < perguntaAtual) {
+                    blocos[i].setAttribute("class", "progresso-ativo");
+                } else {
+                    blocos[i].setAttribute("class", "");
+                }
+            }
+        }
+
+        function atualizarSelecao() {
+            const nomeCampo = "resposta" + perguntaAtual;
+            const opcoes = document.getElementsByName(nomeCampo);
+            const valorAtual = respostasUsuario[perguntaAtual - 1];
+            for (let i = 0; i < opcoes.length; i++) {
+                const label = opcoes[i].parentNode;
+            if (opcoes[i].value === valorAtual && valorAtual !== "") {
+                opcoes[i].checked = true;
+                label.setAttribute("data-ativa", "true");
+            } else {
+                opcoes[i].checked = false;
+                label.removeAttribute("data-ativa");
+            }
+            }
+        }
+
+        function selecionarAlternativa(numero, elemento) {
+            respostasUsuario[numero - 1] = elemento.value;
+            destacarAlternativas(numero, elemento.value);
+            atualizarBotoes();
+        }
+
+        function destacarAlternativas(numero, valorSelecionado) {
+            const nomeCampo = "resposta" + numero;
+            const opcoes = document.getElementsByName(nomeCampo);
+            for (let i = 0; i < opcoes.length; i++) {
+                const label = opcoes[i].parentNode;
+                if (opcoes[i].value === valorSelecionado) {
+                    label.setAttribute("data-ativa", "true");
+                } else {
+                    label.removeAttribute("data-ativa");
+                }
+            }
+        }
+
+        function atualizarBotoes() {
+            const btnVoltar = document.getElementById("btn-voltar");
+            const btnProxima = document.getElementById("btn-proxima");
+            const btnFinalizar = document.getElementById("btn-finalizar");
+            const temSelecao = respostasUsuario[perguntaAtual - 1] !== "";
+            btnVoltar.disabled = perguntaAtual === 1;
+            if (perguntaAtual === totalPerguntas) {
+                btnProxima.style.display = "none";
+                btnFinalizar.style.display = "inline-block";
+                btnFinalizar.disabled = !temSelecao;
+            } else {
+                btnProxima.style.display = "inline-block";
+                btnFinalizar.style.display = "none";
+                btnProxima.disabled = !temSelecao;
+            }
+        }
+
+        function voltarPergunta() {
+            if (perguntaAtual > 1) {
+                mostrarPergunta(perguntaAtual - 1);
+            }
+        }
+
+        function avancarPergunta() {
+            if (respostasUsuario[perguntaAtual - 1] === "") {
+                mostrarMensagem("Selecione uma alternativa antes de avançar.", "erro");
+                return;
+            }
+            if (perguntaAtual < totalPerguntas) {
+                mostrarPergunta(perguntaAtual + 1);
+            }
+        }
+
+        function enviarQuestionario() {
+            if (!sessionStorage.ID_USUARIO) {
+                window.location = "../Login-Cadastro/login.html";
+            } else {
+                for (let i = 0; i < totalPerguntas; i++) {
+                    if (respostasUsuario[i] === "") {
+                        mostrarMensagem("Todas as perguntas são obrigatórias.", "erro");
+                        return;
+                    }
+                }
+                const payload = {
+                    idUsuario: sessionStorage.ID_USUARIO
+                };
+                for (let i = 0; i < totalPerguntas; i++) {
+                    const nome = "resposta" + (i + 1);
+                    payload[nome] = respostasUsuario[i];
+                }
+                mostrarMensagem("Enviando respostas...");
+                fetch("/questionario/responder", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                })
+                    .then(function (resposta) {
+                        if (!resposta.ok) {
+                            resposta.text().then(function (texto) {
+                                mostrarMensagem(texto, "erro");
+                            });
+                        } else {
+                            resposta.json().then(function () {
+                                mostrarMensagem("Respostas salvas! Redirecionando...");
+                                setTimeout(function () {
+                                    window.location = "../Dashboard/dashboard.html";
+                                }, 900);
                             });
                         }
                     })
@@ -233,58 +408,6 @@
             }
             div_msg.className = tipo == "erro" ? "mensagem msg-erro" : "mensagem msg-sucesso";
             div_msg.innerHTML = texto;
-        }
-
-        function enviarQuestionario() {
-            if (!sessionStorage.ID_USUARIO) {
-                window.location = "../Login-Cadastro/login.html";
-            } else {
-                const payload = {
-                    idUsuario: sessionStorage.ID_USUARIO
-                };
-                let valido = true;
-                for (let i = 1; i <= 8 && valido; i++) {
-                    const nome = "resposta" + i;
-                    const opcoes = document.getElementsByName(nome);
-                    let selecionado = "";
-                    for (let j = 0; j < opcoes.length && selecionado === ""; j++) {
-                        if (opcoes[j].checked) {
-                            selecionado = opcoes[j].value;
-                        }
-                    }
-                    if (selecionado === "") {
-                        mostrarMensagem("Todas as perguntas são obrigatórias.", "erro");
-                        valido = false;
-                    } else {
-                        payload[nome] = selecionado;
-                    }
-                }
-                if (valido) {
-                    mostrarMensagem("Enviando respostas...");
-                    fetch("/questionario/responder", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(payload)
-                    })
-                        .then(function (resposta) {
-                            if (!resposta.ok) {
-                                resposta.text().then(function (texto) {
-                                    mostrarMensagem(texto, "erro");
-                                });
-                            } else {
-                                resposta.json().then(function () {
-                                    mostrarMensagem("Respostas salvas! Redirecionando...");
-                                    setTimeout(function () {
-                                        window.location = "../Dashboard/dashboard.html";
-                                    }, 900);
-                                });
-                            }
-                        })
-                        .catch(function () {
-                            mostrarMensagem("Não foi possível conectar ao servidor.", "erro");
-                        });
-                }
-            }
         }
 
         window.addEventListener("load", iniciarQuestionario);

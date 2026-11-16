@@ -104,38 +104,7 @@
 
 > No front, não embaralhar as alternativas; mantenha as letras e as classes exatamente nesta ordem.
 
-1. Lucy sonha em chegar à Lua para escapar de Night City. Qual seria o seu sonho?
-   - A) Escapar pela rede e encontrar um lugar onde ninguém consiga me rastrear ou controlar. (Netrunner)
-   - B) Ficar tão famoso que a cidade nunca mais me ignore, mesmo que o preço seja alto. (Mercenário)
-   - C) Partir por terra, com quem eu amo, e encontrar um lar longe do alcance das corporações. (Nômade)
-2. A equipe de Maine funciona quase como uma família. O que você espera de um grupo?
-   - A) Profissionalismo: cada um cumpre sua função e o trabalho sai limpo, sem drama. (Mercenário)
-   - B) Lealdade acima de tudo: o grupo é minha família e ninguém fica para trás. (Nômade)
-   - C) Que confiem na informação que eu trago, porque um bom plano evita metade das balas. (Netrunner)
-3. David recebe um implante poderoso que cobra um preço do corpo e da mente. O que você faria?
-   - A) Usaria o mínimo possível, preferindo confiar na equipe, no veículo e no instinto. (Nômade)
-   - B) Estudaria cada risco e cada falha antes de instalar, tratando meu corpo como um sistema. (Netrunner)
-   - C) Instalaria sem hesitar, porque em Night City quem não evolui fica para trás. (Mercenário)
-4. Um trabalho dá errado e o plano desmorona. Qual é o seu primeiro movimento?
-   - A) Invadir o sistema do local para fechar portas, cortar câmeras e abrir uma saída. (Netrunner)
-   - B) Reunir a equipe, garantir que todos saiam vivos e escapar no veículo. (Nômade)
-   - C) Abrir caminho à força e terminar o serviço, mesmo saindo ferido. (Mercenário)
-5. Um amigo está se perdendo por causa do excesso de implantes, como acontece com Maine. O que você faz?
-   - A) Respeito a escolha dele e luto ao seu lado até o fim, mesmo sabendo como termina. (Mercenário)
-   - B) Procuro uma solução técnica: dados, médicos, qualquer brecha que freie o processo. (Netrunner)
-   - C) Tento tirá-lo da cidade e afastá-lo do ritmo que o destrói, nem que ele fique bravo comigo. (Nômade)
-6. O que mais te incomoda em Night City?
-   - A) Perder o direito de partir quando quiser, preso a um ciclo sem saída. (Nômade)
-   - B) Viver e morrer sem que ninguém lembre o seu nome. (Mercenário)
-   - C) Corporações esconderem a verdade e decidirem quem vive e quem morre. (Netrunner)
-7. A equipe enfrenta um inimigo muito mais forte, como Adam Smasher. Qual é a sua postura?
-   - A) Procuro a única fraqueza dele: um acesso, uma falha de sistema, um ponto cego. (Netrunner)
-   - B) Enfrento mesmo assim: se for para cair, que seja lutando no auge. (Mercenário)
-   - C) Evito o confronto e tiro todos de lá, porque sobreviver vale mais que vencer. (Nômade)
-8. Como você gostaria de ser lembrado em Night City?
-   - A) Como uma lenda que viveu intensamente e fez a cidade ouvir o meu nome. (Mercenário)
-   - B) Como alguém que protegeu os seus e deixou a família mais segura. (Nômade)
-   - C) Como quem descobriu o que ninguém via e abriu caminhos para outros saírem. (Netrunner)
+
 
 ## 12. Tabela de personagens existentes (dados do banco)
 
