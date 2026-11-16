@@ -82,11 +82,11 @@ a {
 
 .david-titulo span {
     color: cyan;
-    text-shadow:
+    /* text-shadow:
         0 0 20px #ff00c8,
         0 0 10px #ff00c8,
         0 0 20px #ff00c8,
-        0 0 40px #ff0080;
+        0 0 40px #ff0080; */
 }
 
 
@@ -175,11 +175,11 @@ a {
 
 .lucy-titulo span {
     color: #ff32d2;
-    text-shadow:
+    /* text-shadow:
         0 0 20px cyan,
         0 0 10px cyan,
         0 0 20px cyan,
-        0 0 40px cyan;
+        0 0 40px cyan; */
 
 }
 
