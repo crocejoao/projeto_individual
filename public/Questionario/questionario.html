@@ -211,7 +211,7 @@
 
     <script>
         let div_msg;
-        let perguntasElementos;
+        let perguntasElementos = [];
         let respostasUsuario = [];
         let perguntaAtual = 1;
         const totalPerguntas = 8;
@@ -221,33 +221,47 @@
             const nomeUsuario = document.getElementById("nome-logado");
             if (!sessionStorage.ID_USUARIO) {
                 window.location = "../Login-Cadastro/login.html";
-            } else {
-                nomeUsuario.innerText = sessionStorage.NOME_USUARIO || "EDGERUNNER";
-                mostrarMensagem("Buscando status do questionário...");
-                const idUsuario = sessionStorage.ID_USUARIO;
-                fetch("/questionario/resultado/" + idUsuario)
-                    .then(function (resposta) {
-                        if (!resposta.ok) {
-                            mostrarMensagem("Não foi possível verificar o status.", "erro");
-                        } else {
-                            resposta.json().then(function (json) {
-                                if (json.respondido == true) {
-                                    mostrarMensagem("Você já respondeu. Redirecionando...");
-                                    setTimeout(function () {
-                                        window.location = "../Dashboard/dashboard.html";
-                                    }, 800);
-                                } else {
-                                    document.getElementById("carregando").classList.add("d-none");
-                                    document.getElementById("form-questionario").classList.remove("d-none");
-                                    mostrarMensagem("Escolha uma alternativa para cada pergunta.", "sucesso");
-                                    prepararQuestionario();
-                                }
-                            });
-                        }
-                    })
-                    .catch(function () {
-                        mostrarMensagem("Não foi possível conectar ao servidor.", "erro");
-                    });
+                return;
+            }
+            nomeUsuario.innerText = sessionStorage.NOME_USUARIO || "EDGERUNNER";
+            mostrarMensagem("Buscando status do questionário...");
+            const idUsuario = sessionStorage.ID_USUARIO;
+            fetch("/questionario/resultado/" + idUsuario)
+                .then(function (resposta) {
+                    if (!resposta.ok) {
+                        mostrarMensagem("Não foi possível verificar o status.", "erro");
+                    } else {
+                        resposta.json().then(function (json) {
+                            if (json.respondido === true) {
+                                mostrarMensagem("Você já respondeu. Redirecionando...", "sucesso");
+                                setTimeout(function () {
+                                    window.location = "../Dashboard/dashboard.html";
+                                }, 800);
+                            } else {
+                                ocultarCarregando();
+                                revelarFormulario();
+                                mostrarMensagem("Escolha uma alternativa para cada pergunta.", "sucesso");
+                                prepararQuestionario();
+                            }
+                        });
+                    }
+                })
+                .catch(function () {
+                    mostrarMensagem("Não foi possível conectar ao servidor.", "erro");
+                });
+        }
+
+        function ocultarCarregando() {
+            const carregando = document.getElementById("carregando");
+            if (carregando) {
+                carregando.setAttribute("class", "carregando d-none");
+            }
+        }
+
+        function revelarFormulario() {
+            const form = document.getElementById("form-questionario");
+            if (form) {
+                form.setAttribute("class", "form-questionario");
             }
         }
 
@@ -263,10 +277,12 @@
         function mostrarPergunta(numero) {
             perguntaAtual = numero;
             for (let i = 0; i < perguntasElementos.length; i++) {
-                if (Number(perguntasElementos[i].getAttribute("data-index")) === numero) {
-                    perguntasElementos[i].style.display = "block";
+                const elemento = perguntasElementos[i];
+                const index = Number(elemento.getAttribute("data-index"));
+                if (index === numero) {
+                    elemento.style.display = "block";
                 } else {
-                    perguntasElementos[i].style.display = "none";
+                    elemento.style.display = "none";
                 }
             }
             atualizarIndicador();
@@ -297,13 +313,13 @@
             const valorAtual = respostasUsuario[perguntaAtual - 1];
             for (let i = 0; i < opcoes.length; i++) {
                 const label = opcoes[i].parentNode;
-            if (opcoes[i].value === valorAtual && valorAtual !== "") {
-                opcoes[i].checked = true;
-                label.setAttribute("data-ativa", "true");
-            } else {
-                opcoes[i].checked = false;
-                label.removeAttribute("data-ativa");
-            }
+                if (opcoes[i].value === valorAtual && valorAtual !== "") {
+                    opcoes[i].checked = true;
+                    label.setAttribute("data-ativa", "true");
+                } else {
+                    opcoes[i].checked = false;
+                    label.removeAttribute("data-ativa");
+                }
             }
         }
 
@@ -362,51 +378,53 @@
         function enviarQuestionario() {
             if (!sessionStorage.ID_USUARIO) {
                 window.location = "../Login-Cadastro/login.html";
-            } else {
-                for (let i = 0; i < totalPerguntas; i++) {
-                    if (respostasUsuario[i] === "") {
-                        mostrarMensagem("Todas as perguntas são obrigatórias.", "erro");
-                        return;
-                    }
-                }
-                const payload = {
-                    idUsuario: sessionStorage.ID_USUARIO
-                };
-                for (let i = 0; i < totalPerguntas; i++) {
-                    const nome = "resposta" + (i + 1);
-                    payload[nome] = respostasUsuario[i];
-                }
-                mostrarMensagem("Enviando respostas...");
-                fetch("/questionario/responder", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload)
-                })
-                    .then(function (resposta) {
-                        if (!resposta.ok) {
-                            resposta.text().then(function (texto) {
-                                mostrarMensagem(texto, "erro");
-                            });
-                        } else {
-                            resposta.json().then(function () {
-                                mostrarMensagem("Respostas salvas! Redirecionando...");
-                                setTimeout(function () {
-                                    window.location = "../Dashboard/dashboard.html";
-                                }, 900);
-                            });
-                        }
-                    })
-                    .catch(function () {
-                        mostrarMensagem("Não foi possível conectar ao servidor.", "erro");
-                    });
+                return;
             }
+            for (let i = 0; i < totalPerguntas; i++) {
+                if (respostasUsuario[i] === "") {
+                    mostrarMensagem("Todas as perguntas são obrigatórias.", "erro");
+                    return;
+                }
+            }
+            const payload = { idUsuario: sessionStorage.ID_USUARIO };
+            for (let i = 0; i < totalPerguntas; i++) {
+                const nome = "resposta" + (i + 1);
+                payload[nome] = respostasUsuario[i];
+            }
+            mostrarMensagem("Enviando respostas...");
+            fetch("/questionario/responder", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+                .then(function (resposta) {
+                    if (!resposta.ok) {
+                        resposta.text().then(function (texto) {
+                            mostrarMensagem(texto, "erro");
+                        });
+                    } else {
+                        resposta.json().then(function () {
+                            mostrarMensagem("Respostas salvas! Redirecionando...", "sucesso");
+                            setTimeout(function () {
+                                window.location = "../Dashboard/dashboard.html";
+                            }, 900);
+                        });
+                    }
+                })
+                .catch(function () {
+                    mostrarMensagem("Não foi possível conectar ao servidor.", "erro");
+                });
         }
 
         function mostrarMensagem(texto, tipo) {
             if (!div_msg) {
                 div_msg = document.getElementById("div_msg");
             }
-            div_msg.className = tipo == "erro" ? "mensagem msg-erro" : "mensagem msg-sucesso";
+            if (tipo === "erro") {
+                div_msg.className = "mensagem msg-erro";
+            } else {
+                div_msg.className = "mensagem msg-sucesso";
+            }
             div_msg.innerHTML = texto;
         }
 
