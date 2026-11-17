@@ -1,6 +1,22 @@
 const questionarioModel = require("../models/questionarioModel");
 
-function montarResposta(respostas, contagens, porcentagens, classePredominante) {
+function calcularPredominancias(contagens) {
+    var maior = contagens.netrunner;
+    if (contagens.mercenario > maior) {
+        maior = contagens.mercenario;
+    }
+    if (contagens.nomade > maior) {
+        maior = contagens.nomade;
+    }
+    return {
+        maior: maior,
+        netrunnerPredominante: contagens.netrunner == maior,
+        mercenarioPredominante: contagens.mercenario == maior,
+        nomadePredominante: contagens.nomade == maior
+    };
+}
+
+function montarResposta(respostas, contagens, porcentagens, classePredominante, predominancias) {
     return {
         respondido: true,
         classePredominante: classePredominante,
@@ -10,6 +26,9 @@ function montarResposta(respostas, contagens, porcentagens, classePredominante) 
         pctNetrunner: porcentagens.netrunner,
         pctMercenario: porcentagens.mercenario,
         pctNomade: porcentagens.nomade,
+        netrunnerPredominante: predominancias.netrunnerPredominante,
+        mercenarioPredominante: predominancias.mercenarioPredominante,
+        nomadePredominante: predominancias.nomadePredominante,
         respostas: respostas
     };
 }
@@ -71,14 +90,8 @@ function responder(req, res) {
         nomade: parseFloat(((contagens.nomade / 8) * 100).toFixed(1))
     };
 
-    var maior = contagens.netrunner;
-    if (contagens.mercenario > maior) {
-        maior = contagens.mercenario;
-    }
-    if (contagens.nomade > maior) {
-        maior = contagens.nomade;
-    }
-
+    var predominancias = calcularPredominancias(contagens);
+    var maior = predominancias.maior;
     var classesVencedoras = [];
     if (contagens.netrunner == maior) {
         classesVencedoras.push("Netrunner");
@@ -101,7 +114,7 @@ function responder(req, res) {
 
             questionarioModel.inserirResultadoQuestionario(idUsuario, respostas, contagens, porcentagens, classePredominante)
                 .then(function () {
-                    res.status(201).json(montarResposta(respostas, contagens, porcentagens, classePredominante));
+                    res.status(201).json(montarResposta(respostas, contagens, porcentagens, classePredominante, predominancias));
                 })
                 .catch(function (erro) {
                     console.log(erro);
@@ -145,6 +158,12 @@ function resultado(req, res) {
                     mercenario: parseFloat(registro.pct_mercenario),
                     nomade: parseFloat(registro.pct_nomade)
                 };
+                var contagens = {
+                    netrunner: registro.pontos_netrunner,
+                    mercenario: registro.pontos_mercenario,
+                    nomade: registro.pontos_nomade
+                };
+                var predominancias = calcularPredominancias(contagens);
                 res.json(montarResposta(respostas, contagens, porcentagens, registro.classe_predominante));
             } else {
                 res.json({
