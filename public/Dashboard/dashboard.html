@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css-cyberpunk/header.css">
+    <link rel="stylesheet" href="../css-cyberpunk/style.css">
+    <link rel="stylesheet" href="../css-cyberpunk/dashboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Dashboard · Cyberpunk Edgerunners</title>
+    
+</head>
+
+<body>
+    <nav class="menu">
+        <a class="logo" href="../index-cyberpunk.html">
+            <img src="../Icons-cyberpunk/Logo neon Cyberpunk_ Edgerunners.png" alt="Cyberpunk Edgerunners">
+        </a>
+        <div class="menu-fundo"></div>
+        <div class="menu-links">
+            <a href="../index-cyberpunk.html">HOME</a>
+            <a href="../index-cyberpunk.html#sobre">SOBRE</a>
+            <a href="../index-cyberpunk.html#mercenarios">MERCENÁRIOS</a>
+            <a href="../index-cyberpunk.html#nightcity">NIGHT CITY</a>
+            <a href="../Login-Cadastro/login.html">LOGIN</a>
+        </div>
+        <div class="menu-usuario" id="nome-logado">EDGERUNNER</div>
+    </nav>
+
+    <main class="dashboard">
+        <section class="dashboard-intro">
+            <h1>Dashboard de Afinidade</h1>
+            <p>Os dados são recuperados diretamente do servidor assim que você chega aqui.</p>
+        </section>
+
+        <div id="div_msg_dashboard" class="mensagem"></div>
+        <div id="carregando-dashboard" class="carregando">Consultando seus resultados...</div>
+
+        <section class="kpi-grid">
+            <article class="kpi-card">
+                <p>Classe predominante</p>
+                <div id="kpi-classe"></div>
+            </article>
+            <article class="kpi-card">
+                <p>Pontos da(s) classe(s)</p>
+                <strong id="kpi-pontos">0/8</strong>
+            </article>
+            <article class="kpi-card">
+                <p>Frações e porcentagem</p>
+                <strong id="kpi-fracao">0/8 = 0%</strong>
+            </article>
+        </section>
+
+        <section class="pontuacoes">
+            <div class="pontuacao-card">
+                <span>Netrunner</span>
+                <strong id="valor-netrunner">0/8</strong>
+                <small id="porcentagem-netrunner">0%</small>
+            </div>
+            <div class="pontuacao-card">
+                <span>Mercenário</span>
+                <strong id="valor-mercenario">0/8</strong>
+                <small id="porcentagem-mercenario">0%</small>
+            </div>
+            <div class="pontuacao-card">
+                <span>Nômade</span>
+                <strong id="valor-nomade">0/8</strong>
+                <small id="porcentagem-nomade">0%</small>
+            </div>
+        </section>
+
+        <section class="grafico-area">
+            <canvas id="graficoRadar"></canvas>
+            <div id="grafico-fallback" class="grafico-fallback d-none">
+                <p>Não foi possível carregar o Chart.js (confira a internet).</p>
+                <div id="grafico-barras"></div>
+            </div>
+        </section>
+
+        <section class="personagem-card">
+            <div class="area-imagem">
+                <!-- Aqui entra a imagem do personagem quando o if estiver pronto -->
+                <span>Área reservada para a imagem do personagem favorito.</span>
+            </div>
+            <div class="personagem-texto">
+                <h3 id="personagem-nome">Personagem</h3>
+                <p id="personagem-classe">Classe</p>
+                <p id="personagem-frase">Frase do personagem</p>
+                <p id="personagem-descricao">Descrição do personagem</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let graficoRadar = null;
+        let div_msg = null;
+
+        function iniciarDashboard() {
+            div_msg = document.getElementById("div_msg_dashboard");
+            if (!sessionStorage.ID_USUARIO) {
+                window.location = "../Login-Cadastro/login.html";
+            } else {
+                document.getElementById("nome-logado").innerText = sessionStorage.NOME_USUARIO || "EDGERUNNER";
+                document.getElementById("personagem-nome").innerText = sessionStorage.PERSONAGEM_NOME || "Personagem";
+                document.getElementById("personagem-frase").innerText = sessionStorage.PERSONAGEM_FRASE || "";
+                document.getElementById("personagem-descricao").innerText = sessionStorage.PERSONAGEM_DESCRICAO || "";
+                document.getElementById("personagem-classe").innerText = sessionStorage.PERSONAGEM_CLASSE || "Classe";
+                mostrarMensagem("Consultando resultado do questionário...");
+                fetchResultado();
+            }
+        }
+
+        function mostrarMensagem(texto, tipo) {
+            if (!div_msg) {
+                div_msg = document.getElementById("div_msg_dashboard");
+            }
+            div_msg.className = tipo == "erro" ? "mensagem msg-erro" : "mensagem msg-sucesso";
+            div_msg.innerHTML = texto;
+        }
+
+        function fetchResultado() {
+            const idUsuario = sessionStorage.ID_USUARIO;
+            fetch("/questionario/resultado/" + idUsuario)
+                .then(function (resposta) {
+                    if (!resposta.ok) {
+                        mostrarMensagem("Erro ao buscar resultado.", "erro");
+                    } else {
+                        resposta.json().then(function (json) {
+                            if (json.respondido == false) {
+                                window.location = "../Questionario/questionario.html";
+                            } else {
+                                document.getElementById("carregando-dashboard").classList.add("d-none");
+                                mostrarMensagem("Resultado carregado.", "sucesso");
+                                preencherDashboard(json);
+                            }
+                        });
+                    }
+                })
+                .catch(function () {
+                    mostrarMensagem("Não foi possível conectar ao servidor.", "erro");
+                });
+        }
+
+        function preencherDashboard(dados) {
+            const classeContainer = document.getElementById("kpi-classe");
+            classeContainer.innerHTML = "";
+            const classes = dados.classePredominante.split(" e ");
+            for (let i = 0; i < classes.length; i++) {
+                const tag = document.createElement("span");
+                tag.className = "tag-classe";
+                const classeAtual = classes[i];
+                let corClasse = "rgba(138, 255, 164, .7)";
+                if (classeAtual == "Netrunner") {
+                    corClasse = "rgba(0, 216, 255, .7)";
+                } else if (classeAtual == "Mercenário") {
+                    corClasse = "rgba(255, 214, 51, .7)";
+                }
+                tag.style.background = corClasse;
+                tag.style.color = "#030712";
+                tag.innerText = classeAtual;
+                classeContainer.appendChild(tag);
+            }
+
+            const pontosDominante = Math.max(dados.pontosNetrunner, dados.pontosMercenario, dados.pontosNomade);
+            document.getElementById("kpi-pontos").innerText = pontosDominante + " / 8";
+            let pontosPrimario = 0;
+            let porcentagemPrimaria = 0;
+            if (classes[0] == "Netrunner") {
+                pontosPrimario = dados.pontosNetrunner;
+                porcentagemPrimaria = dados.pctNetrunner;
+            } else if (classes[0] == "Mercenário") {
+                pontosPrimario = dados.pontosMercenario;
+                porcentagemPrimaria = dados.pctMercenario;
+            } else {
+                pontosPrimario = dados.pontosNomade;
+                porcentagemPrimaria = dados.pctNomade;
+            }
+            const textoFracao = pontosPrimario + "/8 = " + Number(porcentagemPrimaria).toFixed(1).replace('.', ',') + "%";
+            document.getElementById("kpi-fracao").innerText = textoFracao;
+
+            document.getElementById("valor-netrunner").innerText = dados.pontosNetrunner + "/8";
+            document.getElementById("porcentagem-netrunner").innerText = Number(dados.pctNetrunner).toFixed(1).replace('.', ',') + "%";
+            document.getElementById("valor-mercenario").innerText = dados.pontosMercenario + "/8";
+            document.getElementById("porcentagem-mercenario").innerText = Number(dados.pctMercenario).toFixed(1).replace('.', ',') + "%";
+            document.getElementById("valor-nomade").innerText = dados.pontosNomade + "/8";
+            document.getElementById("porcentagem-nomade").innerText = Number(dados.pctNomade).toFixed(1).replace('.', ',') + "%";
+
+            montarGrafico(dados);
+        }
+
+        function montarGrafico(dados) {
+            const canvas = document.getElementById("graficoRadar");
+            const fallback = document.getElementById("grafico-fallback");
+            if (typeof Chart == "undefined") {
+                canvas.classList.add("d-none");
+                fallback.classList.remove("d-none");
+                renderizarBarras(dados);
+            } else {
+                fallback.classList.add("d-none");
+                canvas.classList.remove("d-none");
+
+                if (graficoRadar) {
+                    graficoRadar.destroy();
+                }
+
+                const ctx = canvas.getContext("2d");
+                graficoRadar = new Chart(ctx, {
+                    type: "radar",
+                    data: {
+                        labels: ["Netrunner", "Mercenário", "Nômade"],
+                        datasets: [{
+                            label: "Pontuação",
+                            data: [dados.pontosNetrunner, dados.pontosMercenario, dados.pontosNomade],
+                            borderColor: "#00d8ff",
+                            backgroundColor: "rgba(0, 216, 255, .25)",
+                            pointBackgroundColor: ["#00d8ff", "#ffd633", "#8affa4"],
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            r: {
+                                pointLabels: { color: "#ffffff" },
+                                grid: { color: "rgba(255, 255, 255, .15)" },
+                                angleLines: { color: "rgba(255, 255, 255, .2)" },
+                                suggestedMin: 0,
+                                suggestedMax: 8,
+                                ticks: {
+                                    stepSize: 1,
+                                    color: "#ffffff"
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: "#f5f5f5"
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        function renderizarBarras(dados) {
+            const container = document.getElementById("grafico-barras");
+            container.innerHTML = "";
+            const classes = [
+                {
+                    nome: "Netrunner",
+                    pontos: dados.pontosNetrunner,
+                    porcentagem: dados.pctNetrunner,
+                    cor: "var(--ciano)"
+                },
+                {
+                    nome: "Mercenário",
+                    pontos: dados.pontosMercenario,
+                    porcentagem: dados.pctMercenario,
+                    cor: "var(--amarelo)"
+                },
+                {
+                    nome: "Nômade",
+                    pontos: dados.pontosNomade,
+                    porcentagem: dados.pctNomade,
+                    cor: "var(--verde)"
+                }
+            ];
+
+            for (let i = 0; i < classes.length; i++) {
+                const bloco = document.createElement("div");
+                bloco.className = "barra-unica";
+
+                const texto = document.createElement("div");
+                texto.className = "barra-texto";
+                texto.innerText = classes[i].nome + " — " + classes[i].pontos + "/8 = " + Number(classes[i].porcentagem).toFixed(1).replace('.', ',') + "%";
+
+                const barra = document.createElement("div");
+                barra.className = "barra-linha";
+                const preenchimento = document.createElement("span");
+                preenchimento.style.background = classes[i].cor;
+                preenchimento.style.width = (classes[i].pontos / 8) * 100 + "%";
+                barra.appendChild(preenchimento);
+
+                bloco.appendChild(texto);
+                bloco.appendChild(barra);
+                container.appendChild(bloco);
+            }
+        }
+
+        window.addEventListener("load", iniciarDashboard);
+    </script>
+</body>
+
+</html>

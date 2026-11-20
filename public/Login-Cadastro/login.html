@@ -150,8 +150,12 @@
                     div_msg.className = "msg-sucesso";
                     div_msg.innerHTML = "Login realizado! Redirecionando...";
 
+                    var destino = "../Questionario/questionario.html";
+                    if (json.questionarioRespondido == true) { // já respondeu? redireciona direto à dashboard
+                        destino = "../Dashboard/dashboard.html";
+                    }
                     setTimeout(function () { // setTimeout = espera 1000 ms (1 segundo) antes de executar
-                        window.location = "../Questionario/questionario.html"; // troca de página: vai para o questionário
+                        window.location = destino;
                     }, 1000);
                 });
 
