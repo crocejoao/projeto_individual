@@ -1,7 +1,7 @@
 const questionarioModel = require("../models/questionarioModel");
 
 function calcularPredominancias(contagens) {
-    var maior = contagens.netrunner;
+    let maior = contagens.netrunner;
     if (contagens.mercenario > maior) {
         maior = contagens.mercenario;
     }
@@ -34,16 +34,21 @@ function montarResposta(respostas, contagens, porcentagens, classePredominante, 
 }
 
 function responder(req, res) {
-    var idUsuario = req.body.idUsuario;
+    let idUsuario = req.body.idUsuario;
     if (idUsuario == undefined) {
         res.status(400).send("ID do usuário está ausente.");
         return;
     }
+    // SEGURANÇA: mesma checagem da função resultado (o id entra direto no SQL do model)
+    if (isNaN(idUsuario) || idUsuario == "") {
+        res.status(400).send("ID do usuário inválido.");
+        return;
+    }
 
-    var respostas = [];
-    for (var i = 1; i <= 8; i++) {
-        var chave = "resposta" + i;
-        var valor = req.body[chave];
+    let respostas = [];
+    for (let i = 1; i <= 8; i++) {
+        let chave = "resposta" + i;
+        let valor = req.body[chave];
         if (valor == undefined) {
             res.status(400).send("A pergunta " + i + " precisa ser respondida.");
             return;
@@ -58,14 +63,14 @@ function responder(req, res) {
         respostas.push(valor);
     }
 
-    var contagens = {
+    let contagens = {
         netrunner: 0,
         mercenario: 0,
         nomade: 0
     };
 
-    for (var j = 0; j < respostas.length; j++) {
-        var escolha = respostas[j];
+    for (let j = 0; j < respostas.length; j++) {
+        let escolha = respostas[j];
         if (escolha == "Netrunner") {
             contagens.netrunner++;
         } else if (escolha == "Mercenário") {
@@ -78,21 +83,21 @@ function responder(req, res) {
         }
     }
 
-    var soma = contagens.netrunner + contagens.mercenario + contagens.nomade;
+    let soma = contagens.netrunner + contagens.mercenario + contagens.nomade;
     if (soma != 8) {
         res.status(400).send("As respostas precisam somar oito pontos.");
         return;
     }
 
-    var porcentagens = {
+    let porcentagens = {
         netrunner: parseFloat(((contagens.netrunner / 8) * 100).toFixed(1)),
         mercenario: parseFloat(((contagens.mercenario / 8) * 100).toFixed(1)),
         nomade: parseFloat(((contagens.nomade / 8) * 100).toFixed(1))
     };
 
-    var predominancias = calcularPredominancias(contagens);
-    var maior = predominancias.maior;
-    var classesVencedoras = [];
+    let predominancias = calcularPredominancias(contagens);
+    let maior = predominancias.maior;
+    let classesVencedoras = [];
     if (contagens.netrunner == maior) {
         classesVencedoras.push("Netrunner");
     }
@@ -103,7 +108,7 @@ function responder(req, res) {
         classesVencedoras.push("Nômade");
     }
 
-    var classePredominante = classesVencedoras.join(" e ");
+    let classePredominante = classesVencedoras.join(" e ");
 
     questionarioModel.obterResultadoPorUsuario(idUsuario)
         .then(function (resultado) {
@@ -118,7 +123,13 @@ function responder(req, res) {
                 })
                 .catch(function (erro) {
                     console.log(erro);
-                    res.status(500).json(erro.sqlMessage);
+                    // ER_DUP_ENTRY = o banco recusou porque este usuário já tem resultado (fk_usuario é UNIQUE).
+                    // Acontece, por exemplo, com duplo clique no botão FINALIZAR. Mesmo padrão do usuarioController.
+                    if (erro.code == "ER_DUP_ENTRY") {
+                        res.status(409).send("Questionário já respondido.");
+                    } else {
+                        res.status(500).json(erro.sqlMessage);
+                    }
                 });
         })
         .catch(function (erro) {
@@ -128,17 +139,23 @@ function responder(req, res) {
 }
 
 function resultado(req, res) {
-    var idUsuario = req.params.idUsuario;
+    let idUsuario = req.params.idUsuario;
     if (idUsuario == undefined) {
         res.status(400).send("ID do usuário está ausente.");
+        return;
+    }
+    // SEGURANÇA: o model monta o SQL juntando o id no texto, então só aceitamos número
+    // (isNaN = "is Not a Number": devolve true se o valor não for um número)
+    if (isNaN(idUsuario)) {
+        res.status(400).send("ID do usuário inválido.");
         return;
     }
 
     questionarioModel.obterResultadoPorUsuario(idUsuario)
         .then(function (resultado) {
             if (resultado.length > 0) {
-                var registro = resultado[0];
-                var respostas = [
+                let registro = resultado[0];
+                let respostas = [
                     registro.resposta1,
                     registro.resposta2,
                     registro.resposta3,
@@ -148,23 +165,22 @@ function resultado(req, res) {
                     registro.resposta7,
                     registro.resposta8
                 ];
-                var contagens = {
+                let contagens = {
                     netrunner: registro.pontos_netrunner,
                     mercenario: registro.pontos_mercenario,
                     nomade: registro.pontos_nomade
                 };
-                var porcentagens = {
+                let porcentagens = {
                     netrunner: parseFloat(registro.pct_netrunner),
                     mercenario: parseFloat(registro.pct_mercenario),
                     nomade: parseFloat(registro.pct_nomade)
                 };
-                var contagens = {
-                    netrunner: registro.pontos_netrunner,
-                    mercenario: registro.pontos_mercenario,
-                    nomade: registro.pontos_nomade
-                };
-                var predominancias = calcularPredominancias(contagens);
-                res.json(montarResposta(respostas, contagens, porcentagens, registro.classe_predominante));
+                // CORREÇÃO: o bloco "let contagens" estava repetido aqui (com let, repetir o nome dá erro de sintaxe), então foi removido
+                let predominancias = calcularPredominancias(contagens); // descobre no backend quais classes empataram/ganharam
+                // CORREÇÃO PRINCIPAL: faltava passar "predominancias" como 5º argumento.
+                // Sem ele, montarResposta dava erro (predominancias.netrunnerPredominante em algo undefined),
+                // a rota respondia 500 e a dashboard nunca recebia os dados de quem já respondeu.
+                res.json(montarResposta(respostas, contagens, porcentagens, registro.classe_predominante, predominancias));
             } else {
                 res.json({
                     respondido: false

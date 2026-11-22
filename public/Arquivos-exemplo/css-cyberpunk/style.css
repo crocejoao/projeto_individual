@@ -1,0 +1,618 @@
+/* =========================================================
+   CONFIGURAÇÕES GERAIS
+   ========================================================= */
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    overflow-x: hidden;
+}
+
+body {
+    background-color: #050816;
+    color: #e6f7ff;
+    font-family: 'Rajdhani';
+    font-size: 20px;
+    padding-top: 91px;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   SEÇÃO: HOME (TOPO COM DAVID E LUCY)
+   ========================================================= */
+
+/* Caixa grande que ocupa a tela inteira e tem a imagem de fundo.
+   Dentro dela ficam dois blocos: .hero-david e .hero-lucy */
+
+.hero {
+    min-height: 100vh;
+    margin-top: -91px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 64px;
+    align-items: center;
+
+    padding: 151px 60px 60px 60px;
+
+    background-image: url("../Icons-cyberpunk/moon2.svg");
+    background-size: cover;
+    background-position: center;
+}
+
+
+/* ---------- LADO DO DAVID (ESQUERDA) ---------- */
+
+/* Bloco do David: empilha etiqueta, título, frase e botão */
+.hero-david {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    max-width: 600px;
+
+}
+
+/* Texto pequeno em cima do título */
+.david-etiqueta {
+    color: #e5ff00;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 4px;
+}
+
+/* Título grande */
+.david-titulo {
+    font-family: 'Orbitron';
+    font-size: clamp(32px, 4vw, 55px);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 2px;
+    margin-left: 0;
+}
+
+.david-titulo span {
+    color: cyan;
+    /* text-shadow:
+        0 0 20px #ff00c8,
+        0 0 10px #ff00c8,
+        0 0 20px #ff00c8,
+        0 0 40px #ff0080; */
+}
+
+
+/* GIF 'Ser uma lenda' David*/
+
+.span-david-lenda img {
+    display: block;
+    width: 400px;
+    height: auto;
+    margin: 0;
+    margin-left: -120px
+}
+
+
+/* Frase embaixo do título */
+.david-texto {
+    color: #9fb3c8;
+    font-size: clamp(16px, 1.4vw, 21px);
+    line-height: 1.6;
+
+}
+
+/* CONTÊINER DO BOTÃO */
+.botao-container-david {
+    display: inline-block;
+    transition: filter 0.2s ease;
+}
+
+.botao-container-david:hover {
+    filter: drop-shadow(0 0 8px #e5ff00);
+}
+
+/* BOTÃO DO DAVID */
+.botao-david {
+    display: inline-block;
+    padding: 16px 32px;
+    background-color: #00e5ff;
+    color: #050816;
+    font-family: 'Orbitron';
+    font-size: 17px;
+    font-weight: 700;
+    width: 250px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    clip-path: polygon(0 0, 90% 0, 100% 25%, 100% 100%, 0 100%);
+    transition: all 0.2s ease;
+    border-bottom: 5px solid #e5ff00;
+    border-left: 5px solid #e5ff00;
+
+
+}
+
+/* EFEITO AO PASSAR O MOUSE */
+.botao-david:hover {
+    background-color: #ff32d2;
+    transform: scale(1.05);
+}
+
+/* ---------- LADO DA LUCY (DIREITA) ---------- */
+
+/* Bloco da Lucy: igual ao do David, mas alinhado à direita */
+.hero-lucy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-self: end;
+    text-align: right;
+    gap: 24px;
+    max-width: 600px;
+}
+
+.lucy-etiqueta {
+    color: rgb(134, 178, 228);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 4px;
+}
+
+.lucy-titulo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(32px, 4vw, 55px);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 2px;
+}
+
+.lucy-titulo span {
+    color: #ff32d2;
+    /* text-shadow:
+        0 0 20px cyan,
+        0 0 10px cyan,
+        0 0 20px cyan,
+        0 0 40px cyan; */
+
+}
+
+/* GIF LUCY 'Ser livre' */
+.span-lucy-lua img {
+    display: block;
+    width: 400px;
+    height: auto;
+    margin: 0;
+    margin-right: -130px;
+}
+
+.lucy-texto {
+    color: #9fb3c8;
+    font-size: clamp(16px, 1.4vw, 21px);
+    line-height: 1.6;
+}
+
+.botao-container-lucy {
+    display: inline-block;
+    transition: filter 0.2s ease;
+}
+
+.botao-container-lucy:hover {
+    filter: drop-shadow(0 0 9px cyan);
+}
+
+/* Botão da Lucy */
+.botao-lucy {
+    display: inline-block;
+    padding: 16px 65px;
+    background-color: #ff32d2;
+    color: #050816;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 25%);
+    /* aqui corta o canto superior esquerdo */
+    transition: all 0.2s ease;
+    border-bottom: 5px solid cyan;
+    border-right: 5px solid cyan;
+
+}
+
+.botao-lucy:hover {
+    background-color: #e5ff00;
+    transform: scale(1.05);
+
+}
+
+/* colocar transform nos botoes */
+
+
+/* =========================================================
+   FAIXA (imagem animada)
+   ========================================================= */
+
+.faixa {
+    background-color: #00e5ff;
+    color: #050816;
+    white-space: nowrap;
+    /* mantém o texto numa linha só */
+    overflow: hidden;
+    /* esconde o que passar da caixa */
+    padding: 14px 0;
+    font-weight: 700;
+    letter-spacing: 4px;
+}
+
+.faixa img {
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+
+
+
+/* =========================================================
+   CARDS DA HOME
+   ========================================================= */
+
+
+.conteudo {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.secao {
+    padding: 60px;
+
+
+}
+
+.etiquetas {
+    display: flex;
+    justify-content: space-between;
+}
+
+.etiqueta1 {
+    display: flex;
+    justify-content: end;
+    color: #ff32d2;
+    font-weight: 700;
+    letter-spacing: 4px;
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.etiqueta2 {
+    display: flex;
+    justify-content: end;
+    color: #f6fa1d;
+    font-weight: 700;
+    letter-spacing: 4px;
+    font-size: 16px;
+    margin-bottom: 12px;
+    margin-right: -10px;
+}
+
+/* GIFS ANÚNCIOS SEGUNDA PÁGINA */
+
+
+.titulos {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2.2rem;
+    flex-direction: row;
+}
+
+
+.titiulo1 img {
+    width: 35rem;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.titiulo2 img {
+    width: 30rem;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.titiulo3 img {
+    width: 30rem;
+    max-width: 100%;
+    margin-top: -7px;
+    height: auto;
+    display: block;
+    margin-left: 50px;
+}
+
+/* =========================== */
+
+/* GRADE DOS CARDS */
+
+.grades {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 30px;
+    align-items: stretch;
+    margin-top: 90px;
+    width: 100%;
+}
+
+/* CARDS */
+
+.atalho1,
+.atalho2,
+.atalho3 {
+    width: 100%;
+    height: 850px;
+    padding: 20px;
+    background-color: #0b1026;
+    border: 1px solid #12304a;
+    color: #e6f7ff;
+    min-width: 0;
+}
+
+/* ÁREA DAS IMAGENS */
+
+.img-sobre,
+.img-team,
+.img-nightcity {
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+}
+
+/* IMAGENS */
+
+.img-sobre img,
+.img-team img,
+.img-nightcity img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* TÍTULOS */
+
+.atalho1 h3,
+.atalho2 h3,
+.atalho3 h3 {
+    font-size: 26px;
+    margin-top: 40px;
+    margin-left: 10px;
+}
+
+/* DESCRIÇÕES */
+
+.atalho1 p,
+.atalho2 p,
+.atalho3 p {
+    color: #9fb3c8;
+    line-height: 1.5;
+    margin-left: 10px;
+    margin-top: -3px;
+    margin-bottom: 25px;
+}
+
+/* LINKS */
+
+.atalho-link {
+    color: #00e5ff;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-left: 10px;
+}
+
+
+/* =========================================================
+   SEÇÃO SOBRE
+   ========================================================= */
+
+
+.sobre {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    font-family: 'Orbitron', sans-serif;
+    background-color: #050816;
+    width: 100%;
+    padding: 80px 20px;
+}
+
+.sobre h2 {
+    font-size: clamp(32px, 5vw, 60px);
+    letter-spacing: 6px;
+    margin-top: 90px;
+}
+
+.sobre span {
+    color: #ff32d2;
+}
+
+.p_sobre {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.p_sobre p {
+    font-size: 18px;
+    text-align: center;
+    max-width: 800px;
+    line-height: 1.6;
+    background-color: #0f161ff5;
+    padding: 20px;
+    border-radius: 30px;
+}
+
+
+
+.trailer {
+    position: absolute;
+    inset: 3px;
+    z-index: 1;
+    overflow: hidden;
+
+    clip-path: polygon(0 0, 100% 0, 100% 90%,
+            91% 100%, 0 100%);
+}
+
+.trailer iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.trailer-borda {
+    position: relative;
+    width: 1000px;
+    height: 600px;
+    margin: 10px auto 40px;
+}
+
+.trailer-borda::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: cyan;
+
+    clip-path: polygon(0 0, 100% 0, 100% 90%,
+            91% 100%, 0 100%);
+}
+
+.trailer-borda::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    background-color: #050816;
+
+    clip-path: polygon(0 0, 100% 0, 100% 90%,
+            91% 100%, 0 100%);
+}
+
+/* =========================================================
+   SEÇÃO MERCENÁRIOS
+   ========================================================= */
+
+   .mercenarios {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    font-family: 'Orbitron', sans-serif;
+    background-color: #050816;
+    width: 100%;
+    padding: 80px 20px;
+}
+
+.mercenarios h2 {
+    font-size: clamp(32px, 5vw, 60px);
+    letter-spacing: 6px;
+    margin-top: 90px;
+}
+
+.mercenarios span {
+    color: #ff32d2;
+}
+
+/* =========================================================
+   SEÇÃO NIGHTCITY
+   ========================================================= */
+.nightcity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    font-family: 'Orbitron', sans-serif;
+    background-color: #050816;
+    width: 100%;
+    padding: 80px 20px 0;
+     padding-bottom: 0;
+}
+
+.nightcity h2 {
+    font-size: clamp(32px, 5vw, 60px);
+    letter-spacing: 6px;
+    margin-top: 90px;
+}
+
+.nightcity span {
+    color: #ff32d2;
+}
+
+.img-fim {
+    width: calc(100% + 50px);
+    margin-left: -25px;
+    margin-right: -25px;
+    overflow: hidden;
+}
+
+.img-fim img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+/* =========================================================
+   FAIXA ROSA DE CADASTRO NO FINAL
+   ========================================================= */
+
+.chamada {
+    padding: 64px 60px;
+    background-color: #ff00bf;
+    color: #050816;
+}
+
+.chamada-conteudo {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chamada h2 {
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.chamada p {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.chamada .botao,
+.chamada .botao-chamada {
+    display: inline-block;
+    padding: 16px 32px;
+    background-color: #050816;
+    color: #ff32d2;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 17px;
+    clip-path: polygon(0 0, 90% 0, 100% 25%, 100% 100%, 0 100%);
+}
+
+.chamada .botao:hover,
+.chamada .botao-chamada:hover {
+    background-color: #00e5ff;
+    color: #050816;
+}
