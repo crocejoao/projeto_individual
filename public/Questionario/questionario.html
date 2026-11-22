@@ -9,9 +9,11 @@
     <link rel="stylesheet" href="../css-cyberpunk/questionario.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <title>Questionário · Cyberpunk Edgerunners</title>
-    
+
 </head>
 
 <body>
@@ -30,185 +32,224 @@
         <div class="menu-usuario" id="nome-logado">EDGERUNNER</div>
     </nav>
 
-        <main class="questionario">
-            <section class="questionario-intro">
-                <h1>Questionário de Afinidade</h1>
-                <p>Responda às oito perguntas e descubra o seu perfil no universo Cyberpunk Edgerunners.</p>
-            </section>
+    <main class="questionario">
+        <section class="questionario-intro">
+            <h1>Questionário de Afinidade</h1>
+            <p>Responda às oito perguntas e descubra o seu perfil no universo Cyberpunk Edgerunners.</p>
+        </section>
 
-            <div id="carregando" class="carregando">Verificando status do questionário...</div>
+        <div id="carregando" class="carregando">Verificando status do questionário...</div>
 
-            <form id="form-questionario" class="form-questionario d-none">
-                <div class="questionario-status-bar">
-                    <div class="indicador-pergunta" id="indicador-pergunta">PERGUNTA 1 / 8</div>
-                    <div class="barra-progresso" id="barra-perguntas">
-                        <span data-index="1"></span>
-                        <span data-index="2"></span>
-                        <span data-index="3"></span>
-                        <span data-index="4"></span>
-                        <span data-index="5"></span>
-                        <span data-index="6"></span>
-                        <span data-index="7"></span>
-                        <span data-index="8"></span>
-                    </div>
+        <form id="form-questionario" class="form-questionario d-none">
+            <div class="questionario-status-bar">
+                <div class="indicador-pergunta" id="indicador-pergunta">PERGUNTA 1 / 8</div>
+                <div class="barra-progresso" id="barra-perguntas">
+                    <span data-index="1"></span>
+                    <span data-index="2"></span>
+                    <span data-index="3"></span>
+                    <span data-index="4"></span>
+                    <span data-index="5"></span>
+                    <span data-index="6"></span>
+                    <span data-index="7"></span>
+                    <span data-index="8"></span>
                 </div>
+            </div>
 
-                <div class="perguntas-container">
-                    <!-- NÃO MUDAR o value="..." dos inputs (Netrunner, Mercenário, Nômade): é ele que o back-end usa para somar os pontos. Só o texto das perguntas e alternativas pode mudar. -->
-                    <article class="card-pergunta" data-index="1">
-                        <h2>1. Lucy sonha em chegar à Lua para escapar de Night City. Qual seria o seu sonho?</h2>
+            <div class="perguntas-container">
+                <!-- NÃO MUDAR o value="..." dos inputs (Netrunner, Mercenário, Nômade): é ele que o back-end usa para somar os pontos. Só o texto das perguntas e alternativas pode mudar. -->
+                <article class="card-pergunta" data-index="1">
+                    <h2>1. Lucy sonha em chegar à Lua para escapar de Night City. Qual seria o seu sonho?</h2>
                     <p class="pergunta-explicacao">Escolha a alternativa que mais combina com você.</p>
                     <div class="alternativas">
                         <label for="q1a">
-                            <input type="radio" id="q1a" name="resposta1" value="Netrunner" onclick="selecionarAlternativa(1, this)">
-                            <span>Escapar pela rede e encontrar um lugar onde ninguém consiga me rastrear ou controlar.</span>
+                            <input type="radio" id="q1a" name="resposta1" value="Netrunner"
+                                onclick="selecionarAlternativa(1, this)">
+                            <span>Escapar pela rede e encontrar um lugar onde ninguém consiga me rastrear ou
+                                controlar.</span>
                         </label>
                         <label for="q1b">
-                            <input type="radio" id="q1b" name="resposta1" value="Mercenário" onclick="selecionarAlternativa(1, this)">
-                            <span>Ficar tão famoso que a cidade nunca mais me ignore, mesmo que o preço seja alto.</span>
+                            <input type="radio" id="q1b" name="resposta1" value="Mercenário"
+                                onclick="selecionarAlternativa(1, this)">
+                            <span>Ficar tão famoso que a cidade nunca mais me ignore, mesmo que o preço seja
+                                alto.</span>
                         </label>
                         <label for="q1c">
-                            <input type="radio" id="q1c" name="resposta1" value="Nômade" onclick="selecionarAlternativa(1, this)">
-                            <span>Partir por terra, com quem eu amo, e encontrar um lar longe do alcance das corporações.</span>
+                            <input type="radio" id="q1c" name="resposta1" value="Nômade"
+                                onclick="selecionarAlternativa(1, this)">
+                            <span>Partir por terra, com quem eu amo, e encontrar um lar longe do alcance das
+                                corporações.</span>
                         </label>
                     </div>
-                    </article>
-                    <article class="card-pergunta" data-index="2">
+                </article>
+                <article class="card-pergunta" data-index="2">
                     <h2>2. A equipe de Maine funciona quase como uma família. O que você espera de um grupo?</h2>
                     <p class="pergunta-explicacao">Escolha a alternativa que mais combina com você.</p>
                     <div class="alternativas">
                         <label for="q2a">
-                            <input type="radio" id="q2a" name="resposta2" value="Mercenário" onclick="selecionarAlternativa(2, this)">
+                            <input type="radio" id="q2a" name="resposta2" value="Mercenário"
+                                onclick="selecionarAlternativa(2, this)">
                             <span>Profissionalismo: cada um cumpre sua função e o trabalho sai limpo, sem drama.</span>
                         </label>
                         <label for="q2b">
-                            <input type="radio" id="q2b" name="resposta2" value="Nômade" onclick="selecionarAlternativa(2, this)">
+                            <input type="radio" id="q2b" name="resposta2" value="Nômade"
+                                onclick="selecionarAlternativa(2, this)">
                             <span>Lealdade acima de tudo: o grupo é minha família e ninguém fica para trás.</span>
                         </label>
                         <label for="q2c">
-                            <input type="radio" id="q2c" name="resposta2" value="Netrunner" onclick="selecionarAlternativa(2, this)">
-                            <span>Que confiem na informação que eu trago, porque um bom plano evita metade das balas.</span>
+                            <input type="radio" id="q2c" name="resposta2" value="Netrunner"
+                                onclick="selecionarAlternativa(2, this)">
+                            <span>Que confiem na informação que eu trago, porque um bom plano evita metade das
+                                balas.</span>
                         </label>
                     </div>
-                    </article>
-                    <article class="card-pergunta" data-index="3">
-                    <h2>3. David recebe um implante poderoso que cobra um preço do corpo e da mente. O que você faria?</h2>
+                </article>
+                <article class="card-pergunta" data-index="3">
+                    <h2>3. David recebe um implante poderoso que cobra um preço do corpo e da mente. O que você faria?
+                    </h2>
                     <p class="pergunta-explicacao">Escolha a alternativa que mais combina com você.</p>
                     <div class="alternativas">
                         <label for="q3a">
-                            <input type="radio" id="q3a" name="resposta3" value="Nômade" onclick="selecionarAlternativa(3, this)">
-                            <span>Usaria o mínimo possível, preferindo confiar na equipe, no veículo e no instinto.</span>
+                            <input type="radio" id="q3a" name="resposta3" value="Nômade"
+                                onclick="selecionarAlternativa(3, this)">
+                            <span>Usaria o mínimo possível, preferindo confiar na equipe, no veículo e no
+                                instinto.</span>
                         </label>
                         <label for="q3b">
-                            <input type="radio" id="q3b" name="resposta3" value="Netrunner" onclick="selecionarAlternativa(3, this)">
-                            <span>Estudaria cada risco e cada falha antes de instalar, tratando meu corpo como um sistema.</span>
+                            <input type="radio" id="q3b" name="resposta3" value="Netrunner"
+                                onclick="selecionarAlternativa(3, this)">
+                            <span>Estudaria cada risco e cada falha antes de instalar, tratando meu corpo como um
+                                sistema.</span>
                         </label>
                         <label for="q3c">
-                            <input type="radio" id="q3c" name="resposta3" value="Mercenário" onclick="selecionarAlternativa(3, this)">
+                            <input type="radio" id="q3c" name="resposta3" value="Mercenário"
+                                onclick="selecionarAlternativa(3, this)">
                             <span>Instalaria sem hesitar, porque em Night City quem não evolui fica para trás.</span>
                         </label>
                     </div>
-                    </article>
-                    <article class="card-pergunta" data-index="4">
+                </article>
+                <article class="card-pergunta" data-index="4">
                     <h2>4. Um trabalho dá errado e o plano desmorona. Qual é o seu primeiro movimento?</h2>
                     <p class="pergunta-explicacao">Escolha a alternativa que mais combina com você.</p>
                     <div class="alternativas">
                         <label for="q4a">
-                            <input type="radio" id="q4a" name="resposta4" value="Netrunner" onclick="selecionarAlternativa(4, this)">
-                            <span>Invadir o sistema do local para fechar portas, cortar câmeras e abrir uma saída.</span>
+                            <input type="radio" id="q4a" name="resposta4" value="Netrunner"
+                                onclick="selecionarAlternativa(4, this)">
+                            <span>Invadir o sistema do local para fechar portas, cortar câmeras e abrir uma
+                                saída.</span>
                         </label>
                         <label for="q4b">
-                            <input type="radio" id="q4b" name="resposta4" value="Nômade" onclick="selecionarAlternativa(4, this)">
+                            <input type="radio" id="q4b" name="resposta4" value="Nômade"
+                                onclick="selecionarAlternativa(4, this)">
                             <span>Reunir a equipe, garantir que todos saiam vivos e escapar no veículo.</span>
                         </label>
                         <label for="q4c">
-                            <input type="radio" id="q4c" name="resposta4" value="Mercenário" onclick="selecionarAlternativa(4, this)">
+                            <input type="radio" id="q4c" name="resposta4" value="Mercenário"
+                                onclick="selecionarAlternativa(4, this)">
                             <span>Abrir caminho à força e terminar o serviço, mesmo saindo ferido.</span>
                         </label>
                     </div>
-                    </article>
-                    <article class="card-pergunta" data-index="5">
-                    <h2>5. Um amigo está se perdendo por causa do excesso de implantes, como acontece com Maine. O que você faz?</h2>
+                </article>
+                <article class="card-pergunta" data-index="5">
+                    <h2>5. Um amigo está se perdendo por causa do excesso de implantes, como acontece com Maine. O que
+                        você faz?</h2>
                     <p class="pergunta-explicacao">Escolha a alternativa que mais combina com você.</p>
                     <div class="alternativas">
                         <label for="q5a">
-                            <input type="radio" id="q5a" name="resposta5" value="Mercenário" onclick="selecionarAlternativa(5, this)">
-                            <span>Respeito a escolha dele e luto ao seu lado até o fim, mesmo sabendo como termina.</span>
+                            <input type="radio" id="q5a" name="resposta5" value="Mercenário"
+                                onclick="selecionarAlternativa(5, this)">
+                            <span>Respeito a escolha dele e luto ao seu lado até o fim, mesmo sabendo como
+                                termina.</span>
                         </label>
                         <label for="q5b">
-                            <input type="radio" id="q5b" name="resposta5" value="Netrunner" onclick="selecionarAlternativa(5, this)">
-                            <span>Procuro uma solução técnica: dados, médicos, qualquer brecha que freie o processo.</span>
+                            <input type="radio" id="q5b" name="resposta5" value="Netrunner"
+                                onclick="selecionarAlternativa(5, this)">
+                            <span>Procuro uma solução técnica: dados, médicos, qualquer brecha que freie o
+                                processo.</span>
                         </label>
                         <label for="q5c">
-                            <input type="radio" id="q5c" name="resposta5" value="Nômade" onclick="selecionarAlternativa(5, this)">
-                            <span>Tento tirá-lo da cidade e afastá-lo do ritmo que o destrói, nem que ele fique bravo comigo.</span>
+                            <input type="radio" id="q5c" name="resposta5" value="Nômade"
+                                onclick="selecionarAlternativa(5, this)">
+                            <span>Tento tirá-lo da cidade e afastá-lo do ritmo que o destrói, nem que ele fique bravo
+                                comigo.</span>
                         </label>
                     </div>
-                    </article>
-                    <article class="card-pergunta" data-index="6">
+                </article>
+                <article class="card-pergunta" data-index="6">
                     <h2>6. O que mais te incomoda em Night City?</h2>
                     <p class="pergunta-explicacao">Escolha a alternativa que mais combina com você.</p>
                     <div class="alternativas">
                         <label for="q6a">
-                            <input type="radio" id="q6a" name="resposta6" value="Nômade" onclick="selecionarAlternativa(6, this)">
+                            <input type="radio" id="q6a" name="resposta6" value="Nômade"
+                                onclick="selecionarAlternativa(6, this)">
                             <span>Perder o direito de partir quando quiser, preso a um ciclo sem saída.</span>
                         </label>
                         <label for="q6b">
-                            <input type="radio" id="q6b" name="resposta6" value="Mercenário" onclick="selecionarAlternativa(6, this)">
+                            <input type="radio" id="q6b" name="resposta6" value="Mercenário"
+                                onclick="selecionarAlternativa(6, this)">
                             <span>Viver e morrer sem que ninguém lembre o seu nome.</span>
                         </label>
                         <label for="q6c">
-                            <input type="radio" id="q6c" name="resposta6" value="Netrunner" onclick="selecionarAlternativa(6, this)">
+                            <input type="radio" id="q6c" name="resposta6" value="Netrunner"
+                                onclick="selecionarAlternativa(6, this)">
                             <span>Corporações esconderem a verdade e decidirem quem vive e quem morre.</span>
                         </label>
                     </div>
-                    </article>
-                    <article class="card-pergunta" data-index="7">
+                </article>
+                <article class="card-pergunta" data-index="7">
                     <h2>7. A equipe enfrenta um inimigo muito mais forte, como Adam Smasher. Qual é a sua postura?</h2>
                     <p class="pergunta-explicacao">Escolha a alternativa que mais combina com você.</p>
                     <div class="alternativas">
                         <label for="q7a">
-                            <input type="radio" id="q7a" name="resposta7" value="Netrunner" onclick="selecionarAlternativa(7, this)">
+                            <input type="radio" id="q7a" name="resposta7" value="Netrunner"
+                                onclick="selecionarAlternativa(7, this)">
                             <span>Procuro a única fraqueza dele: um acesso, uma falha de sistema, um ponto cego.</span>
                         </label>
                         <label for="q7b">
-                            <input type="radio" id="q7b" name="resposta7" value="Mercenário" onclick="selecionarAlternativa(7, this)">
+                            <input type="radio" id="q7b" name="resposta7" value="Mercenário"
+                                onclick="selecionarAlternativa(7, this)">
                             <span>Enfrento mesmo assim: se for para cair, que seja lutando no auge.</span>
                         </label>
                         <label for="q7c">
-                            <input type="radio" id="q7c" name="resposta7" value="Nômade" onclick="selecionarAlternativa(7, this)">
+                            <input type="radio" id="q7c" name="resposta7" value="Nômade"
+                                onclick="selecionarAlternativa(7, this)">
                             <span>Evito o confronto e tiro todos de lá, porque sobreviver vale mais que vencer.</span>
                         </label>
                     </div>
-                    </article>
-                    <article class="card-pergunta" data-index="8">
+                </article>
+                <article class="card-pergunta" data-index="8">
                     <h2>8. Como você gostaria de ser lembrado em Night City?</h2>
                     <p class="pergunta-explicacao">Escolha a alternativa que mais combina com você.</p>
                     <div class="alternativas">
                         <label for="q8a">
-                            <input type="radio" id="q8a" name="resposta8" value="Mercenário" onclick="selecionarAlternativa(8, this)">
+                            <input type="radio" id="q8a" name="resposta8" value="Mercenário"
+                                onclick="selecionarAlternativa(8, this)">
                             <span>Como uma lenda que viveu intensamente e fez a cidade ouvir o meu nome.</span>
                         </label>
                         <label for="q8b">
-                            <input type="radio" id="q8b" name="resposta8" value="Nômade" onclick="selecionarAlternativa(8, this)">
+                            <input type="radio" id="q8b" name="resposta8" value="Nômade"
+                                onclick="selecionarAlternativa(8, this)">
                             <span>Como alguém que protegeu os seus e deixou a família mais segura.</span>
                         </label>
                         <label for="q8c">
-                            <input type="radio" id="q8c" name="resposta8" value="Netrunner" onclick="selecionarAlternativa(8, this)">
+                            <input type="radio" id="q8c" name="resposta8" value="Netrunner"
+                                onclick="selecionarAlternativa(8, this)">
                             <span>Como quem descobriu o que ninguém via e abriu caminhos para outros saírem.</span>
                         </label>
                     </div>
-                    </article>
-                </div>
+                </article>
+            </div>
 
-                <div class="questionario-rodape">
-                    <button type="button" class="botao-navegacao" id="btn-voltar" onclick="voltarPergunta()" disabled>VOLTAR</button>
-                    <button type="button" class="botao-navegacao" id="btn-proxima" onclick="avancarPergunta()" disabled>PRÓXIMA</button>
-                    <button type="button" class="botao-navegacao" id="btn-finalizar" onclick="enviarQuestionario()" disabled style="display: none;">FINALIZAR QUESTIONÁRIO</button>
-                </div>
-                <div id="div_msg"></div>
-            </form>
-        </main>
+            <div class="questionario-rodape">
+                <button type="button" class="botao-navegacao" id="btn-voltar" onclick="voltarPergunta()"
+                    disabled>VOLTAR</button>
+                <button type="button" class="botao-navegacao" id="btn-proxima" onclick="avancarPergunta()"
+                    disabled>PRÓXIMA</button>
+                <button type="button" class="botao-navegacao" id="btn-finalizar" onclick="enviarQuestionario()" disabled
+                    style="display: none;">FINALIZAR QUESTIONÁRIO</button>
+            </div>
+            <div id="div_msg"></div>
+        </form>
+    </main>
 
     <script>
         let div_msg;
@@ -299,8 +340,9 @@
 
         function atualizarBarra() {
             const blocos = document.querySelectorAll("#barra-perguntas span");
+
             for (let i = 0; i < blocos.length; i++) {
-                if (i < perguntaAtual) {
+                if (respostasUsuario[i] !== "") {
                     blocos[i].setAttribute("class", "progresso-ativo");
                 } else {
                     blocos[i].setAttribute("class", "");
@@ -323,10 +365,12 @@
                 }
             }
         }
-
+        
         function selecionarAlternativa(numero, elemento) {
             respostasUsuario[numero - 1] = elemento.value;
+
             destacarAlternativas(numero, elemento.value);
+            atualizarBarra();
             atualizarBotoes();
         }
 
