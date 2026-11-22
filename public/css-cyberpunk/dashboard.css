@@ -1,12 +1,3 @@
-/* =========================================================
-   DASHBOARD
-   Visual copiado da Dashboard Exemplo 01 (3 colunas: personagem | gráfico | detalhes).
-   Paleta do site: fundo #050816 | card #0b1026 | borda #12304a
-   texto #e6f7ff | texto apagado #9fb3c8 | destaque rosa #ff32d2
-   Cores das classes: Netrunner #00e5ff | Mercenário #e5ff00 | Nômade #39ff88
-   (o reset "*" e o "body" já vêm do style.css, por isso não se repetem aqui)
-   ========================================================= */
-
 
 /* ---------------------------------------------------------
    ESTRUTURA GERAL E TÍTULO
@@ -79,12 +70,30 @@
 }
 
 .kpi-card {
+    position: relative;
     min-width: 0;
     padding: 24px;
-    background-color: #0b1026;
-    border: 1px solid #12304a;
+    background-color: #12304a;
     border-top: 4px solid #ff32d2;
+}
+
+/* Camada interna: cria o fundo do cartão com os cantos cortados */
+.kpi-card::before {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    right: 1px;
+    bottom: 1px;
+    background-color: #0b1026;
     clip-path: polygon(0 0, 94% 0, 100% 12%, 100% 100%, 6% 100%, 0 88%);
+    z-index: 0;
+}
+
+/* Mantém o conteúdo na frente da camada interna */
+.kpi-card > * {
+    position: relative;
+    z-index: 1;
 }
 
 /* Etiquetas pequenas "// ASSIM" no topo de cada card */
@@ -182,11 +191,33 @@
 .card-personagem,
 .card-grafico,
 .card-classes {
+    position: relative;
     min-width: 0;
     padding: 24px;
+    background-color: #12304a;
+}
+
+/* Camada interna: cria o fundo dos cartões com os cantos cortados */
+.card-personagem::before,
+.card-grafico::before,
+.card-classes::before {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    right: 1px;
+    bottom: 1px;
     background-color: #0b1026;
-    border: 1px solid #12304a;
     clip-path: polygon(0 0, 96% 0, 100% 4%, 100% 100%, 4% 100%, 0 96%);
+    z-index: 0;
+}
+
+/* Mantém o conteúdo na frente da camada interna */
+.card-personagem > *,
+.card-grafico > *,
+.card-classes > * {
+    position: relative;
+    z-index: 1;
 }
 
 /* A borda de cima do card do personagem muda de cor pela classe dele (feito no JavaScript) */
@@ -438,34 +469,4 @@
 
 .barra-nomade {
     background-color: #39ff88;
-}
-
-
-/* ---------------------------------------------------------
-   CELULAR / TELA PEQUENA: os cards ficam um embaixo do outro
-   --------------------------------------------------------- */
-
-@media (max-width: 1000px) {
-    .dashboard {
-        padding: 20px 16px 40px 16px;
-    }
-
-    .dashboard-grade {
-        grid-template-columns: 1fr;
-    }
-
-    .kpi-grade {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 500px) {
-    .dashboard-intro h1 {
-        font-size: 22px;
-        letter-spacing: 2px;
-    }
-
-    .grafico-area {
-        height: 280px;
-    }
 }

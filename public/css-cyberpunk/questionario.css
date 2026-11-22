@@ -1,3 +1,8 @@
+
+/* =========================================================
+   CONFIGURAÇÕES GERAIS
+   ========================================================= */
+
 * {
     margin: 0;
     padding: 0;
@@ -9,6 +14,11 @@ body {
     color: #e6f7ff;
     font-family: 'Rajdhani', sans-serif;
 }
+
+
+/* =========================================================
+   TÍTULO DA PÁGINA
+   ========================================================= */
 
 .questionario {
     max-width: 1100px;
@@ -33,6 +43,8 @@ body {
     margin-top: 0.6rem;
 }
 
+/* Aviso "Verificando status do questionário..." */
+
 .carregando {
     text-align: center;
     padding: 1rem;
@@ -42,19 +54,52 @@ body {
     font-family: 'Rajdhani';
 }
 
+
+/* =========================================================
+   FORMULÁRIO
+   ========================================================= */
+
 .form-questionario {
+    position: relative;
+    z-index: 0;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    background-color: #0b1026;
-    border: 1px solid #12304a;
     padding: 2rem;
-    /* corte fixo de 20px (em % o corte crescia junto com a largura e cortava o texto) */
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
 }
+
+/* BORDA */
+
+.form-questionario::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: #12304a;
+    clip-path: polygon(0 0, 100% 0, 100% 97%, 98% 100%, 0 100%);
+    pointer-events: none;
+    z-index: -2;
+}
+
+/* MIOLO */
+
+.form-questionario::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background-color: #0b1026;
+    clip-path: polygon(0 0, 100% 0, 100% 97%, 98% 100%, 0 100%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+
+/* =========================================================
+   BARRA DE PROGRESSO
+   ========================================================= */
 
 .questionario-status-bar {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
@@ -82,18 +127,46 @@ body {
     border-color: #ff32d2;
 }
 
+
+/* =========================================================
+   CARD DA PERGUNTA
+   ========================================================= */
+
 .perguntas-container {
     display: grid;
 }
 
 .card-pergunta {
-    background-color: #050816;
-    border: 1px solid #12304a;
+    position: relative;
+    z-index: 0;
     padding: 1.5rem;
-    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+}
+
+/* BORDA */
+
+.card-pergunta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: #12304a;
+    clip-path: polygon(0 0, 97% 0, 100% 12%, 100% 100%, 3% 100%, 0 88%);
+    pointer-events: none;
+    z-index: -2;
+}
+
+/* MIOLO */
+
+.card-pergunta::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background-color: #050816;
+    clip-path: polygon(0 0, 97% 0, 100% 12%, 100% 100%, 3% 100%, 0 88%);
+    pointer-events: none;
+    z-index: -1;
 }
 
 .card-pergunta h2 {
@@ -108,6 +181,11 @@ body {
     color: #9fb3c8;
 }
 
+
+/* =========================================================
+   ALTERNATIVAS
+   ========================================================= */
+
 .alternativas {
     display: flex;
     flex-direction: column;
@@ -115,29 +193,76 @@ body {
 }
 
 .alternativas label {
-    border: 1px solid #12304a;
-    padding: 0.9rem 1.1rem;
+    position: relative;
+    z-index: 0;
     display: block;
+    padding: 0.9rem 1.1rem;
     cursor: pointer;
     font-family: 'Rajdhani', sans-serif;
     letter-spacing: 1px;
     font-size: 0.95rem;
-    position: relative;
     color: #e6f7ff;
-    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
 }
 
-.alternativas label[data-ativa="true"] {
-    border-color: #ff32d2;
-    outline: 2px solid rgba(255, 50, 210, 0.3);
-    background-color: rgba(255, 50, 210, 0.06);
+/* BORDA */
+
+.alternativas label::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: #12304a;
+    clip-path: polygon(0 0, 99% 0, 100% 25%, 100% 100%, 1% 100%, 0 75%);
+    pointer-events: none;
+    z-index: -2;
 }
+
+/* MIOLO */
+
+.alternativas label::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background-color: #050816;
+    clip-path: polygon(0 0, 99% 0, 100% 25%, 100% 100%, 1% 100%, 0 75%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* ALTERNATIVA SELECIONADA */
+
+/* 
+   :has() verifica se existe um elemento específico dentro de outro.
+   Nesse caso, verifica se o label possui um input marcado (:checked).
+
+   Quando o usuário seleciona uma alternativa, o input fica marcado
+   e o CSS identifica qual label contém esse input.
+
+   ::before altera a cor da borda da alternativa selecionada,
+   enquanto ::after altera a cor do fundo interno.
+
+   Assim, a alternativa muda de aparência sem precisar de JavaScript.
+*/
+
+.alternativas label:has(input:checked)::before {
+    background-color: #ff32d2;
+}
+
+.alternativas label:has(input:checked)::after {
+    background-color: #140b21;
+}
+
+/* RADIO INVISÍVEL */
 
 .alternativas input[type="radio"] {
     position: absolute;
     opacity: 0;
     pointer-events: none;
 }
+
+
+/* =========================================================
+   BOTÕES (VOLTAR / PRÓXIMA / FINALIZAR)
+   ========================================================= */
 
 .questionario-rodape {
     display: flex;
@@ -147,23 +272,52 @@ body {
 }
 
 .botao-navegacao {
+    position: relative;
+    z-index: 1;
     flex: 1 1 200px;
     padding: 0.9rem 1rem;
-    background-color: #ff32d2;
+    background-color: transparent;
     color: #050816;
     border: none;
     font-family: 'Orbitron', sans-serif;
     text-transform: uppercase;
     letter-spacing: 3px;
     cursor: pointer;
+}
+
+/* BORDA */
+
+.botao-navegacao::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: #00d8ff;
     clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 25%);
-    border-top: 4px solid #00d8ff;
+    pointer-events: none;
+    z-index: -2;
+}
+
+/* MIOLO */
+
+.botao-navegacao::after {
+    content: "";
+    position: absolute;
+    inset: 4px 0 0 0;
+    background-color: #ff32d2;
+    clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 25%);
+    pointer-events: none;
+    z-index: -1;
 }
 
 .botao-navegacao:disabled {
     opacity: 0.4;
     cursor: not-allowed;
 }
+
+
+/* =========================================================
+   MENSAGENS
+   ========================================================= */
 
 .mensagem {
     font-family: 'Rajdhani', sans-serif;
@@ -183,21 +337,11 @@ body {
     color: #ff32d2;
 }
 
+
+/* =========================================================
+   ESCONDER ELEMENTO
+   ========================================================= */
+
 .d-none {
-    display: none !important;
-}
-
-@media (max-width: 768px) {
-    .questionario {
-        padding: 120px 1rem 2rem;
-    }
-
-    .questionario-status-bar {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .questionario-rodape {
-        flex-direction: column;
-    }
+    display: none;
 }

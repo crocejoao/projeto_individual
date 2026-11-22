@@ -509,47 +509,187 @@ a {
    SEÇÃO MERCENÁRIOS
    ========================================================= */
 
-   .mercenarios {
+
+.mercenarios {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
     font-family: 'Orbitron', sans-serif;
     background-color: #050816;
     width: 100%;
     padding: 80px 20px;
+    box-sizing: border-box;
 }
 
 .mercenarios h2 {
     font-size: clamp(32px, 5vw, 60px);
     letter-spacing: 6px;
-    margin-top: 90px;
+    margin-top: -50px;
 }
 
 .mercenarios span {
     color: #ff32d2;
 }
 
+/* CONTAINER DOS CARDS */
+
+.container-mercenarios {
+    display: flex;
+    width: 100%;
+    max-width: 1600px;
+    height: 550px;
+    gap: 30px;
+    margin-top: 140px;
+}
+
+/* CARDS */
+
+.card-mercenario {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    /* border-radius: 10px; */
+    cursor: pointer;
+    transition: flex 1s ease;
+    border: 1px solid cyan;
+
+}
+
+.card-mercenario:hover {
+    flex: 2;
+}
+
+/* IMAGENS */
+
+.card-mercenario img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* object-fit: cover; */
+    object-position: center;
+    top: 48px;
+    left: 0;
+}
+
+/* INFORMAÇÕES */
+
+.info-mercenario {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+    background: linear-gradient(transparent, rgba(5, 8, 22, 0.95));
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card-mercenario:hover .info-mercenario {
+    opacity: 1;
+}
+
+.info-mercenario h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    /* color: #f6fa1d; */
+    margin-bottom: 10px;
+}
+
+.info-mercenario p {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 18px;
+    color: white;
+}
+
+
+.faixa-merc {
+    background-color: #00e5ff;
+    color: #050816;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 14px 0;
+    font-weight: 700;
+    letter-spacing: 4px;
+    margin-top: 0;
+     margin-left: -20px;
+    margin-right: -20px;
+    align-self: stretch;
+    padding: 0;
+}
+
+.faixa-merc img {
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
 /* =========================================================
    SEÇÃO NIGHTCITY
    ========================================================= */
+
 .nightcity {
+    position: relative;
+    min-height: 100vh;
+    /* 100vh = 100% da altura da tela */
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     gap: 30px;
     font-family: 'Orbitron', sans-serif;
     background-color: #050816;
     width: 100%;
     padding: 80px 20px 0;
-     padding-bottom: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+}
+
+.img-cidade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+}
+
+.nightcity::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 45%;
+    background: linear-gradient(to bottom, #050816 0%, rgba(5, 8, 22, 0.85) 30%, rgba(5, 8, 22, 0) 100%);
+    z-index: 1;
+    pointer-events: none;
+ 
+}
+
+.nightcity::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 45%;
+    background: linear-gradient(to top, rgba(255, 0, 191, 0.59) 0%, rgba(255, 0, 191, 0.2) 40%, rgba(255, 0, 191, 0) 100%);
+    mix-blend-mode: screen;
+    z-index: 1;
+    pointer-events: none;
 }
 
 .nightcity h2 {
+    position: relative;
+    z-index: 2;
     font-size: clamp(32px, 5vw, 60px);
     letter-spacing: 6px;
-    margin-top: 90px;
+    margin-top: -90px;
 }
 
 .nightcity span {
@@ -557,22 +697,85 @@ a {
 }
 
 .img-fim {
+    position: relative;
+    z-index: 2;
     width: calc(100% + 50px);
     margin-left: -25px;
     margin-right: -25px;
+    margin-bottom: -30px;
     overflow: hidden;
 }
-
 .img-fim img {
     display: block;
     width: 100%;
     height: auto;
 }
+
+
+
+/* ======== HISTORIA NIGHTCITY ============== */
+
+
+.dica-historia {
+    display: block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: #00e5ff;
+    margin-bottom: 8px;
+}
+
+
+.historia-nightcity {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-top: -60px;
+}
+
+.historia-nightcity summary {
+    font-family: 'Orbitron', Rajdhani;
+    font-size: clamp(32px, 5vw, 60px);
+    letter-spacing: 6px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.historia-nightcity summary::-webkit-details-marker {
+    display: none;
+}
+
+.historia-nightcity summary span {
+    color: #ff32d2;
+}
+
+.texto-historia {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: rgba(5, 8, 22, 0.85);
+    border-left: 3px solid #00e5ff;
+    text-align: left;
+    font-family: 'Orbitron', Rajdhani;
+    font-size: 20px;
+    line-height: 1.7;
+    color: #e6f7ff;
+}
+
+
+
+
+
 /* =========================================================
    FAIXA ROSA DE CADASTRO NO FINAL
    ========================================================= */
 
 .chamada {
+    display: flex;
+    /* flex-wrap: wrap; */
+    align-items: center;
+    gap: 24px;
     padding: 64px 60px;
     background-color: #ff00bf;
     color: #050816;
@@ -589,14 +792,32 @@ a {
 }
 
 .chamada h2 {
+    font-family: 'Orbitron';
     font-size: 36px;
     font-weight: 700;
 }
 
 .chamada p {
+    font-family: 'Rajdhani';
     font-size: 22px;
     font-weight: 600;
     margin-top: 8px;
+}
+
+
+/* SELO ODS 10 (canto esquerdo do footer) */
+.selo-ods {
+    border: solid 3px cyan;
+    width: 150px;
+    max-width: 100%;
+    height: auto;
+    margin-top: -30px;
+    margin-bottom: -30px;
+}
+
+a.botao {
+    font-family: 'Rajdhani';
+    
 }
 
 .chamada .botao,
@@ -615,4 +836,13 @@ a {
 .chamada .botao-chamada:hover {
     background-color: #00e5ff;
     color: #050816;
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 8px #e5ff00);
+}
+
+
+
+.chamada .botao,
+.chamada .botao-chamada {
+    transition: all 0.2s ease;
 }
