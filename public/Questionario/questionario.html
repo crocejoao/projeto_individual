@@ -343,9 +343,9 @@
 
             for (let i = 0; i < blocos.length; i++) {
                 if (respostasUsuario[i] !== "") {
-                    blocos[i].setAttribute("class", "progresso-ativo");
+                    blocos[i].classList.add("progresso-ativo");
                 } else {
-                    blocos[i].setAttribute("class", "");
+                    blocos[i].classList.remove("progresso-ativo");
                 }
             }
         }
@@ -365,7 +365,7 @@
                 }
             }
         }
-        
+
         function selecionarAlternativa(numero, elemento) {
             respostasUsuario[numero - 1] = elemento.value;
 
