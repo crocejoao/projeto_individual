@@ -23,6 +23,21 @@ INSERT INTO personagem (nome, frase, descricao, classe) VALUES
 
 	('Rebecca', 'Escreva aqui a frase da Rebecca', 'Atiradora explosiva da equipe de Maine.', 'Nômade');
 
+UPDATE personagem
+SET frase = 'Vejo que você é parecido comigo! Também deseja alcançar o topo? A vista da torre Arasaka me parece incrível'
+WHERE id = 1;
+
+UPDATE personagem
+SET frase = 'Vamos fugir! Vamos ser livres! Que tal você ir a lua comigo?'
+WHERE id = 2;
+
+UPDATE personagem
+SET frase = 'Se vamos fazer isso, vamos fazer direito. Aqui ninguém fica para trás.'
+WHERE id = 3;
+
+UPDATE personagem
+SET frase = 'Não importa o tamanho do problema. É só atirar até ele desaparecer.'
+WHERE id = 4;
 
 
 CREATE TABLE usuario (
