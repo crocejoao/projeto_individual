@@ -112,6 +112,34 @@
     margin-top: 14px;
 }
 
+/* KPI "Combina com seu favorito?": SIM e NÃO começam escondidos e o JavaScript mostra só um deles */
+.kpi-sim,
+.kpi-nao {
+    display: none;
+    margin-top: 14px;
+    font-family: 'Orbitron';
+    font-size: 32px;
+    letter-spacing: 2px;
+}
+
+.kpi-sim {
+    color: #39ff88;
+}
+
+.kpi-nao {
+    color: #ff32d2;
+}
+
+/* Linha pequena embaixo do SIM/NÃO com o nome e a classe do personagem favorito */
+.kpi-detalhe {
+    display: block;
+    margin-top: 6px;
+    font-family: 'Rajdhani';
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: #9fb3c8;
+}
+
 /* Etiqueta de cada classe: começa escondida e o JavaScript mostra só a(s) predominante(s) */
 .tag-netrunner,
 .tag-mercenario,

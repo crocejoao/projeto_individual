@@ -54,147 +54,148 @@
                 </div>
 
                 <div class="perguntas-container">
+                    <!-- NÃO MUDAR o value="..." dos inputs (Netrunner, Mercenário, Nômade): é ele que o back-end usa para somar os pontos. Só o texto das perguntas e alternativas pode mudar. -->
                     <article class="card-pergunta" data-index="1">
-                        <h2>1. ESCREVA AQUI A PERGUNTA 1 <!-- TROCAR O TEXTO AQUI --></h2>
-                    <p class="pergunta-explicacao">Selecione a alternativa que combina com você.</p>
+                        <h2>1. Lucy sonha em chegar à Lua para escapar de Night City. Qual seria o seu sonho?</h2>
+                    <p class="pergunta-explicacao">Escolha a alternativa que mais combina com você.</p>
                     <div class="alternativas">
                         <label for="q1a">
                             <input type="radio" id="q1a" name="resposta1" value="Netrunner" onclick="selecionarAlternativa(1, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Escapar pela rede e encontrar um lugar onde ninguém consiga me rastrear ou controlar.</span>
                         </label>
                         <label for="q1b">
                             <input type="radio" id="q1b" name="resposta1" value="Mercenário" onclick="selecionarAlternativa(1, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Ficar tão famoso que a cidade nunca mais me ignore, mesmo que o preço seja alto.</span>
                         </label>
                         <label for="q1c">
                             <input type="radio" id="q1c" name="resposta1" value="Nômade" onclick="selecionarAlternativa(1, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Partir por terra, com quem eu amo, e encontrar um lar longe do alcance das corporações.</span>
                         </label>
                     </div>
                     </article>
                     <article class="card-pergunta" data-index="2">
-                    <h2>2. ESCREVA AQUI A PERGUNTA 2 <!-- TROCAR O TEXTO AQUI --></h2>
-                    <p class="pergunta-explicacao">Escolha a alternativa que mais reflete a sua atitude.</p>
+                    <h2>2. A equipe de Maine funciona quase como uma família. O que você espera de um grupo?</h2>
+                    <p class="pergunta-explicacao">Escolha a alternativa que mais combina com você.</p>
                     <div class="alternativas">
                         <label for="q2a">
                             <input type="radio" id="q2a" name="resposta2" value="Mercenário" onclick="selecionarAlternativa(2, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Profissionalismo: cada um cumpre sua função e o trabalho sai limpo, sem drama.</span>
                         </label>
                         <label for="q2b">
                             <input type="radio" id="q2b" name="resposta2" value="Nômade" onclick="selecionarAlternativa(2, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Lealdade acima de tudo: o grupo é minha família e ninguém fica para trás.</span>
                         </label>
                         <label for="q2c">
                             <input type="radio" id="q2c" name="resposta2" value="Netrunner" onclick="selecionarAlternativa(2, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Que confiem na informação que eu trago, porque um bom plano evita metade das balas.</span>
                         </label>
                     </div>
                     </article>
                     <article class="card-pergunta" data-index="3">
-                    <h2>3. ESCREVA AQUI A PERGUNTA 3 <!-- TROCAR O TEXTO AQUI --></h2>
-                    <p class="pergunta-explicacao">Pense em como você reage em missões críticas.</p>
+                    <h2>3. David recebe um implante poderoso que cobra um preço do corpo e da mente. O que você faria?</h2>
+                    <p class="pergunta-explicacao">Escolha a alternativa que mais combina com você.</p>
                     <div class="alternativas">
                         <label for="q3a">
                             <input type="radio" id="q3a" name="resposta3" value="Nômade" onclick="selecionarAlternativa(3, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Usaria o mínimo possível, preferindo confiar na equipe, no veículo e no instinto.</span>
                         </label>
                         <label for="q3b">
                             <input type="radio" id="q3b" name="resposta3" value="Netrunner" onclick="selecionarAlternativa(3, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Estudaria cada risco e cada falha antes de instalar, tratando meu corpo como um sistema.</span>
                         </label>
                         <label for="q3c">
                             <input type="radio" id="q3c" name="resposta3" value="Mercenário" onclick="selecionarAlternativa(3, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Instalaria sem hesitar, porque em Night City quem não evolui fica para trás.</span>
                         </label>
                     </div>
                     </article>
                     <article class="card-pergunta" data-index="4">
-                    <h2>4. ESCREVA AQUI A PERGUNTA 4 <!-- TROCAR O TEXTO AQUI --></h2>
-                    <p class="pergunta-explicacao">Marque a alternativa que descreve sua visão de futuro.</p>
+                    <h2>4. Um trabalho dá errado e o plano desmorona. Qual é o seu primeiro movimento?</h2>
+                    <p class="pergunta-explicacao">Escolha a alternativa que mais combina com você.</p>
                     <div class="alternativas">
                         <label for="q4a">
                             <input type="radio" id="q4a" name="resposta4" value="Netrunner" onclick="selecionarAlternativa(4, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Invadir o sistema do local para fechar portas, cortar câmeras e abrir uma saída.</span>
                         </label>
                         <label for="q4b">
                             <input type="radio" id="q4b" name="resposta4" value="Nômade" onclick="selecionarAlternativa(4, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Reunir a equipe, garantir que todos saiam vivos e escapar no veículo.</span>
                         </label>
                         <label for="q4c">
                             <input type="radio" id="q4c" name="resposta4" value="Mercenário" onclick="selecionarAlternativa(4, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Abrir caminho à força e terminar o serviço, mesmo saindo ferido.</span>
                         </label>
                     </div>
                     </article>
                     <article class="card-pergunta" data-index="5">
-                    <h2>5. ESCREVA AQUI A PERGUNTA 5 <!-- TROCAR O TEXTO AQUI --></h2>
-                    <p class="pergunta-explicacao">Ative a alternativa que soa como você reagiria em Night City.</p>
+                    <h2>5. Um amigo está se perdendo por causa do excesso de implantes, como acontece com Maine. O que você faz?</h2>
+                    <p class="pergunta-explicacao">Escolha a alternativa que mais combina com você.</p>
                     <div class="alternativas">
                         <label for="q5a">
                             <input type="radio" id="q5a" name="resposta5" value="Mercenário" onclick="selecionarAlternativa(5, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Respeito a escolha dele e luto ao seu lado até o fim, mesmo sabendo como termina.</span>
                         </label>
                         <label for="q5b">
                             <input type="radio" id="q5b" name="resposta5" value="Netrunner" onclick="selecionarAlternativa(5, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Procuro uma solução técnica: dados, médicos, qualquer brecha que freie o processo.</span>
                         </label>
                         <label for="q5c">
                             <input type="radio" id="q5c" name="resposta5" value="Nômade" onclick="selecionarAlternativa(5, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Tento tirá-lo da cidade e afastá-lo do ritmo que o destrói, nem que ele fique bravo comigo.</span>
                         </label>
                     </div>
                     </article>
                     <article class="card-pergunta" data-index="6">
-                    <h2>6. ESCREVA AQUI A PERGUNTA 6 <!-- TROCAR O TEXTO AQUI --></h2>
-                    <p class="pergunta-explicacao">Escolha a alternativa que combina com sua ética.</p>
+                    <h2>6. O que mais te incomoda em Night City?</h2>
+                    <p class="pergunta-explicacao">Escolha a alternativa que mais combina com você.</p>
                     <div class="alternativas">
                         <label for="q6a">
                             <input type="radio" id="q6a" name="resposta6" value="Nômade" onclick="selecionarAlternativa(6, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Perder o direito de partir quando quiser, preso a um ciclo sem saída.</span>
                         </label>
                         <label for="q6b">
                             <input type="radio" id="q6b" name="resposta6" value="Mercenário" onclick="selecionarAlternativa(6, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Viver e morrer sem que ninguém lembre o seu nome.</span>
                         </label>
                         <label for="q6c">
                             <input type="radio" id="q6c" name="resposta6" value="Netrunner" onclick="selecionarAlternativa(6, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Corporações esconderem a verdade e decidirem quem vive e quem morre.</span>
                         </label>
                     </div>
                     </article>
                     <article class="card-pergunta" data-index="7">
-                    <h2>7. ESCREVA AQUI A PERGUNTA 7 <!-- TROCAR O TEXTO AQUI --></h2>
-                    <p class="pergunta-explicacao">Indique o que mais se alinha com o seu estilo de jogo.</p>
+                    <h2>7. A equipe enfrenta um inimigo muito mais forte, como Adam Smasher. Qual é a sua postura?</h2>
+                    <p class="pergunta-explicacao">Escolha a alternativa que mais combina com você.</p>
                     <div class="alternativas">
                         <label for="q7a">
                             <input type="radio" id="q7a" name="resposta7" value="Netrunner" onclick="selecionarAlternativa(7, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Procuro a única fraqueza dele: um acesso, uma falha de sistema, um ponto cego.</span>
                         </label>
                         <label for="q7b">
                             <input type="radio" id="q7b" name="resposta7" value="Mercenário" onclick="selecionarAlternativa(7, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Enfrento mesmo assim: se for para cair, que seja lutando no auge.</span>
                         </label>
                         <label for="q7c">
                             <input type="radio" id="q7c" name="resposta7" value="Nômade" onclick="selecionarAlternativa(7, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Evito o confronto e tiro todos de lá, porque sobreviver vale mais que vencer.</span>
                         </label>
                     </div>
                     </article>
                     <article class="card-pergunta" data-index="8">
-                    <h2>8. ESCREVA AQUI A PERGUNTA 8 <!-- TROCAR O TEXTO AQUI --></h2>
-                    <p class="pergunta-explicacao">Finalize marcando a opção que parece com sua narrativa.</p>
+                    <h2>8. Como você gostaria de ser lembrado em Night City?</h2>
+                    <p class="pergunta-explicacao">Escolha a alternativa que mais combina com você.</p>
                     <div class="alternativas">
                         <label for="q8a">
                             <input type="radio" id="q8a" name="resposta8" value="Mercenário" onclick="selecionarAlternativa(8, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA A <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Como uma lenda que viveu intensamente e fez a cidade ouvir o meu nome.</span>
                         </label>
                         <label for="q8b">
                             <input type="radio" id="q8b" name="resposta8" value="Nômade" onclick="selecionarAlternativa(8, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA B <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Como alguém que protegeu os seus e deixou a família mais segura.</span>
                         </label>
                         <label for="q8c">
                             <input type="radio" id="q8c" name="resposta8" value="Netrunner" onclick="selecionarAlternativa(8, this)">
-                            <span>ESCREVA AQUI A ALTERNATIVA C <!-- NÃO MUDAR O VALOR DA CLASSE --></span>
+                            <span>Como quem descobriu o que ninguém via e abriu caminhos para outros saírem.</span>
                         </label>
                     </div>
                     </article>

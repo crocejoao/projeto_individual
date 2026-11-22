@@ -57,10 +57,12 @@
                 </div>
             </article>
 
-            <!-- KPI 2: pontos da classe predominante (ex.: 5 de 8) -->
+            <!-- KPI 2: o personagem favorito combina com a(s) classe(s) predominante(s)? SIM e NÃO começam escondidos e o JavaScript mostra só um -->
             <article class="kpi-card">
-                <span class="kpi-etiqueta">// PONTOS DA CLASSE PREDOMINANTE</span>
-                <strong class="kpi-valor" id="kpi_pontos"></strong>
+                <span class="kpi-etiqueta">// COMBINA COM SEU FAVORITO?</span>
+                <strong class="kpi-sim" id="kpi_sim">SIM</strong>
+                <strong class="kpi-nao" id="kpi_nao">NÃO</strong>
+                <span class="kpi-detalhe" id="kpi_detalhe"></span>
             </article>
 
             <!-- KPI 3: porcentagem da classe predominante -->
@@ -213,35 +215,48 @@
                 }
 
                 // ---------- 4) BUSCA O RESULTADO DO QUESTIONÁRIO NO SERVIDOR ----------
-                buscarResultado();
+                obterDadosGrafico();
             }
         }
 
 
         // ============================================================
-        // BUSCA O RESULTADO: GET /questionario/resultado/:idUsuario
+        // O gráfico é feito com 3 funções, na mesma ideia do AquaTech:
+        // 1. obterDadosGrafico -> busca o resultado do questionário no servidor
+        // 2. plotarGrafico     -> monta o gráfico de colunas com esses dados
+        // 3. atualizarGrafico  -> de tempos em tempos busca de novo e atualiza o gráfico se algo mudou
+        // (preencherDashboard e mostrarMensagem continuam como já eram)
         // ============================================================
-        function buscarResultado() {
+
+
+        // ============================================================
+        // 1) OBTER DADOS: GET /questionario/resultado/:idUsuario
+        // ============================================================
+        function obterDadosGrafico() {
             mostrarMensagem("Consultando resultado do questionário...", "sucesso");
 
             // fetch = pede os dados ao servidor. O id é sempre o do usuário que fez login.
-            fetch("/questionario/resultado/" + sessionStorage.ID_USUARIO)
-                .then(function (resposta) { // .then = roda quando o servidor responder
-                    if (resposta.ok) {
-                        resposta.json().then(function (dados) { // json() transforma a resposta em objeto
-                            if (dados.respondido == false) {
-                                window.location = "../Questionario/questionario.html"; // ainda não respondeu: vai para o questionário
-                            } else {
-                                document.getElementById("carregando-dashboard").style.display = "none";
-                                mostrarMensagem("Resultado carregado.", "sucesso");
-                                preencherDashboard(dados);
-                            }
-                        });
-                    } else {
-                        mostrarMensagem("Erro ao buscar resultado.", "erro");
-                    }
-                })
-                .catch(function () { // .catch = roda se não conseguir falar com o servidor
+            fetch("/questionario/resultado/" + sessionStorage.ID_USUARIO, { cache: 'no-store' }).then(function (response) { // .then = roda quando o servidor responder
+                if (response.ok) {
+                    response.json().then(function (resposta) { // json() transforma a resposta em objeto
+                        console.log("Dados recebidos: " + JSON.stringify(resposta));
+
+                        if (resposta.respondido == false) {
+                            window.location = "../Questionario/questionario.html"; // ainda não respondeu: vai para o questionário
+                        } else {
+                            document.getElementById("carregando-dashboard").style.display = "none";
+                            mostrarMensagem("Resultado carregado.", "sucesso");
+                            preencherDashboard(resposta);
+                            plotarGrafico(resposta);
+                        }
+                    });
+                } else {
+                    console.error("Nenhum dado encontrado ou erro na API");
+                    mostrarMensagem("Erro ao buscar resultado.", "erro");
+                }
+            })
+                .catch(function (error) { // .catch = roda se não conseguir falar com o servidor
+                    console.error("Erro na obtenção dos dados p/ gráfico: " + error.message);
                     mostrarMensagem("Não foi possível conectar ao servidor.", "erro");
                 });
         }
@@ -261,39 +276,66 @@
 
 
         // ============================================================
-        // PREENCHE A DASHBOARD COM O QUE O SERVIDOR ENVIOU
+        // PREENCHE KPIs, SELOS E BLOCOS COM O QUE O SERVIDOR ENVIOU
         // A dashboard NÃO calcula nada: os pontos, as porcentagens e os booleanos de
         // predominância (netrunnerPredominante...) já chegam prontos do backend.
         // ============================================================
         function preencherDashboard(dados) {
 
             // ---------- KPI 1 e selos: mostra a(s) classe(s) predominante(s) ----------
-            // Se houver empate, dois booleanos chegam true e as duas classes aparecem, cada uma na sua cor
+            // Se houver empate, dois booleanos chegam true e as duas classes aparecem, cada uma na sua cor.
+            // O else esconde de novo, para a atualização de tempos em tempos não deixar etiqueta antiga na tela.
             if (dados.netrunnerPredominante == true) {
                 tag_netrunner.style.display = "inline-block";
                 selo_netrunner.style.display = "inline-block";
+            } else {
+                tag_netrunner.style.display = "none";
+                selo_netrunner.style.display = "none";
             }
             if (dados.mercenarioPredominante == true) {
                 tag_mercenario.style.display = "inline-block";
                 selo_mercenario.style.display = "inline-block";
+            } else {
+                tag_mercenario.style.display = "none";
+                selo_mercenario.style.display = "none";
             }
             if (dados.nomadePredominante == true) {
                 tag_nomade.style.display = "inline-block";
                 selo_nomade.style.display = "inline-block";
+            } else {
+                tag_nomade.style.display = "none";
+                selo_nomade.style.display = "none";
             }
 
-            // ---------- KPI 2 e 3: pontos e porcentagem da classe predominante ----------
-            // Em empate os pontos são iguais, então basta pegar os da primeira classe predominante
-            let pontosPredominante = dados.pontosNomade;
+            // ---------- KPI 2 (NOVA): o personagem favorito combina com a classe predominante? ----------
+            // A classe do favorito vem da sessão (guardada no login) e os booleanos vêm prontos do backend.
+            // Em empate basta o favorito ser de UMA das classes predominantes.
+            let combina = false;
+            if (sessionStorage.PERSONAGEM_CLASSE == "Netrunner" && dados.netrunnerPredominante == true) {
+                combina = true;
+            } else if (sessionStorage.PERSONAGEM_CLASSE == "Mercenário" && dados.mercenarioPredominante == true) {
+                combina = true;
+            } else if (sessionStorage.PERSONAGEM_CLASSE == "Nômade" && dados.nomadePredominante == true) {
+                combina = true;
+            }
+
+            if (combina == true) {
+                kpi_sim.style.display = "block";
+                kpi_nao.style.display = "none";
+            } else {
+                kpi_sim.style.display = "none";
+                kpi_nao.style.display = "block";
+            }
+            kpi_detalhe.innerText = sessionStorage.PERSONAGEM_NOME + " é " + sessionStorage.PERSONAGEM_CLASSE;
+
+            // ---------- KPI 3: porcentagem da classe predominante ----------
+            // Em empate as porcentagens são iguais, então basta pegar a da primeira classe predominante
             let pctPredominante = dados.pctNomade;
             if (dados.netrunnerPredominante == true) {
-                pontosPredominante = dados.pontosNetrunner;
                 pctPredominante = dados.pctNetrunner;
             } else if (dados.mercenarioPredominante == true) {
-                pontosPredominante = dados.pontosMercenario;
                 pctPredominante = dados.pctMercenario;
             }
-            kpi_pontos.innerText = pontosPredominante + " de 8";
             kpi_porcentagem.innerText = Number(pctPredominante).toFixed(1) + "%"; // toFixed(1) = 1 casa decimal, com ponto
 
             // ---------- BLOCOS DAS 3 CLASSES: pontuação, porcentagem e barra ----------
@@ -308,18 +350,15 @@
             pontos_nomade.innerText = dados.pontosNomade + " / 8";
             pct_nomade.innerText = Number(dados.pctNomade).toFixed(1) + "%";
             barra_nomade.style.width = dados.pctNomade + "%";
-
-            // ---------- GRÁFICO ----------
-            // Vetor com as 3 pontuações, na mesma ordem de nomesClasses e coresClasses
-            const pontuacoes = [dados.pontosNetrunner, dados.pontosMercenario, dados.pontosNomade];
-            desenharGrafico(pontuacoes);
         }
 
 
         // ============================================================
-        // DESENHA O GRÁFICO DE COLUNAS (copiado da Dashboard Exemplo 01)
+        // 2) PLOTAR GRÁFICO: monta o gráfico de colunas com os dados recebidos
         // ============================================================
-        function desenharGrafico(pontuacoes) {
+        function plotarGrafico(resposta) {
+
+            console.log("iniciando plotagem do gráfico...");
 
             // typeof Chart == "undefined" quer dizer que o Chart.js não carregou (ex.: sem internet)
             if (typeof Chart == "undefined") {
@@ -328,19 +367,30 @@
                 Chart.defaults.color = "#9fb3c8"; // cor padrão dos textos do gráfico
                 Chart.defaults.font.family = "Rajdhani"; // fonte padrão dos textos do gráfico
 
-                const ctxColunas = document.getElementById("grafico_colunas").getContext("2d");
-                new Chart(ctxColunas, {
+                // Criando estrutura para plotar gráfico - labels e dados
+                let dados = {
+                    labels: nomesClasses, // nome embaixo de cada coluna
+                    datasets: [{
+                        label: "Pontos",
+                        data: [],
+                        backgroundColor: coresClasses, // cada coluna na cor da sua classe
+                        borderColor: "#050816",
+                        borderWidth: 2
+                    }]
+                };
+
+                // Inserindo os valores recebidos, na mesma ordem de nomesClasses e coresClasses
+                dados.datasets[0].data.push(resposta.pontosNetrunner);
+                dados.datasets[0].data.push(resposta.pontosMercenario);
+                dados.datasets[0].data.push(resposta.pontosNomade);
+
+                console.log("O gráfico será plotado com os respectivos valores:");
+                console.log(dados.datasets);
+
+                // Criando estrutura para plotar gráfico - config
+                const config = {
                     type: "bar", // bar = colunas
-                    data: {
-                        labels: nomesClasses, // nome embaixo de cada coluna
-                        datasets: [{
-                            label: "Pontos",
-                            data: pontuacoes, // altura de cada coluna
-                            backgroundColor: coresClasses, // cada coluna na cor da sua classe
-                            borderColor: "#050816",
-                            borderWidth: 2
-                        }]
-                    },
+                    data: dados,
                     options: {
                         maintainAspectRatio: false, // faz o gráfico ocupar a altura da caixa .grafico-area
                         plugins: {
@@ -360,8 +410,54 @@
                             }
                         }
                     }
-                });
+                };
+
+                // Adicionando o gráfico criado no canvas da tela
+                let myChart = new Chart(
+                    document.getElementById("grafico_colunas").getContext("2d"),
+                    config
+                );
+
+                // De 5 em 5 segundos (5000 ms) chama a função que atualiza o gráfico
+                setInterval(function () {
+                    atualizarGrafico(dados, myChart);
+                }, 5000);
             }
+        }
+
+
+        // ============================================================
+        // 3) ATUALIZAR GRÁFICO: busca o resultado de novo e só mexe na tela se algum valor mudou
+        // ============================================================
+        function atualizarGrafico(dados, myChart) {
+
+            fetch("/questionario/resultado/" + sessionStorage.ID_USUARIO, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (novoRegistro) {
+                        console.log("Dados recebidos: " + JSON.stringify(novoRegistro));
+
+                        if (novoRegistro.respondido == false) {
+                            console.log("Sem resultado para atualizar.");
+                        } else if (novoRegistro.pontosNetrunner == dados.datasets[0].data[0] &&
+                            novoRegistro.pontosMercenario == dados.datasets[0].data[1] &&
+                            novoRegistro.pontosNomade == dados.datasets[0].data[2]) {
+                            console.log("Como não há dados novos, o gráfico não atualizará.");
+                        } else {
+                            // troca os valores do gráfico pelos novos, redesenha o gráfico e atualiza o resto da tela
+                            dados.datasets[0].data[0] = novoRegistro.pontosNetrunner;
+                            dados.datasets[0].data[1] = novoRegistro.pontosMercenario;
+                            dados.datasets[0].data[2] = novoRegistro.pontosNomade;
+                            myChart.update();
+                            preencherDashboard(novoRegistro);
+                        }
+                    });
+                } else {
+                    console.error("Nenhum dado encontrado ou erro na API");
+                }
+            })
+                .catch(function (error) {
+                    console.error("Erro na obtenção dos dados p/ gráfico: " + error.message);
+                });
         }
 
 
