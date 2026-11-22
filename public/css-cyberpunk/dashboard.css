@@ -1,443 +1,186 @@
-/* =========================================================
-   DASHBOARD
-   Visual copiado da Dashboard Exemplo 01 (3 colunas: personagem | gráfico | detalhes).
-   Paleta do site: fundo #050816 | card #0b1026 | borda #12304a
-   texto #e6f7ff | texto apagado #9fb3c8 | destaque rosa #ff32d2
-   Cores das classes: Netrunner #00e5ff | Mercenário #e5ff00 | Nômade #39ff88
-   (o reset "*" e o "body" já vêm do style.css, por isso não se repetem aqui)
-   ========================================================= */
+:root {
+    --ciano: #00d8ff;
+    --amarelo: #ffd633;
+    --verde: #8affa4;
+    --fundo: #030712;
+    --cinza: #131820;
+}
 
-
-/* ---------------------------------------------------------
-   ESTRUTURA GERAL E TÍTULO
-   --------------------------------------------------------- */
+body {
+    background: radial-gradient(circle at 12% 20%, rgba(0, 216, 255, .2), transparent 35%),
+        radial-gradient(circle at 80% 0%, rgba(255, 214, 51, .14), transparent 30%),
+        radial-gradient(circle at 70% 80%, rgba(138, 255, 164, .1), transparent 25%),
+        var(--fundo);
+    color: #f5f5f5;
+    font-family: 'Rajdhani', 'Orbitron', sans-serif;
+}
 
 .dashboard {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 30px 40px 40px 40px;
+    padding: 2rem 1.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .dashboard-intro h1 {
-    font-family: 'Orbitron';
-    font-size: 28px;
+    font-family: 'Orbitron', sans-serif;
     letter-spacing: 4px;
     text-transform: uppercase;
-    color: #e6f7ff;
+    margin-bottom: .2rem;
 }
 
 .dashboard-intro p {
-    margin-top: 6px;
-    margin-bottom: 20px;
-    color: #9fb3c8;
+    color: #c9c9c9;
+    margin-top: 0;
 }
 
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
 
-/* ---------------------------------------------------------
-   MENSAGENS (carregando, sucesso e erro)
-   --------------------------------------------------------- */
+.kpi-card {
+    border: 1px solid rgba(255, 255, 255, .2);
+    border-radius: 20px;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .01));
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+}
 
-.mensagem {
-    font-family: 'Rajdhani';
-    font-size: 16px;
+.kpi-card p {
+    font-size: .8rem;
+    letter-spacing: .5px;
+    margin-bottom: .3rem;
+}
+
+.kpi-card strong {
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    display: block;
+}
+
+/* texto pequeno embaixo do valor da KPI (usado na KPI "Combina com seu favorito?") */
+.kpi-card small {
+    display: block;
+    margin-top: .3rem;
+    font-size: .85rem;
+    color: #bdbdbd;
+}
+
+/* as tags começam escondidas; o JS mostra só a(s) da(s) classe(s) predominante(s) */
+.tag-classe {
+    display: none;
+    padding: .3rem .8rem;
+    border-radius: 12px;
+    font-size: .85rem;
+    letter-spacing: 1px;
+    margin-right: .4rem;
+    margin-bottom: .2rem;
+    color: #030712;
+}
+
+.tag-netrunner {
+    background: rgba(0, 216, 255, .7);
+}
+
+.tag-mercenario {
+    background: rgba(255, 214, 51, .7);
+}
+
+.tag-nomade {
+    background: rgba(138, 255, 164, .7);
+}
+
+.pontuacoes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.pontuacao-card {
+    border: 1px solid rgba(255, 255, 255, .15);
+    border-radius: 16px;
+    padding: 1rem;
+    background: var(--cinza);
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+}
+
+.pontuacao-card span {
+    font-size: .8rem;
+    color: #bdbdbd;
+    letter-spacing: 1px;
+}
+
+.pontuacao-card strong {
+    font-size: 1.2rem;
+}
+
+.grafico-area {
+    border: 1px solid rgba(255, 255, 255, .15);
+    border-radius: 22px;
+    padding: 2rem;
+    background: linear-gradient(160deg, rgba(18, 20, 30, .95), rgba(255, 255, 255, .02));
+    display: grid;
+    align-items: center;
+    gap: 1rem;
+}
+
+.tituloGraficos {
+    font-family: 'Orbitron', sans-serif;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
 
-.msg-sucesso {
-    margin-bottom: 16px;
-    padding: 10px 16px;
-    border: 1px solid #12304a;
-    color: #9fb3c8;
+#myChartCanvas {
+    width: 100%;
+    height: 300px;
 }
 
-.msg-erro {
-    margin-bottom: 16px;
-    padding: 10px 16px;
-    border: 1px solid #ff32d2;
-    color: #ff32d2;
+#avisoCaptura {
+    color: #cdd7ff;
+    font-size: .9rem;
 }
 
-.carregando {
-    margin-bottom: 16px;
-    padding: 10px 16px;
-    border: 1px dashed #12304a;
-    text-align: center;
-    color: #9fb3c8;
-}
-
-
-/* ---------------------------------------------------------
-   KPIs: 3 cartões no topo
-   --------------------------------------------------------- */
-
-.kpi-grade {
+.personagem-card {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 24px;
-    margin-bottom: 24px;
+    grid-template-columns: minmax(220px, 260px) 1fr;
+    gap: 1rem;
+    border: 1px solid rgba(255, 255, 255, .16);
+    border-radius: 22px;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .01));
 }
 
-.kpi-card {
-    min-width: 0;
-    padding: 24px;
-    background-color: #0b1026;
-    border: 1px solid #12304a;
-    border-top: 4px solid #ff32d2;
-    clip-path: polygon(0 0, 94% 0, 100% 12%, 100% 100%, 6% 100%, 0 88%);
-}
-
-/* Etiquetas pequenas "// ASSIM" no topo de cada card */
-.kpi-etiqueta,
-.personagem-etiqueta,
-.grafico-etiqueta,
-.classes-etiqueta {
-    display: block;
-    font-family: 'Orbitron';
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: #9fb3c8;
-}
-
-.kpi-valor {
-    display: block;
-    margin-top: 14px;
-    font-family: 'Orbitron';
-    font-size: 32px;
-    letter-spacing: 2px;
-    color: #e6f7ff;
-}
-
-.kpi-tags {
-    margin-top: 14px;
-}
-
-/* Etiqueta de cada classe: começa escondida e o JavaScript mostra só a(s) predominante(s) */
-.tag-netrunner,
-.tag-mercenario,
-.tag-nomade {
-    display: none;
-    margin-right: 8px;
-    margin-bottom: 6px;
-    padding: 6px 18px;
-    color: #050816;
-    font-family: 'Orbitron';
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
-}
-
-.tag-netrunner {
-    background-color: #00e5ff;
-}
-
-.tag-mercenario {
-    background-color: #e5ff00;
-}
-
-.tag-nomade {
-    background-color: #39ff88;
-}
-
-
-/* ---------------------------------------------------------
-   GRADE: 3 COLUNAS (personagem | gráfico | detalhes das classes)
-   --------------------------------------------------------- */
-
-.dashboard-grade {
-    display: grid;
-    grid-template-columns: 1fr 1.8fr 1fr;
-    gap: 24px;
-}
-
-.card-personagem,
-.card-grafico,
-.card-classes {
-    min-width: 0;
-    padding: 24px;
-    background-color: #0b1026;
-    border: 1px solid #12304a;
-    clip-path: polygon(0 0, 96% 0, 100% 4%, 100% 100%, 4% 100%, 0 96%);
-}
-
-/* A borda de cima do card do personagem muda de cor pela classe dele (feito no JavaScript) */
-.card-personagem {
-    border-top: 4px solid #ff32d2;
-    cursor: pointer;
-}
-
-.card-personagem:hover {
-    border-color: #ff32d2;
-}
-
-.card-grafico {
-    border-top: 4px solid #ff32d2;
-}
-
-.grafico-titulo,
-.classes-titulo {
-    margin-top: 6px;
-    font-family: 'Orbitron';
-    font-size: 20px;
-    letter-spacing: 2px;
-    color: #e6f7ff;
-}
-
-
-/* ---------------------------------------------------------
-   CARD DO PERSONAGEM FAVORITO (clicável)
-   --------------------------------------------------------- */
-
-/* Espaço da arte do personagem. Fica vazio enquanto não houver imagem. */
-.personagem-arte {
+.area-imagem {
+    border: 2px dashed rgba(255, 255, 255, .3);
+    border-radius: 18px;
+    min-height: 240px;
     display: flex;
+    align-items: center;
     justify-content: center;
-    align-items: center;
-    height: 250px;
-    margin-top: 16px;
-    overflow: hidden;
-    background-color: #050816;
-    border: 1px dashed #12304a;
+    text-align: center;
+    padding: 1rem;
+    color: #9a9a9a;
 }
 
-/* A imagem só aparece quando o JavaScript troca o display */
-.personagem-imagem {
-    display: none;
-    max-width: 100%;
-    max-height: 150%;
+.personagem-texto h3 {
+    margin-top: 0;
+    font-size: 1.6rem;
 }
 
-.personagem-nome {
-    margin-top: 18px;
-    font-family: 'Orbitron';
-    font-size: 24px;
-    letter-spacing: 2px;
-    color: #ff32d2;
-}
-
-.personagem-classe {
-    display: inline-block;
-    margin-top: 8px;
-    padding: 3px 12px;
-    background-color: #050816;
-    border: 1px solid #12304a;
-    font-family: 'Orbitron';
-    font-size: 12px;
-    letter-spacing: 2px;
-    color: #e6f7ff;
-}
-
-/* Parte que aparece e some quando clica no card */
-.personagem-detalhes {
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px dashed #12304a;
-}
-
-.detalhes-rotulo-frase,
-.detalhes-rotulo-descricao {
-    display: block;
-    font-family: 'Orbitron';
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: #ff32d2;
-}
-
-.detalhes-frase {
-    margin-top: 4px;
-    margin-bottom: 14px;
-    font-size: 20px;
-    font-style: italic;
-    color: #e6f7ff;
-}
-
-.detalhes-descricao {
-    margin-top: 4px;
+.personagem-texto p {
+    margin: .4rem 0;
+    color: #cdcdcd;
     line-height: 1.4;
-    color: #9fb3c8;
 }
 
-.personagem-dica {
-    display: block;
-    margin-top: 18px;
-    font-family: 'Orbitron';
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: #9fb3c8;
-}
-
-
-/* ---------------------------------------------------------
-   CARD DO GRÁFICO (centro)
-   --------------------------------------------------------- */
-
-/* O Chart.js precisa de uma caixa com altura definida */
-.grafico-area {
-    position: relative;
-    height: 360px;
-    margin-top: 20px;
-}
-
-/* Aviso que só aparece se o Chart.js não carregar */
-.grafico-sem-chart {
-    display: none;
-    margin-top: 12px;
-    color: #ff32d2;
-}
-
-
-/* ---------------------------------------------------------
-   CARD DOS 3 BLOCOS DE CLASSE (direita)
-   --------------------------------------------------------- */
-
-.bloco-netrunner,
-.bloco-mercenario,
-.bloco-nomade {
-    margin-top: 16px;
-    padding: 16px;
-    background-color: #050816;
-    border: 1px solid #12304a;
-}
-
-/* Cada bloco tem a cor da sua classe na lateral */
-.bloco-netrunner {
-    border-left: 4px solid #00e5ff;
-}
-
-.bloco-mercenario {
-    border-left: 4px solid #e5ff00;
-}
-
-.bloco-nomade {
-    border-left: 4px solid #39ff88;
-}
-
-/* flex-wrap: wrap = se o nome e o selo não couberem na mesma linha, o selo desce para a linha de baixo */
-.bloco-topo {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 6px 10px;
-}
-
-.bloco-nome-netrunner,
-.bloco-nome-mercenario,
-.bloco-nome-nomade {
-    font-family: 'Orbitron';
-    font-size: 16px;
-    letter-spacing: 2px;
-}
-
-.bloco-nome-netrunner {
-    color: #00e5ff;
-}
-
-.bloco-nome-mercenario {
-    color: #e5ff00;
-}
-
-.bloco-nome-nomade {
-    color: #39ff88;
-}
-
-/* Selo PREDOMINANTE: começa escondido e o JavaScript mostra só nas classes predominantes */
-.selo-netrunner,
-.selo-mercenario,
-.selo-nomade {
-    display: none;
-    padding: 1px 8px;
-    color: #050816;
-    font-family: 'Orbitron';
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-
-.selo-netrunner {
-    background-color: #00e5ff;
-}
-
-.selo-mercenario {
-    background-color: #e5ff00;
-}
-
-.selo-nomade {
-    background-color: #39ff88;
-}
-
-.bloco-valores {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-top: 10px;
-}
-
-.bloco-pontos {
-    font-family: 'Orbitron';
-    font-size: 24px;
-    color: #e6f7ff;
-}
-
-.bloco-porcentagem {
-    font-family: 'Orbitron';
-    font-size: 14px;
-    color: #9fb3c8;
-}
-
-/* Barra proporcional: o fundo é a barra inteira (100%) e o preenchimento recebe a largura pelo JavaScript */
-.barra-fundo {
-    height: 12px;
-    margin-top: 10px;
-    background-color: #12304a;
-}
-
-.barra-netrunner,
-.barra-mercenario,
-.barra-nomade {
-    width: 0;
-    height: 100%;
-}
-
-.barra-netrunner {
-    background-color: #00e5ff;
-}
-
-.barra-mercenario {
-    background-color: #e5ff00;
-}
-
-.barra-nomade {
-    background-color: #39ff88;
-}
-
-
-/* ---------------------------------------------------------
-   CELULAR / TELA PEQUENA: os cards ficam um embaixo do outro
-   --------------------------------------------------------- */
-
-@media (max-width: 1000px) {
-    .dashboard {
-        padding: 20px 16px 40px 16px;
-    }
-
-    .dashboard-grade {
+@media (max-width: 900px) {
+    .personagem-card {
         grid-template-columns: 1fr;
-    }
-
-    .kpi-grade {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 500px) {
-    .dashboard-intro h1 {
-        font-size: 22px;
-        letter-spacing: 2px;
-    }
-
-    .grafico-area {
-        height: 280px;
     }
 }

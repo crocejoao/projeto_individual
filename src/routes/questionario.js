@@ -7,7 +7,7 @@ let questionarioController = require("../controllers/questionarioController"); /
 // "/questionario" vem do app.js (app.use("/questionario", ...)) e "/responder" vem daqui: juntos formam o endereço completo.
 router.post("/responder", questionarioController.responder);
 
-// GET /questionario/resultado/:idUsuario  <-- chamada pelo fetch do questionario.html (já respondeu?) e do dashboard.html (buscar os dados)
+// GET /questionario/resultado/:idUsuario  <-- chamada pelo fetch do questionario.html só para saber se o usuário já respondeu (a dashboard usa a rota /resultados/ultimo/:idUsuario, em resultados.js)
 // ":idUsuario" é um pedaço variável do endereço; o controller lê com req.params.idUsuario
 router.get("/resultado/:idUsuario", questionarioController.resultado);
 

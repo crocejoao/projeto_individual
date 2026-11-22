@@ -12,13 +12,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <title>Dashboard · Cyberpunk Edgerunners</title>
 
-    <!-- Biblioteca Chart.js: desenha o gráfico dentro do <canvas> -->
+    <!-- script do Chart.js (igual ao AquaTech) -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="iniciarDashboard()"> <!-- onload = roda a função assim que a página termina de carregar -->
-
-    <!-- HEADER -->
+<body>
     <nav class="menu">
         <a class="logo" href="../index-cyberpunk.html">
             <img src="../Icons-cyberpunk/Logo neon Cyberpunk_ Edgerunners.png" alt="Cyberpunk Edgerunners">
@@ -31,354 +29,294 @@
             <a href="../index-cyberpunk.html#nightcity">NIGHT CITY</a>
             <a href="../Login-Cadastro/login.html">LOGIN</a>
         </div>
-        <div class="menu-usuario" id="nome-logado">EDGERUNNER</div>
+        <!-- id b_usuario = o mesmo nome que o AquaTech usa para mostrar o nome de quem logou -->
+        <div class="menu-usuario" id="b_usuario">EDGERUNNER</div>
     </nav>
 
     <main class="dashboard">
         <section class="dashboard-intro">
             <h1>Dashboard de Afinidade</h1>
-            <p>Veja em qual classe você mais se encaixa!</p>
+            <p>Os dados são recuperados diretamente do servidor assim que você chega aqui.</p>
         </section>
 
-        <!-- Mensagens de status (carregando, sucesso e erro) -->
-        <div id="div_msg_dashboard" class="mensagem"></div>
-        <div id="carregando-dashboard" class="carregando">Consultando seus resultados...</div>
-
-        <!-- TOPO: 3 KPIs -->
-        <section class="kpi-grade">
-
-            <!-- KPI 1: classe predominante. Tem uma etiqueta para cada classe e o JavaScript mostra só a(s) predominante(s) (empate mostra duas) -->
+        <section class="kpi-grid">
+            <!-- KPI 1: as 3 tags já existem na página, escondidas. O JS só mostra a(s) da(s) classe(s) predominante(s). -->
             <article class="kpi-card">
-                <span class="kpi-etiqueta">// CLASSE PREDOMINANTE</span>
-                <div class="kpi-tags">
-                    <span class="tag-netrunner" id="tag_netrunner">NETRUNNER</span>
-                    <span class="tag-mercenario" id="tag_mercenario">MERCENÁRIO</span>
-                    <span class="tag-nomade" id="tag_nomade">NÔMADE</span>
+                <p>Classe predominante</p>
+                <div>
+                    <span class="tag-classe tag-netrunner" id="tag_netrunner">Netrunner</span>
+                    <span class="tag-classe tag-mercenario" id="tag_mercenario">Mercenário</span>
+                    <span class="tag-classe tag-nomade" id="tag_nomade">Nômade</span>
                 </div>
             </article>
 
-            <!-- KPI 2: pontos da classe predominante (ex.: 5 de 8) -->
+            <!-- KPI 2: fração e porcentagem da classe predominante (o conta já vem pronta do servidor) -->
             <article class="kpi-card">
-                <span class="kpi-etiqueta">// PONTOS DA CLASSE PREDOMINANTE</span>
-                <strong class="kpi-valor" id="kpi_pontos"></strong>
+                <p>Frações e porcentagem</p>
+                <strong id="kpi_fracao">0/8 = 0%</strong>
             </article>
 
-            <!-- KPI 3: porcentagem da classe predominante -->
+            <!-- KPI 3 (NOVA): substitui "Pontos da(s) classe(s)" -->
             <article class="kpi-card">
-                <span class="kpi-etiqueta">// PORCENTAGEM</span>
-                <strong class="kpi-valor" id="kpi_porcentagem"></strong>
+                <p>Combina com seu favorito?</p>
+                <strong id="kpi_favorito">-</strong>
+                <small id="kpi_favorito_texto"></small>
             </article>
-
         </section>
 
-        <!-- GRADE: personagem | gráfico | detalhes das classes -->
-        <section class="dashboard-grade">
+        <section class="pontuacoes">
+            <div class="pontuacao-card">
+                <span>Netrunner</span>
+                <strong id="valor_netrunner">0/8</strong>
+                <small id="porcentagem_netrunner">0%</small>
+            </div>
+            <div class="pontuacao-card">
+                <span>Mercenário</span>
+                <strong id="valor_mercenario">0/8</strong>
+                <small id="porcentagem_mercenario">0%</small>
+            </div>
+            <div class="pontuacao-card">
+                <span>Nômade</span>
+                <strong id="valor_nomade">0/8</strong>
+                <small id="porcentagem_nomade">0%</small>
+            </div>
+        </section>
 
-            <!-- ESQUERDA: PERSONAGEM FAVORITO (clique no card para ver a frase e as características) -->
-            <section class="card-personagem" id="card_personagem" onclick="alternarDetalhes()">
-                <span class="personagem-etiqueta">// SEU PERSONAGEM FAVORITO</span>
+        <section class="grafico-area">
+            <h3 class="tituloGraficos">Seu perfil de afinidade</h3>
+            <canvas id="myChartCanvas"></canvas>
+            <p id="avisoCaptura"></p>
+        </section>
 
-                <!-- Espaço da arte: fica vazio até existir imagem. O JavaScript só mostra a <img> quando há um caminho no vetor imagensPersonagens -->
-                <div class="personagem-arte">
-                    <img class="personagem-imagem" id="img_personagem" alt="Icons-cyberpunk">
-                </div>
-
-                <h2 class="personagem-nome" id="h2_personagem"></h2>
-                <span class="personagem-classe" id="span_classe"></span>
-
-                <!-- style="display: none;" = começa escondido. O JavaScript mostra/esconde ao clicar -->
-                <div class="personagem-detalhes" id="div_detalhes" style="display: none;">
-                    <span class="detalhes-rotulo-frase">FRASE</span>
-                    <p class="detalhes-frase" id="p_frase"></p>
-
-                    <span class="detalhes-rotulo-descricao">CARACTERÍSTICAS</span>
-                    <p class="detalhes-descricao" id="p_descricao"></p>
-                </div>
-
-                <span class="personagem-dica" id="span_dica">CLIQUE PARA VER AS CARACTERÍSTICAS</span>
-            </section>
-
-            <!-- CENTRO: GRÁFICO DE COLUNAS COM AS 3 PONTUAÇÕES -->
-            <section class="card-grafico">
-                <span class="grafico-etiqueta">// SUAS RESPOSTAS VS CADA CLASSE</span>
-                <h2 class="grafico-titulo">PONTUAÇÃO POR CLASSE</h2>
-
-                <div class="grafico-area">
-                    <canvas id="grafico_colunas"></canvas>
-                </div>
-
-                <p class="grafico-sem-chart" id="p_sem_chart">Não foi possível carregar o Chart.js (confira a internet).</p>
-            </section>
-
-            <!-- DIREITA: UM BLOCO PARA CADA CLASSE (pontuação, porcentagem e barra) -->
-            <section class="card-classes">
-                <span class="classes-etiqueta">// DETALHE POR CLASSE</span>
-                <h2 class="classes-titulo">SUAS PONTUAÇÕES</h2>
-
-                <div class="bloco-netrunner">
-                    <div class="bloco-topo">
-                        <span class="bloco-nome-netrunner">NETRUNNER</span>
-                        <span class="selo-netrunner" id="selo_netrunner">PREDOMINANTE</span>
-                    </div>
-                    <div class="bloco-valores">
-                        <span class="bloco-pontos" id="pontos_netrunner"></span>
-                        <span class="bloco-porcentagem" id="pct_netrunner"></span>
-                    </div>
-                    <div class="barra-fundo">
-                        <div class="barra-netrunner" id="barra_netrunner"></div>
-                    </div>
-                </div>
-
-                <div class="bloco-mercenario">
-                    <div class="bloco-topo">
-                        <span class="bloco-nome-mercenario">MERCENÁRIO</span>
-                        <span class="selo-mercenario" id="selo_mercenario">PREDOMINANTE</span>
-                    </div>
-                    <div class="bloco-valores">
-                        <span class="bloco-pontos" id="pontos_mercenario"></span>
-                        <span class="bloco-porcentagem" id="pct_mercenario"></span>
-                    </div>
-                    <div class="barra-fundo">
-                        <div class="barra-mercenario" id="barra_mercenario"></div>
-                    </div>
-                </div>
-
-                <div class="bloco-nomade">
-                    <div class="bloco-topo">
-                        <span class="bloco-nome-nomade">NÔMADE</span>
-                        <span class="selo-nomade" id="selo_nomade">PREDOMINANTE</span>
-                    </div>
-                    <div class="bloco-valores">
-                        <span class="bloco-pontos" id="pontos_nomade"></span>
-                        <span class="bloco-porcentagem" id="pct_nomade"></span>
-                    </div>
-                    <div class="barra-fundo">
-                        <div class="barra-nomade" id="barra_nomade"></div>
-                    </div>
-                </div>
-            </section>
-
+        <section class="personagem-card">
+            <div class="area-imagem">
+                <!-- Aqui entra a imagem do personagem quando o if estiver pronto -->
+                <span>Área reservada para a imagem do personagem favorito.</span>
+            </div>
+            <div class="personagem-texto">
+                <h3 id="personagem_nome">Personagem</h3>
+                <p id="personagem_classe">Classe</p>
+                <p id="personagem_frase">Frase do personagem</p>
+                <p id="personagem_descricao">Descrição do personagem</p>
+            </div>
         </section>
     </main>
 
     <script>
-        // ============================================================
-        // VETORES FIXOS (a posição 0 de um combina com a posição 0 dos outros)
-        // ============================================================
-        const nomesClasses = ["Netrunner", "Mercenário", "Nômade"]; // nome embaixo de cada coluna
-        const coresClasses = ["#00e5ff", "#e5ff00", "#39ff88"]; // cor de cada classe (as mesmas do CSS)
+        // O gráfico é construído com três funções (a mesma ideia do AquaTech):
+        // 1. obterDadosGrafico -> traz o resultado do Banco de Dados para montar o gráfico da primeira vez
+        // 2. plotarGrafico -> monta o gráfico com os dados trazidos e exibe em tela
+        // 3. atualizarGrafico -> busca o resultado de novo, de tempos em tempos, e atualiza o gráfico se mudou
+        // E uma função nova, só da minha dashboard (o AquaTech não tem KPIs):
+        // 4. exibirKpis -> preenche as KPIs e os cards de pontuação
 
-        // Imagens dos personagens, na ordem dos ids da tabela personagem: 1 David, 2 Lucy, 3 Maine, 4 Rebecca.
-        // "" = sem imagem (o espaço fica vazio). Quando tiver o arquivo, escreva o caminho. Ex.: "../Icons-cyberpunk/lucy.png"
-        const imagensPersonagens = ["../Icons-cyberpunk/martinez.svg", "../Icons-cyberpunk/lucyy.svg", "../Icons-cyberpunk/maine.svg", "../Icons-cyberpunk/rebecax.svg"];
+        //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers/resultadoController.js
+        //     Para ajustar o "select", ajuste o comando sql em src/models/resultadoModel.js
 
+        let intervaloAtualizacao; // guarda o setInterval para ele não ser criado duas vezes
 
-        // ============================================================
-        // FUNÇÃO PRINCIPAL: roda quando a página abre
-        // ============================================================
-        function iniciarDashboard() {
+        window.onload = exibirDashboard;
 
+        function exibirDashboard() {
             if (sessionStorage.ID_USUARIO == undefined) {
-                window.location = "../Login-Cadastro/login.html"; // ninguém fez login: volta para o login
+                window.location = "../Login-Cadastro/login.html";
             } else {
-                // ---------- 1) COPIA O QUE O LOGIN GUARDOU NA SESSÃO (não precisa calcular nada) ----------
-                if (sessionStorage.NOME_USUARIO != undefined) {
-                    document.getElementById("nome-logado").innerText = sessionStorage.NOME_USUARIO; // nome no header
-                }
-                h2_personagem.innerText = sessionStorage.PERSONAGEM_NOME;
-                span_classe.innerText = sessionStorage.PERSONAGEM_CLASSE;
-                p_frase.innerText = sessionStorage.PERSONAGEM_FRASE;
-                p_descricao.innerText = sessionStorage.PERSONAGEM_DESCRICAO;
+                b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-                // ---------- 2) PINTA O CARD COM A COR DA CLASSE DO PERSONAGEM ----------
-                let corPersonagem = "#ff32d2"; // cor padrão (rosa) caso a classe não seja reconhecida
-                if (sessionStorage.PERSONAGEM_CLASSE == "Netrunner") {
-                    corPersonagem = coresClasses[0];
-                } else if (sessionStorage.PERSONAGEM_CLASSE == "Mercenário") {
-                    corPersonagem = coresClasses[1];
-                } else if (sessionStorage.PERSONAGEM_CLASSE == "Nômade") {
-                    corPersonagem = coresClasses[2];
-                }
-                card_personagem.style.borderTopColor = corPersonagem;
-                h2_personagem.style.color = corPersonagem;
+                // dados do personagem favorito: vêm da sessão (guardados no login)
+                document.getElementById("personagem_nome").innerHTML = sessionStorage.PERSONAGEM_NOME;
+                document.getElementById("personagem_classe").innerHTML = sessionStorage.PERSONAGEM_CLASSE;
+                document.getElementById("personagem_frase").innerHTML = sessionStorage.PERSONAGEM_FRASE;
+                document.getElementById("personagem_descricao").innerHTML = sessionStorage.PERSONAGEM_DESCRICAO;
 
-                // ---------- 3) IMAGEM DO PERSONAGEM (só aparece se houver caminho no vetor) ----------
-                // O id do personagem (1 a 4) vem do login. A posição no vetor é o id menos 1.
-                let posicaoImagem = Number(sessionStorage.PERSONAGEM_USUARIO) - 1;
-                if (posicaoImagem >= 0 && posicaoImagem < imagensPersonagens.length) {
-                    if (imagensPersonagens[posicaoImagem] != "") {
-                        img_personagem.src = imagensPersonagens[posicaoImagem];
-                        img_personagem.style.display = "block";
-                    }
-                }
-
-                // ---------- 4) BUSCA O RESULTADO DO QUESTIONÁRIO NO SERVIDOR ----------
-                buscarResultado();
+                obterDadosGrafico(sessionStorage.ID_USUARIO);
             }
         }
 
+        // Esta função *obterDadosGrafico* busca o resultado do questionário do usuário.
+        // A função *obterDadosGrafico* também invoca as funções *exibirKpis* e *plotarGrafico*
+        function obterDadosGrafico(idUsuario) {
 
-        // ============================================================
-        // BUSCA O RESULTADO: GET /questionario/resultado/:idUsuario
-        // ============================================================
-        function buscarResultado() {
-            mostrarMensagem("Consultando resultado do questionário...", "sucesso");
+            fetch("/resultados/ultimo/" + idUsuario, { cache: 'no-store' }).then(function (response) {
+                if (response.status == 204) {
+                    // 204 = ainda não respondeu o questionário, então volta para ele
+                    window.location = "../Questionario/questionario.html";
+                } else if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log("Dados recebidos: " + JSON.stringify(resposta));
 
-            // fetch = pede os dados ao servidor. O id é sempre o do usuário que fez login.
-            fetch("/questionario/resultado/" + sessionStorage.ID_USUARIO)
-                .then(function (resposta) { // .then = roda quando o servidor responder
-                    if (resposta.ok) {
-                        resposta.json().then(function (dados) { // json() transforma a resposta em objeto
-                            if (dados.respondido == false) {
-                                window.location = "../Questionario/questionario.html"; // ainda não respondeu: vai para o questionário
-                            } else {
-                                document.getElementById("carregando-dashboard").style.display = "none";
-                                mostrarMensagem("Resultado carregado.", "sucesso");
-                                preencherDashboard(dados);
-                            }
-                        });
-                    } else {
-                        mostrarMensagem("Erro ao buscar resultado.", "erro");
-                    }
-                })
-                .catch(function () { // .catch = roda se não conseguir falar com o servidor
-                    mostrarMensagem("Não foi possível conectar ao servidor.", "erro");
+                        // o controller devolve uma lista com 1 linha, por isso o [0]
+                        exibirKpis(resposta[0]);
+                        plotarGrafico(resposta[0]);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                    document.getElementById("avisoCaptura").innerHTML = "Erro ao buscar o seu resultado.";
+                }
+            })
+                .catch(function (error) {
+                    console.error("Erro na obtenção dos dados p/ gráfico: " + error.message);
+                    document.getElementById("avisoCaptura").innerHTML = "Não foi possível conectar ao servidor.";
                 });
         }
 
+        // Esta função *exibirKpis* só coloca na tela o que o servidor mandou, sem fazer conta
+        function exibirKpis(registro) {
 
-        // ============================================================
-        // MOSTRA UMA MENSAGEM NA TELA (tipo "erro" fica rosa)
-        // ============================================================
-        function mostrarMensagem(texto, tipo) {
-            if (tipo == "erro") {
-                div_msg_dashboard.className = "mensagem msg-erro";
+            // KPI 1: mostra a tag da classe que tem a maior pontuação (se empatar, mostra as duas)
+            if (registro.netrunner_predominante == true) {
+                document.getElementById("tag_netrunner").style.display = "inline-block";
             } else {
-                div_msg_dashboard.className = "mensagem msg-sucesso";
+                document.getElementById("tag_netrunner").style.display = "none";
             }
-            div_msg_dashboard.innerHTML = texto;
+            if (registro.mercenario_predominante == true) {
+                document.getElementById("tag_mercenario").style.display = "inline-block";
+            } else {
+                document.getElementById("tag_mercenario").style.display = "none";
+            }
+            if (registro.nomade_predominante == true) {
+                document.getElementById("tag_nomade").style.display = "inline-block";
+            } else {
+                document.getElementById("tag_nomade").style.display = "none";
+            }
+
+            // KPI 2: pontos e porcentagem da classe predominante (se empatar, os dois valores são iguais)
+            document.getElementById("kpi_fracao").innerHTML = registro.pontos_maior + "/8 = " + registro.pct_maior + "%";
+
+            // KPI 3 (nova)
+            if (registro.combina_favorito == true) {
+                document.getElementById("kpi_favorito").innerHTML = "SIM";
+                document.getElementById("kpi_favorito").style.color = "#8affa4";
+            } else {
+                document.getElementById("kpi_favorito").innerHTML = "NÃO";
+                document.getElementById("kpi_favorito").style.color = "#ff32d2";
+            }
+            document.getElementById("kpi_favorito_texto").innerHTML = registro.personagem_nome + " é " + registro.personagem_classe;
+
+            // cards de pontuação (as porcentagens já chegam com vírgula do banco)
+            document.getElementById("valor_netrunner").innerHTML = registro.pontos_netrunner + "/8";
+            document.getElementById("porcentagem_netrunner").innerHTML = registro.pct_netrunner + "%";
+            document.getElementById("valor_mercenario").innerHTML = registro.pontos_mercenario + "/8";
+            document.getElementById("porcentagem_mercenario").innerHTML = registro.pct_mercenario + "%";
+            document.getElementById("valor_nomade").innerHTML = registro.pontos_nomade + "/8";
+            document.getElementById("porcentagem_nomade").innerHTML = registro.pct_nomade + "%";
         }
 
+        // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+        // Configura o gráfico (cores, tipo, etc), materializa-o na página e,
+        // A função *plotarGrafico* também deixa o *atualizarGrafico* rodando de tempos em tempos
+        function plotarGrafico(registro) {
 
-        // ============================================================
-        // PREENCHE A DASHBOARD COM O QUE O SERVIDOR ENVIOU
-        // A dashboard NÃO calcula nada: os pontos, as porcentagens e os booleanos de
-        // predominância (netrunnerPredominante...) já chegam prontos do backend.
-        // ============================================================
-        function preencherDashboard(dados) {
+            console.log('iniciando plotagem do gráfico...');
 
-            // ---------- KPI 1 e selos: mostra a(s) classe(s) predominante(s) ----------
-            // Se houver empate, dois booleanos chegam true e as duas classes aparecem, cada uma na sua cor
-            if (dados.netrunnerPredominante == true) {
-                tag_netrunner.style.display = "inline-block";
-                selo_netrunner.style.display = "inline-block";
-            }
-            if (dados.mercenarioPredominante == true) {
-                tag_mercenario.style.display = "inline-block";
-                selo_mercenario.style.display = "inline-block";
-            }
-            if (dados.nomadePredominante == true) {
-                tag_nomade.style.display = "inline-block";
-                selo_nomade.style.display = "inline-block";
-            }
+            // Criando estrutura para plotar gráfico - labels
+            let labels = ["Netrunner", "Mercenário", "Nômade"];
 
-            // ---------- KPI 2 e 3: pontos e porcentagem da classe predominante ----------
-            // Em empate os pontos são iguais, então basta pegar os da primeira classe predominante
-            let pontosPredominante = dados.pontosNomade;
-            let pctPredominante = dados.pctNomade;
-            if (dados.netrunnerPredominante == true) {
-                pontosPredominante = dados.pontosNetrunner;
-                pctPredominante = dados.pctNetrunner;
-            } else if (dados.mercenarioPredominante == true) {
-                pontosPredominante = dados.pontosMercenario;
-                pctPredominante = dados.pctMercenario;
-            }
-            kpi_pontos.innerText = pontosPredominante + " de 8";
-            kpi_porcentagem.innerText = Number(pctPredominante).toFixed(1) + "%"; // toFixed(1) = 1 casa decimal, com ponto
+            // Criando estrutura para plotar gráfico - dados
+            let dados = {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Pontuação',
+                        data: [],
+                        borderColor: '#00d8ff',
+                        backgroundColor: 'rgba(0, 216, 255, .25)',
+                        pointBackgroundColor: ['#00d8ff', '#ffd633', '#8affa4'],
+                        borderWidth: 2
+                    }]
+            };
 
-            // ---------- BLOCOS DAS 3 CLASSES: pontuação, porcentagem e barra ----------
-            pontos_netrunner.innerText = dados.pontosNetrunner + " / 8";
-            pct_netrunner.innerText = Number(dados.pctNetrunner).toFixed(1) + "%";
-            barra_netrunner.style.width = dados.pctNetrunner + "%"; // a largura da barra é a própria porcentagem
+            // Inserindo valores recebidos em estrutura para plotar o gráfico (mesma ordem das labels)
+            dados.datasets[0].data.push(registro.pontos_netrunner);
+            dados.datasets[0].data.push(registro.pontos_mercenario);
+            dados.datasets[0].data.push(registro.pontos_nomade);
 
-            pontos_mercenario.innerText = dados.pontosMercenario + " / 8";
-            pct_mercenario.innerText = Number(dados.pctMercenario).toFixed(1) + "%";
-            barra_mercenario.style.width = dados.pctMercenario + "%";
+            console.log('O gráfico será plotado com os respectivos valores:');
+            console.log(dados.datasets);
 
-            pontos_nomade.innerText = dados.pontosNomade + " / 8";
-            pct_nomade.innerText = Number(dados.pctNomade).toFixed(1) + "%";
-            barra_nomade.style.width = dados.pctNomade + "%";
-
-            // ---------- GRÁFICO ----------
-            // Vetor com as 3 pontuações, na mesma ordem de nomesClasses e coresClasses
-            const pontuacoes = [dados.pontosNetrunner, dados.pontosMercenario, dados.pontosNomade];
-            desenharGrafico(pontuacoes);
-        }
-
-
-        // ============================================================
-        // DESENHA O GRÁFICO DE COLUNAS (copiado da Dashboard Exemplo 01)
-        // ============================================================
-        function desenharGrafico(pontuacoes) {
-
-            // typeof Chart == "undefined" quer dizer que o Chart.js não carregou (ex.: sem internet)
-            if (typeof Chart == "undefined") {
-                p_sem_chart.style.display = "block";
-            } else {
-                Chart.defaults.color = "#9fb3c8"; // cor padrão dos textos do gráfico
-                Chart.defaults.font.family = "Rajdhani"; // fonte padrão dos textos do gráfico
-
-                const ctxColunas = document.getElementById("grafico_colunas").getContext("2d");
-                new Chart(ctxColunas, {
-                    type: "bar", // bar = colunas
-                    data: {
-                        labels: nomesClasses, // nome embaixo de cada coluna
-                        datasets: [{
-                            label: "Pontos",
-                            data: pontuacoes, // altura de cada coluna
-                            backgroundColor: coresClasses, // cada coluna na cor da sua classe
-                            borderColor: "#050816",
-                            borderWidth: 2
-                        }]
+            // Criando estrutura para plotar gráfico - config
+            const config = {
+                type: 'radar',
+                data: dados,
+                options: {
+                    scales: {
+                        r: {
+                            pointLabels: { color: "#ffffff" },
+                            grid: { color: "rgba(255, 255, 255, .15)" },
+                            angleLines: { color: "rgba(255, 255, 255, .2)" },
+                            suggestedMin: 0,
+                            suggestedMax: 8,
+                            ticks: {
+                                stepSize: 1,
+                                color: "#ffffff"
+                            }
+                        }
                     },
-                    options: {
-                        maintainAspectRatio: false, // faz o gráfico ocupar a altura da caixa .grafico-area
-                        plugins: {
-                            legend: { display: false } // esconde a legenda (só há um conjunto de dados)
-                        },
-                        scales: {
-                            y: {
-                                min: 0,
-                                max: 8, // o questionário vale 8 pontos no total
-                                title: { display: true, text: "PONTOS", color: "#9fb3c8" },
-                                ticks: { color: "#9fb3c8", stepSize: 1 },
-                                grid: { color: "#12304a" }
-                            },
-                            x: {
-                                ticks: { color: "#e6f7ff", font: { family: "Orbitron", size: 13 } },
-                                grid: { display: false }
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: "#f5f5f5"
                             }
                         }
                     }
-                });
-            }
+                }
+            };
+
+            // Adicionando gráfico criado em canvas na tela
+            let myChart = new Chart(
+                document.getElementById("myChartCanvas"),
+                config
+            );
+
+            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+            intervaloAtualizacao = setInterval(function () {
+                atualizarGrafico(dados, myChart);
+            }, 5000);
         }
 
+        // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+        // buscando o resultado de novo no banco. Só mexe no gráfico se algum valor mudou.
+        function atualizarGrafico(dados, myChart) {
 
-        // ============================================================
-        // CLIQUE NO CARD: mostra ou esconde a frase e as características do personagem
-        // ============================================================
-        function alternarDetalhes() {
-            if (div_detalhes.style.display == "none") {
-                div_detalhes.style.display = "block"; // estava escondido, então mostra
-                span_dica.innerText = "CLIQUE PARA VOLTAR";
-            } else {
-                div_detalhes.style.display = "none"; // estava aparecendo, então esconde
-                span_dica.innerText = "CLIQUE PARA VER AS CARACTERÍSTICAS";
-            }
+            let idUsuario = sessionStorage.ID_USUARIO;
+
+            fetch("/resultados/ultimo/" + idUsuario, { cache: 'no-store' }).then(function (response) {
+                if (response.status == 204) {
+                    console.log("Sem resultado para atualizar.");
+                } else if (response.ok) {
+                    response.json().then(function (novoRegistro) {
+                        console.log("Dados recebidos: " + JSON.stringify(novoRegistro));
+                        console.log("Dados atuais do gráfico:");
+                        console.log(dados);
+
+                        let registro = novoRegistro[0];
+                        let avisoCaptura = document.getElementById("avisoCaptura");
+
+                        if (registro.pontos_netrunner == dados.datasets[0].data[0] &&
+                            registro.pontos_mercenario == dados.datasets[0].data[1] &&
+                            registro.pontos_nomade == dados.datasets[0].data[2]) {
+                            console.log("Como não há dados novos, o gráfico não atualizará.");
+                            avisoCaptura.innerHTML = "Este é o resultado mais atual salvo no banco. Como não há dados novos a exibir, o gráfico não atualizará.";
+                        } else {
+                            // trocando os valores do gráfico pelos novos
+                            dados.datasets[0].data[0] = registro.pontos_netrunner;
+                            dados.datasets[0].data[1] = registro.pontos_mercenario;
+                            dados.datasets[0].data[2] = registro.pontos_nomade;
+
+                            exibirKpis(registro);
+                            myChart.update();
+                            avisoCaptura.innerHTML = "Gráfico atualizado com os dados novos do banco.";
+                        }
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error("Erro na obtenção dos dados p/ gráfico: " + error.message);
+                });
         }
     </script>
-
 </body>
 
 </html>
