@@ -1,0 +1,92 @@
+CREATE DATABASE cyberpunk_edgerunners;
+
+USE cyberpunk_edgerunners;
+
+-- ============================================================
+-- PERSONAGEM
+-- Os 4 personagens fixos do projeto. O usuário escolhe um deles como FAVORITO no cadastro.
+-- ATENÇÃO: os ids 1 a 4 são usados no cadastro.html (value das <option>) e no vetor de imagens
+-- do dashboard.html. Por isso a ORDEM dos INSERTs abaixo não pode mudar.
+-- ============================================================
+CREATE TABLE personagem (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(50),
+	frase VARCHAR(150),      -- frase do personagem
+	descricao VARCHAR(300),  -- características dele, em texto corrido
+	classe VARCHAR(30)       -- 'Netrunner', 'Mercenário' ou 'Nômade' (mesmos textos que o questionário grava)
+);
+
+INSERT INTO personagem (nome, frase, descricao, classe) VALUES
+	('David Martinez',
+	 'Vejo que você é parecido comigo! Também deseja alcançar o topo? A vista da torre Arasaka me parece incrível',
+	 'Garoto de rua que entra para a equipe de Maine.',
+	 'Mercenário'),
+
+	('Lucy',
+	 'Vamos fugir! Vamos ser livres! Que tal você ir a lua comigo?',
+	 'Netrunner misteriosa que sonha em chegar à Lua.',
+	 'Netrunner'),
+
+	('Maine',
+	 'Se vamos fazer isso, vamos fazer direito. Aqui ninguém fica para trás.',
+	 'Líder da equipe, protege quem está sob seu comando.',
+	 'Nômade'),
+
+	('Rebecca',
+	 'Não importa o tamanho do problema. É só atirar até ele desaparecer.',
+	 'Atiradora explosiva da equipe de Maine.',
+	 'Nômade');
+
+
+-- ============================================================
+-- USUARIO
+-- Relação: personagem 1 --- N usuario
+--   * cada usuário TEM que ter exatamente um personagem favorito (fk_personagem NOT NULL),
+--     porque o cadastro exige e o login usa JOIN com personagem;
+--   * um personagem pode ter zero ou muitos usuários.
+-- ============================================================
+CREATE TABLE usuario (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(100),
+	email VARCHAR(200) UNIQUE, -- UNIQUE = o banco não deixa cadastrar o mesmo e-mail duas vezes
+	senha VARCHAR(200),        -- 200 cabe um hash (ex.: bcrypt tem 60 caracteres), caso você passe a usar
+	fk_personagem INT NOT NULL,
+	FOREIGN KEY (fk_personagem) REFERENCES personagem(id)
+);
+
+
+-- ============================================================
+-- RESULTADO_QUESTIONARIO
+-- Relação: usuario 1 --- 0..1 resultado_questionario
+--   * UNIQUE em fk_usuario = cada usuário responde o questionário UMA vez (é o que o controller faz:
+--     devolve 409 "Questionário já respondido" na segunda tentativa);
+--   * todo resultado pertence a um usuário (fk_usuario NOT NULL);
+--   * o usuário recém-cadastrado ainda não tem resultado (por isso "zero ou um").
+-- resposta1..8 guardam a classe escolhida em cada pergunta ('Netrunner', 'Mercenário' ou 'Nômade').
+-- classe_predominante é texto porque, em caso de empate, vira algo como 'Netrunner e Nômade'.
+-- ============================================================
+CREATE TABLE resultado_questionario (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	fk_usuario INT NOT NULL,
+	resposta1 VARCHAR(30),
+	resposta2 VARCHAR(30),
+	resposta3 VARCHAR(30),
+	resposta4 VARCHAR(30),
+	resposta5 VARCHAR(30),
+	resposta6 VARCHAR(30),
+	resposta7 VARCHAR(30),
+	resposta8 VARCHAR(30),
+	pontos_netrunner INT,
+	pontos_mercenario INT,
+	pontos_nomade INT,
+	pct_netrunner DECIMAL(4,1),
+	pct_mercenario DECIMAL(4,1),
+	pct_nomade DECIMAL(4,1),
+	classe_predominante VARCHAR(50),
+	dt_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+	UNIQUE KEY uq_resultado_usuario (fk_usuario),
+	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+);
+
+-- Para testar o login sem passar pelo cadastro (opcional):
+-- INSERT INTO usuario (nome, email, senha, fk_personagem) VALUES ('Teste', 'teste@teste.com', 'Teste@123', 1);
