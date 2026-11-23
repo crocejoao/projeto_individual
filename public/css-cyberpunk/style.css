@@ -759,6 +759,7 @@ a {
 }
 
 .texto-historia {
+    text-align: justify;
     max-width: 900px;
     margin: 30px auto;
     padding: 25px;
