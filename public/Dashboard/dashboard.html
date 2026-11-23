@@ -389,18 +389,19 @@
 
                 // Criando estrutura para plotar gráfico - config
                 const config = {
-                    type: "bar", // bar = colunas
+                    type: "pie", // bar = colunas
                     data: dados,
                     options: {
+                        // ALTERAR TAMANHO E LEGENDAS PARA GRÁFICO DE PIZZA
                         maintainAspectRatio: false, // faz o gráfico ocupar a altura da caixa .grafico-area
                         plugins: {
-                            legend: { display: false } // esconde a legenda (só há um conjunto de dados)
+                            legend: { display: true} // esconde a legenda (só há um conjunto de dados)
                         },
                         scales: {
                             y: {
                                 min: 0,
                                 max: 8, // o questionário vale 8 pontos no total
-                                title: { display: true, text: "PONTOS", color: "#9fb3c8" },
+                                title: { display: true, text: "PONTOS", color: "#9fb3c8"},
                                 ticks: { color: "#9fb3c8", stepSize: 1 },
                                 grid: { color: "#12304a" }
                             },
